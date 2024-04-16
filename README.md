@@ -5,6 +5,8 @@ JSON data to beautiful documentation utilizing react and css.
 
 ReactUnreal Docs is a powerful tool that transforms JSON data into beautiful documentation, leveraging the flexibility and interactivity of React components and CSS styling. With ReactUnreal Docs, you can effortlessly create and customize documentation for your Unreal Engine projects.
 
+You can check [LXR documentation](https://docs.clusterfact.games/docs/LXR/) for how the documentation looks.
+
 ## Features
 
 - **JSON to Documentation**: Convert JSON data into well-structured and visually appealing documentation.
