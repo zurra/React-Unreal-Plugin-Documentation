@@ -17,9 +17,9 @@ You can check [LXR documentation](https://docs.clusterfact.games/docs/LXR/) for 
 
 ## Usage
 
-1. Install ReactUnreal Docs package.
-2. Import the necessary components into your project.
-3. Pass your JSON data to ReactUnreal Docs components to generate documentation.
+
+1. Import the necessary components into your project.
+2. Pass your JSON data to ReactUnreal Docs components to generate documentation.
 
 
 ```javascript
@@ -389,7 +389,3 @@ Contributions are welcome! If you'd like to contribute to ReactUnreal Docs, plea
 ## Feedback and Support
 
 If you have any questions, feedback, or need support, feel free to [open an issue](https://github.com/your-username/react-unreal-docs/issues) or [reach out to us](mailto:your-email@example.com).
-
----
-
-Feel free to customize the sections and content based on your project's specific features and requirements. Let me know if you need further assistance or if there's anything else you'd like to add!
