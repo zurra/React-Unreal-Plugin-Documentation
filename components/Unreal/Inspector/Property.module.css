@@ -1,0 +1,266 @@
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 10px 0px rgba(255, 0, 0, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 0 60px 20px rgba(233, 0, 0, 0.1);
+  }
+
+  100% {
+    box-shadow: 0 0 10px 0px rgba(255, 0, 0, 0.1);
+  }
+}
+
+.propertyCategory {
+  display: grid;
+  grid-template-rows: auto;
+  margin-bottom: 40px;
+  border-style: ridge;
+  border-color: #000000;
+}
+
+.propertyCategoryTitle {
+  font-size: xx-large;
+  color: white;
+  text-align: center;
+  border-bottom: 1px solid;
+  margin-bottom: 40px;
+  border-color: #ededed;
+}
+
+
+.propertyGrid {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 10% 10% 20% 60%;
+  /* grid-template-columns: 25% 75%; */
+  /* grid-template-rows: auto auto auto; */
+  /* grid-gap: 10px; */
+  /* background-color: #2196F3; */
+  color: rgb(169 169 169);
+  /* border: solid;
+  border-color: #2b2b2b; */
+}
+
+
+.propertyTitle {
+  font-size: medium;
+  grid-area: 1 / 1;
+  align-content: baseline;
+  color: white;
+  padding-left: 10px
+}
+
+.propertyType {
+  font-size: smaller;
+  grid-area: 2 / 1;
+  align-content: flex-end;
+  border-color: #8b0000;
+  color: #a5a5a5;
+  padding-left: 10px;
+  padding-bottom: 5px;
+}
+
+.propertyDefault {
+  font-size: medium;
+  grid-area: 1 / 2 / span 2;
+  text-align: right;
+  padding-right: 20px;
+
+  align-content: center;
+  color: white; 
+}
+
+.propertyInfoShortTitle {
+  font-size: large;
+  grid-area: 1 / 1 / span 2 / span 2;
+  color: white;
+  padding-left: 10px;
+  padding-top: 10px;
+
+}
+
+.propertyInfoShortTitleDescription {
+  font-size: medium;
+  grid-area: 1 / 1 / span 2 / span 2;
+  color: #838383;
+  padding-left: 10px;
+  padding-top: 10px;
+  text-align: center;
+  background: black;
+}
+
+.propertyInfoShortDescription {
+  font-size: large;
+  grid-area: 1 / 3 / span 2 / span 1;
+  padding-left: 10px;
+  align-content: center;
+  padding-bottom: 5px;
+}
+
+.propertyInfoHeader {
+  border-color: #470000;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  padding-bottom: 5px;
+}
+
+.propertyInfoName {
+  grid-area: 1 / 1;
+  font-size: x-large;
+  color: white;
+  text-decoration-line: underline;
+  text-align: center;
+  background: black;
+}
+
+.propertyInfoType {
+  font-size: smaller;
+  grid-area: 1 / 1;
+  align-content: flex-end;
+  border-color: #8b0000;
+  color: #a5a5a5;
+  text-align: center;
+  transform: translateY(15px);
+}
+
+
+
+.leftCell {
+  grid-area: 1 / 1 / span 2 / span 3;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  display: grid;
+  align-content: stretch;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #8b0000;
+}
+
+.rightCell {
+  grid-area: 1 / 4 / span 2;
+  grid-template-rows: 1fr 1fr;
+  display: grid;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #470000;
+}
+
+.firstInfoCell {
+  grid-area: 1 / 1 / span 2 / span 3;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  display: grid;
+  align-content: center;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  border-color: #470000;
+}
+
+.secondInfoCell {
+  grid-area: 1 / 4 / span 2;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  display: grid;
+  align-content: center;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  border-color: #470000;
+}
+
+.infoCell {
+  grid-area: 3 / 2 / span 2 / span 3;
+  align-content: center;
+  border: 1px solid;
+  border-color: #4e0000;
+
+}
+
+.propertyInfoContainer
+{
+  border-color: #470000;
+}
+
+.propertyInfoDescription {
+  font-size: medium;
+  grid-area: 1 / 1 /span 2/span2;
+  padding-left: 10px;
+  align-content: center;
+  padding-bottom: 5px;
+}
+
+
+.propertyDescription {
+  font-size: medium;
+  grid-area: 1 / 1;
+  padding-left: 10px;
+  align-content: center;
+  color: white;
+  border-color: #8b0000;
+}
+
+.propertyComment {
+  font-size: medium;
+  grid-area: 2 / 1;
+  align-content: center;
+  color: #a5a5a5;
+  padding-left: 10px;
+  border-color: #8b0000;
+}
+
+.propertyInfoComment {
+  font-size: medium;
+  grid-area: 2 / 3 / span 1 / span 2;
+  align-content: center;
+  color: #a5a5a5;
+  padding-left: 10px;
+  border-color: #470000;
+
+}
+
+/* .propertyGrid>div {
+  background-color: rgba(151, 0, 0, 0.8);
+} */
+
+.propertyGrid .featureTitle {
+  color: red;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 0;
+  width: 100%;
+  font-size: 40px;
+  grid-area: 1;
+}
+
+.propertyGrid .featureIcon {
+  color: red;
+  font-size: 40px;
+  grid-area: 1;
+}
+
+/* .propertyGrid .features {
+  align-items: left;
+  font-size: 20px;
+  text-align: left;
+  grid-area: 2 / 2 / span 2 ;
+  width: 100%;
+  padding: 10px; 
+  color: rgb(221, 221, 221);
+} */
+
+.propertyGrid .featuresInvert {
+  align-items: left;
+  font-size: 20px;
+  text-align: left;
+  grid-area: 2 / 1 / span 2;
+  width: 100%;
+  padding: 10px;
+  color: rgb(221, 221, 221);
+}

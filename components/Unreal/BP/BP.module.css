@@ -1,0 +1,555 @@
+@keyframes pulseDelegate {
+  0% {
+    box-shadow: 0 0 10px 0px rgba(255, 0, 0, 0);
+    border-color: rgba(255, 0, 0, 0);
+  }
+
+  25% {
+    box-shadow: 0 0 30px 0px rgba(255, 0, 0, 1);
+    border-color: rgba(255, 0, 0, 0.5);
+
+  }
+
+  70% {
+    box-shadow: 0 0 30px 10px rgba(255, 0, 0, 0.1);
+    border-color: rgba(255, 0, 0, 0.1);
+
+  }
+
+  100% {
+    box-shadow: 0 0 10px 0px rgba(255, 0, 0, 0.1);
+    border-color: rgba(255, 0, 0, 0);
+  }
+}
+
+@keyframes pulseNonPure {
+  0% {
+    box-shadow: 0 0 10px 0px rgba(0, 0, 255, 0);
+    border-color: rgba(0, 0, 255, 0);
+  }
+
+  25% {
+    box-shadow: 0 0 10px 0px rgba(0, 0, 255, 1);
+    border-color: rgba(0, 0, 255, 0.5);
+  }
+
+  70% {
+    box-shadow: 0 0 30px 10px rgba(0, 0, 255, 0.1);
+    border-color: rgba(0, 0, 255, 0.1);
+  }
+
+  100% {
+    box-shadow: 0 0 10px 0px rgba(0, 0, 255, 0.1);
+    border-color: rgba(0, 0, 255, 0);
+  }
+}
+
+@keyframes pulsePure {
+  0% {
+    box-shadow: 0 0 10px 0px rgba(0, 255, 0, 0);
+    border-color: rgba(0, 255, 0, 0);
+  }
+
+  25% {
+    box-shadow: 0 0 10px 0px rgba(0, 255, 0, 1);
+    border-color: rgba(0, 255, 0, 0.5);
+  }
+
+  70% {
+    box-shadow: 0 0 30px 10px rgba(0, 255, 0, 0.1);
+    border-color: rgba(0, 255, 0, 0.1);
+
+  }
+
+  100% {
+    box-shadow: 0 0 10px 0px rgba(0, 255, 0, 0.1);
+    border-color: rgba(0, 255, 0, 0);
+
+  }
+}
+
+
+.nodeGrid {
+  display: grid;
+  grid-template-rows: auto 10px auto;
+  grid-template-columns: 1fr 500px 1fr;
+  color: rgb(169 169 169);
+  border-color: #2b2b2b;
+  margin-top: 20px;
+}
+
+.nodeImageDelegate {
+  border: 1px solid;
+  border-Color: darkred;
+  animation: pulseDelegate 3s infinite;
+  box-Shadow: 0 0px 20px 10px rgb(255 0 0 / 100%);
+  grid-area: 1 / 1/ span 2 / span 2;
+}
+
+.nodeImagePure {
+  border-radius: 10px;
+  border: 1px solid;
+  border-Color: rgb(0, 139, 0);
+  animation: pulsePure 3s infinite;
+  box-Shadow: 0 0px 20px 10px rgb(0 255 0 / 35%);
+  grid-area: 1 / 1/ span 2 / span 2;
+}
+
+
+.nodeImageNonPure {
+  border-radius: 10px;
+  border: 1px solid;
+  border-Color: rgb(0, 0, 139);
+  animation: pulseNonPure 3s infinite;
+  box-Shadow: 0 0px 20px 10px rgb(0 0 255 / 35%);
+  grid-area: 1 / 1/ span 2 / span 2;
+}
+
+
+.nodeCategory {
+  display: grid;
+  grid-template-rows: auto;
+  margin-bottom: 40px;
+  border-style: ridge;
+  border-color: #000000;
+  border: 1px solid darkred;
+  animation: 3s ease 0s infinite normal none running pulse_src-components-Plugins-KeyFeatures-KeyFeatures-module_src-components-Plugins-BP-BP-module_src-components-Plugins-BP-BP-module;
+  box-shadow: #330000 0px 0px 20px 10px;
+  background: linear-gradient(360deg, #1b0101, #1b0000);
+  overflow: hidden;
+}
+
+.nodeCategoryInnerShadowBox {
+  box-shadow: inset #000000 0 0px 20px 10px;
+}
+
+.nodeCategoryTitle {
+  font-size: xx-large;
+  color: white;
+  text-align: center;
+  border-bottom: 1px solid;
+  margin-bottom: 40px;
+  border-color: #ededed;
+}
+
+
+.nodeBG {
+  grid-area: 1 /1 / span 2 / span 3;
+  /* background: rgb(255, 255, 255); */
+  /* background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(var(--node-color), 0.5) 25%, rgba(var(--node-color), 1) 50%, rgba(143, 0, 0, 0.5) 80%, rgba(15, 0, 0, 0) 100%); */
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(var(--node-color), 0.25) 25%, rgba(var(--node-color), 0.7) 40%, rgba(var(--node-color), 1) 50%, rgba(var(--node-color), 0.7) 60%, rgba(var(--node-color), 0.25) 80%, rgba(15, 0, 0, 0) 100%)
+}
+
+.nodeTypeBGPure {
+  grid-area: 1 /1 / span 3 / span 3;
+  background: linear-gradient(0deg, rgb(0 32 0), transparent);
+}
+
+.nodeTypeBGDelegate {
+  grid-area: 1 /1 / span 3 / span 3;
+  background: linear-gradient(0deg, rgb(32 0 0), transparent);
+}
+
+.nodeTypeBGNonPure {
+  grid-area: 1 /1 / span 3 / span 3;
+  background: linear-gradient(0deg, rgb(0 0 32), transparent);
+}
+
+.nodeComment {
+  font-size: medium;
+  grid-area: 1 / 1 / span 2 / span 2;
+  align-content: baseline;
+  color: rgb(169 169 169);
+  border-color: #860000;
+  text-align: center;
+  background: black;
+}
+
+
+.nodeExample {
+  font-size: large;
+  grid-area: 5 / 1 / span 1 / span 3;
+  align-content: baseline;
+  color: white;
+  border-bottom: solid 1px;
+  border-color: #860000;
+  text-align: center;
+  background: black;
+}
+
+.nodeExampleBP {
+  font-size: large;
+  grid-area: 4 / 1 / span 1 / span 3;
+  align-content: baseline;
+  color: white;
+  text-align: center;
+}
+
+.leftCell {
+  grid-area: 3 / 1;
+  align-content: stretch;
+  border: solid 1px;
+  border-color: #860000;
+  display: grid;
+}
+
+.rightCell {
+  grid-area: 3 / 3;
+  border: solid 1px;
+  background: black;
+  border-color: #470000;
+}
+
+.topLeftCell {
+  align-self: center;
+  grid-area: 1 / 1;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-color: var(--node-color);
+  box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1);
+}
+
+.topRightCell {
+  align-self: center;
+  grid-area: 1 / 3;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  border-color: var(--node-color);
+  box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1);
+}
+
+.middleCell {
+  grid-area: 2 / 3 / span 3 / span 2;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #470000;
+}
+
+.topCell {
+  grid-area: 1 / 2;
+  text-align: center;
+}
+
+.botCell {
+  grid-area: 4 / 1 / span 1 / span 3;
+  text-align: center;
+  border-top: 1px solid var(--node-color);
+  border-bottom: 1px solid var(--node-color);
+  box-shadow: 0px 0px 14px 3px var(--node-color);
+  height: 58px;
+  align-content: space-evenly;
+}
+
+.inputPinContainer {
+  text-align: center;
+  padding: 10px;
+  text-align: right;
+  background: black;
+  height: 100%;
+
+}
+
+.outputPinContainer {
+  text-align: center;
+  padding: 10px;
+  text-align: left;
+  background: black;
+  height: 100%;
+}
+
+.pin {
+  grid-template-rows: auto auto;
+
+}
+
+.nodePinTitle {
+  font-size: 14px;
+  color: white;
+}
+
+
+.nodePinComment {
+  color: rgb(169 169 169);
+  border-bottom: solid 1px;
+  font-size: 10px;
+
+}
+
+.nodeBPGrid {
+  display: grid;
+  grid-template-rows: 25px auto;
+  grid-template-columns: 1fr 1fr;
+  border: solid 1px;
+  border-radius: 10px;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+.nodeBPHeaderContainer {
+  font-size: medium;
+  grid-area: 1 /1 /span 1 /span 2;
+  display: grid;
+  grid-template-columns: 40px auto 40px;
+  border-bottom: solid 1px;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+  background-Position: -100px center;
+}
+
+.nodeBPNodeIconContainer {
+  font-weight: bold;
+  place-self: center;
+}
+
+.nodeBPBodyContainer {
+  grid-area: 2 / 1 /span 1 /span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: black;
+  padding: 10px;
+  font-size: 0.9em;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+}
+
+.nodeBPInputsContainer {
+  grid-area: 1 / 1;
+
+}
+
+.nodeBPOutputsContainer {
+  grid-area: 1 / 2;
+
+}
+
+.nodeBPInputPinContainer {
+  height: 30px;
+  grid-template-columns: 30px auto;
+  display: grid;
+  justify-items: left;
+}
+
+.nodeBPOutputPinContainer {
+  height: 30px;
+  grid-template-columns: auto 30px;
+  display: grid;
+  justify-items: right;
+}
+
+.nodeBPTitle {
+  position: relative;
+  color: rgb(169 169 169);
+  grid-area: 1 / 2;
+  text-align: left;
+  align-content: center;
+  font-weight: bold;
+  bottom: 2px;
+}
+
+.nodeBPPinTitle {
+  color: rgb(255, 255, 255);
+  grid-area: 1 / 2;
+  text-align: left;
+  align-content: center;
+  margin-left: 5px;
+}
+
+.dashedBox {
+  width: 10px;
+  height: 10px;
+  border-radius: 1%;
+  border-style: dashed;
+  place-self: center;
+}
+
+.dashedBox::after {
+  width: 15px;
+  height: 15px;
+  background: rgb(0, 206, 0);
+  border-radius: 10%;
+  border-style: dashed;
+  place-self: center;
+}
+
+
+.circle {
+  width: 10px;
+  height: 10px;
+  background: red;
+  border-radius: 50%;
+  place-self: center;
+}
+
+
+/* IconComponent.module.css */
+.arrayIconContainer {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  display: grid;
+  place-self: center;
+}
+
+.delegateIcon {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  background-color: #310b0b00;
+  display: grid;
+  border: solid 3px;
+  border-radius: 20%;
+  border-color: red;
+  place-self: center;
+}
+
+.single {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  /* background-color: #af0000; */
+  border-radius: 50%;
+  border: solid;
+  place-self: center;
+  --node-color: rgb(229, 255, 0);
+  /* Define a custom property for border color */
+  border-color: var(--node-color);
+}
+
+.single::after {
+  content: "";
+  /* position: absolute; */
+  border-top: 4px solid transparent;
+  border-left: 4px solid var(--node-color);
+  border-bottom: 4px solid transparent;
+  position: absolute;
+  top: 50%;
+  right: -7px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  z-index: 2;
+}
+
+.reference {
+  width: 16px;
+  height: 16px;
+  border: solid 3px var(--icon-color);
+  transform: scale(0.5, 0.7) rotate(45deg);
+  place-self: center;
+}
+
+/* IconComponent.module.css */
+.mapIconContainer {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  display: grid;
+  place-self: center;
+}
+
+
+.taskIcon {
+  width: 17px;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  background: white;
+  height: 15px;
+  border: solid 1px white;
+  border-radius: 1px;
+  position: relative;
+  bottom: 1px;
+}
+
+.taskIcon::after {
+  content: '';
+  background-color: #848b93;
+  /* grid-column: 2; */
+  /* grid-row: 1; */
+  grid-area: 2 / 1 / span 2 / span 1;
+}
+
+.exec {
+  position: relative;
+  width: 8px;
+  height: 16px;
+  /* background-color: #af0000; */
+  border-radius: 20%;
+  border: solid 1px;
+  border-right: 0;
+  place-self: center;
+  border-color: white;
+}
+
+.exec::after {
+  content: "";
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  border: 2px solid white;
+  border-left: 0;
+  border-top: 0;
+  transform: rotate(315deg) scale(0.70) translate(-4px, -6px);
+  border-radius: 20%;
+}
+
+/* @mixin body( $width , $height , $top , $left ){
+  border: none;
+  background-color: $c;
+  height: $height;
+  width: $width;
+  top: $top;
+  left: $left;
+} */
+
+.delegateNodeIcon {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  background-color: #ffffff;
+  display: grid;
+  border: solid 1px;
+  border-radius: 2px;
+  border-color: rgb(255, 255, 255);
+  place-self: center;
+  transform: rotate(45deg) translate(-1px,-1px);
+}
+
+.delegateNodeIcon::before
+{
+  content: "";
+  position: absolute;
+  width: 0.4em;
+  height: 0.5em;
+  background-color: #333;
+  border-radius: 1px;
+  transform: rotate(45deg) translate(4px, 0px);
+}
+
+.delegateNodeIcon::after
+{
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-radius: 2px;
+  border-top: 0.8em solid #333;
+  border-left: 0.8em solid transparent;
+}
+
+.triangle-top-right {
+  width: 0;
+  height: 0;
+  border-top: 50px solid #333;
+  border-left: 50px solid transparent;
+}
