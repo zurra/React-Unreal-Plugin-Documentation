@@ -1,6 +1,5 @@
-# React-Unreal-Plugin-Documentation
+# ReactUnreal Docs
 JSON data to beautiful documentation utilizing react and css.
-
 
 # ReactUnreal Docs
 
@@ -11,6 +10,8 @@ ReactUnreal Docs is a powerful tool that transforms JSON data into beautiful doc
 - **JSON to Documentation**: Convert JSON data into well-structured and visually appealing documentation.
 - **React Components**: Utilize React components to create dynamic and interactive documentation pages.
 - **Custom Styling**: Customize the look and feel of your documentation with CSS styling.
+- **Unreal function types**: Supports pure, nonpure, latent and delegate function types.
+- **Smart Data Retrieval**: ReactUnreal Docs automatically retrieves data based on object and type, allowing you to display additional information such as object properties and descriptions.
 
 ## Usage
 
@@ -32,10 +33,9 @@ import LXR_DataTypes from '../Plugins/UnrealPlugins/Unreal/LXR/LXR_DataTypes';
 <RenderNodes className="Detection Component" nodes={LXR_Nodes} dataTypes={LXR_DataTypes}/>
 };
 
-
 ```
 
-### Example
+# Example
 #### Node Render
 
 With JSON data: 
@@ -263,6 +263,11 @@ const Enums = [
       },
     ]
   },
+];
+export default {
+  Structs, Delegates, Enums
+};
+
 
 ```
 output of
@@ -273,6 +278,103 @@ output of
 ```
 
 Will look like this:
+![nodes](https://raw.githubusercontent.com/zurra/React-Unreal-Plugin-Documentation/main/example/nodeRender.png)
+
+
+### Property Render
+
+With JSON data: 
+```javascript
+LXR_Properties:
+const ClassProperties = [
+  {
+    className: "Silhouette Component",
+    classProperties: [
+      {
+        category: "Silhouette",
+        image: "/lxr/silhouette/silhouette.png",
+        categoryProperties:
+          [
+            "Silhouette Check Quality",
+            "Passed Targets Required ",
+          ]
+      },
+    ]
+  },
+]
+
+const Properties = [
+  {
+    name: "Passed Targets Required",
+    dataType: "float",
+    description: "Percentage (0 to 1) of how many targets needs to pass relevancy check for light to be relevant.",
+    defaultValue: "1",
+  },
+  {
+    name: "Silhouette Check Quality",
+    dataType: "enum",
+    object: "Check Quality",
+    description: "Quality to use for Silhouette Check",
+    defaultValue: "Medium",
+    info: [
+      {
+        infoName: "Silhouette Quality",
+        infoType: "struct",
+        object: "Silhouette Trace Task Params"
+      }
+    ]
+  },
+]
+export default {
+  Properties, ClassProperties
+};
+
+```
+
+```javascript
+LXR_DataTypes:
+
+
+const Structs = [
+  {
+      {
+    name: "Silhouette Trace Task Params",
+    description: "Parameters to use for the Silhouette Task.",
+    data: [
+      {
+        name: "Silhouette Edges",
+        dataType: "int",
+        description: "Amount of edges in silhouette cylinder.",
+        defaultValue: "6",
+      },
+      {
+        name: "Silhouette Distance",
+        dataType: "int",
+        description: "Distance of Silhouette Trace .",
+        defaultValue: "2000",
+      },
+      {
+        name: "Distance Per Segment ",
+        dataType: "int",
+        description: "Distance per trace group in silhouette trace.",
+        defaultValue: "300",
+      },
+    ]
+  },
+
+export default {
+  Structs
+};
+
+```
+
+output of this also has example of **Smart Data Retrieval** as it shows all the struct parameters.
+```javascript
+<Property className="Silhouette Component" properties={LXR_Properties} dataTypes={LXR_DataTypes}/>
+```
+
+Will look like this:
+![property](https://raw.githubusercontent.com/zurra/React-Unreal-Plugin-Documentation/main/example/propertyRender.png)
 
 ## License
 
