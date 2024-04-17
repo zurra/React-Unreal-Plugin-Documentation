@@ -1,7 +1,4 @@
 # ReactUnreal Docs
-JSON data to beautiful documentation utilizing react and css.
-
-# ReactUnreal Docs
 
 ReactUnreal Docs is a powerful tool that transforms JSON data into beautiful documentation, leveraging the flexibility and interactivity of React components and CSS styling. With ReactUnreal Docs, you can effortlessly create and customize documentation for your Unreal Engine projects.
 
@@ -396,3 +393,9 @@ Contributions are welcome! If you'd like to contribute to ReactUnreal Docs, plea
 ## Feedback and Support
 
 If you have any questions, feedback, or need support, feel free to poke me (Lord Zurra) at my Discord --> [invite link](https://discord.gg/aWvgSa9mKd)
+
+## Disclaimer
+I want to clarify that while I strive to provide useful and functional code, I am not a professional web developer. 
+
+As a result, the code in this repository may not always adhere to best practices or be as elegant as one might expect. 
+I appreciate your understanding and welcome any feedback or suggestions for improvement.
