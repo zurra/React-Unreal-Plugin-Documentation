@@ -281,7 +281,8 @@ export default {
 
 
 ```
-output of
+output of this also has example of Smart Data Retrieval as it shows the delegate `On Query LXR Done` parameters as outputs of `Query Locations LXR Async` .
+
 ```javascript
 <RenderNodes className="Detection Component" nodes={LXR_Nodes} dataTypes={LXR_DataTypes}/>
 <RenderNodes className="Memory Component" nodes={LXR_Nodes} dataTypes={LXR_DataTypes}/>
