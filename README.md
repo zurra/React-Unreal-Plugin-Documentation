@@ -17,9 +17,9 @@ You can check [LXR documentation](https://docs.clusterfact.games/docs/LXR/) for 
 
 ## Usage with Next.js
 Install Next.js
-1. npm install next react react-dom
-2. Clone the repository
-3. run npx next dev
+1. Clone the repository
+2. run `npm install`
+3. run `npx next dev`
 
 Now you should be able to open http://localhost:3000/exampleRenders to see example.
 
