@@ -15,6 +15,15 @@ You can check [LXR documentation](https://docs.clusterfact.games/docs/LXR/) for 
 - **Unreal function types**: Supports pure, nonpure, latent and delegate function types.
 - **Smart Data Retrieval**: ReactUnreal Docs automatically retrieves data based on object and type, allowing you to display additional information such as object properties and descriptions.
 
+## Usage with Next.js
+Install Next.js
+1. npm install next react react-dom
+2. Clone the repository
+3. run npx next dev
+
+Now you should be able to open http://localhost:3000/exampleRenders to see example.
+
+
 ## Usage with Docusaurus.
 
 1. Import the necessary components into your project.
