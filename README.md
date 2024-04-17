@@ -15,8 +15,7 @@ You can check [LXR documentation](https://docs.clusterfact.games/docs/LXR/) for 
 - **Unreal function types**: Supports pure, nonpure, latent and delegate function types.
 - **Smart Data Retrieval**: ReactUnreal Docs automatically retrieves data based on object and type, allowing you to display additional information such as object properties and descriptions.
 
-## Usage
-
+## Usage with Docusaurus.
 
 1. Import the necessary components into your project.
 2. Pass your JSON data to ReactUnreal Docs components to generate documentation.
@@ -29,7 +28,6 @@ import RenderNodes from '../Plugins/Unreal/Plugins/Unreal/BP/BP';
 import LXR_Nodes from '../Plugins/Unreal/Plugins/Unreal/LXR/LXR_Nodes';
 import LXR_Properties from '../Plugins/UnrealPlugins/Unreal/LXR/LXR_Properties';
 import LXR_DataTypes from '../Plugins/UnrealPlugins/Unreal/LXR/LXR_DataTypes';
-
 
 <Property className="Detection Component" properties={LXR_Properties} dataTypes={LXR_DataTypes}/>
 <RenderNodes className="Detection Component" nodes={LXR_Nodes} dataTypes={LXR_DataTypes}/>
