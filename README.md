@@ -15,11 +15,19 @@ You can check [LXR documentation](https://docs.clusterfact.games/docs/LXR/) for 
 - **Unreal function types**: Supports pure, nonpure, latent and delegate function types.
 - **Smart Data Retrieval**: ReactUnreal Docs automatically retrieves data based on object and type, allowing you to display additional information such as object properties and descriptions.
 
-## Usage
+## Usage with Next.js
+Install Next.js
+1. Clone the repository
+2. run `npm install`
+3. run `npx next dev`
 
-1. Install ReactUnreal Docs package.
-2. Import the necessary components into your project.
-3. Pass your JSON data to ReactUnreal Docs components to generate documentation.
+Now you should be able to open http://localhost:3000/exampleRenders to see example.
+
+
+## Usage with Docusaurus.
+
+1. Import the necessary components into your project.
+2. Pass your JSON data to ReactUnreal Docs components to generate documentation.
 
 
 ```javascript
@@ -29,7 +37,6 @@ import RenderNodes from '../Plugins/Unreal/Plugins/Unreal/BP/BP';
 import LXR_Nodes from '../Plugins/Unreal/Plugins/Unreal/LXR/LXR_Nodes';
 import LXR_Properties from '../Plugins/UnrealPlugins/Unreal/LXR/LXR_Properties';
 import LXR_DataTypes from '../Plugins/UnrealPlugins/Unreal/LXR/LXR_DataTypes';
-
 
 <Property className="Detection Component" properties={LXR_Properties} dataTypes={LXR_DataTypes}/>
 <RenderNodes className="Detection Component" nodes={LXR_Nodes} dataTypes={LXR_DataTypes}/>
@@ -384,12 +391,8 @@ ReactUnreal Docs is released under the [MIT License](LICENSE).
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute to ReactUnreal Docs, please follow our [Contribution Guidelines](CONTRIBUTING.md).
+Contributions are welcome! If you'd like to contribute to ReactUnreal Docs, please do so.
 
 ## Feedback and Support
 
-If you have any questions, feedback, or need support, feel free to [open an issue](https://github.com/your-username/react-unreal-docs/issues) or [reach out to us](mailto:your-email@example.com).
-
----
-
-Feel free to customize the sections and content based on your project's specific features and requirements. Let me know if you need further assistance or if there's anything else you'd like to add!
+If you have any questions, feedback, or need support, feel free to poke me (Lord Zurra) at my Discord --> [invite link](https://discord.gg/aWvgSa9mKd)
