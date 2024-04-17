@@ -391,8 +391,8 @@ ReactUnreal Docs is released under the [MIT License](LICENSE).
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute to ReactUnreal Docs, please follow our [Contribution Guidelines](CONTRIBUTING.md).
+Contributions are welcome! If you'd like to contribute to ReactUnreal Docs, please do so.
 
 ## Feedback and Support
 
-If you have any questions, feedback, or need support, feel free to [open an issue](https://github.com/your-username/react-unreal-docs/issues) or [reach out to us](mailto:your-email@example.com).
+If you have any questions, feedback, or need support, feel free to poke me (Lord Zurra) at my Discord --> [invite link](https://discord.gg/aWvgSa9mKd)
