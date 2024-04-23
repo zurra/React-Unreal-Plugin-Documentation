@@ -1,4 +1,9 @@
 # ReactUnreal Docs
+<p align="center">
+  <img src="https://raw.githubusercontent.com/zurra/React-Unreal-Plugin-Documentation/main/example/both.png" height=75% >
+</p>
+
+
 
 ReactUnreal Docs is a powerful tool that transforms JSON data into beautiful documentation, leveraging the flexibility and interactivity of React components and CSS styling. With ReactUnreal Docs, you can effortlessly create and customize documentation for your Unreal Engine projects.
 
@@ -276,7 +281,8 @@ export default {
 
 
 ```
-output of
+output of this also has example of Smart Data Retrieval as it shows the delegate `On Query LXR Done` parameters as outputs of `Query Locations LXR Async` .
+
 ```javascript
 <RenderNodes className="Detection Component" nodes={LXR_Nodes} dataTypes={LXR_DataTypes}/>
 <RenderNodes className="Memory Component" nodes={LXR_Nodes} dataTypes={LXR_DataTypes}/>
