@@ -6,8 +6,161 @@ let projectDataTypesData
 let propertiesData
 let propertyMap = {};
 let CategoryImageMap = {};
+let CategorySubCateroryMap = {};
 
 function PropertyRender({ className }) {
+
+
+    // Function to recursively get the item from the nested map
+    const GetItemFromMap = (map, keys) => {
+        if (keys.length === 0) {
+            return map;
+        }
+
+        const [currentKey, ...remainingKeys] = keys;
+        const nextMap = map[currentKey];
+
+        if (nextMap) {
+            return GetItemFromMap(nextMap, remainingKeys);
+        } else {
+            return undefined; // Key doesn't exist in the map
+        }
+    };
+
+    const GetPropertyDataByName = (propertyName) => {
+        const foundProperty = propertiesData.Properties.find(property => property.name === propertyName);
+        return foundProperty
+    }
+
+    const GetPropertyNameIfArray = (propertyData) => {
+        let propertyName;
+        if (Array.isArray(propertyData)) {
+            propertyName = propertyData[0];
+        }
+        else {
+            propertyName = propertyData;
+        }
+        return propertyName
+    }
+
+    const TraverseSubCategories = (ClassPropertyItem, CurrentPath) => {
+        const CategoryTreeItem = GetItemFromMap(CategorySubCateroryMap, CurrentPath)
+        if (typeof ClassPropertyItem.subCategories !== 'undefined') {
+
+
+            ClassPropertyItem.subCategories.forEach(subCategory => {
+                CategoryTreeItem[subCategory.category] = [];
+
+                console.log(CategoryTreeItem.category, " ==", subCategory.category)
+                // if(CategoryTreeItem.category == subCategory.category)
+                // {
+                //     CurrentPath.pop()
+                // }
+
+                CurrentPath.push(subCategory.category)
+                subCategory.categoryProperties.forEach(subCategoryProperty => {
+
+
+                    FillSubCategoryProperties({ CategoryTreeItem, subCategoryProperty, subCategory })
+                });
+
+                if (CurrentPath.length > 0) {
+                    TraverseSubCategories(subCategory, CurrentPath)
+                    CurrentPath.pop()
+                }
+            });
+        }
+        else
+        {
+            CategoryTreeItem.lastElement = true;
+        }
+
+        
+    }
+
+    const FillSubCategoryProperties = ({ CategoryTreeItem, subCategoryProperty, subCategory }) => {
+
+
+        if (CategoryTreeItem.category === subCategory.category) {
+            return;
+        }
+
+        const propertyName = GetPropertyNameIfArray(subCategoryProperty)
+        const foundProperty = GetPropertyDataByName(propertyName);
+
+        if (!CategoryTreeItem.subCategoryNames) {
+            CategoryTreeItem.subCategoryNames = []; // Initialize as an empty array if it doesn't exist
+        }
+
+        const exists = CategoryTreeItem.subCategoryNames.includes(subCategory.category);
+
+
+        if (!exists) {
+            CategoryTreeItem.subCategoryNames.push(subCategory.category)
+        }
+
+        if (!CategoryTreeItem[subCategory.category]) {
+            CategoryTreeItem[subCategory.category] = []; // Initialize as an empty array if it doesn't exist
+        }
+
+        CategoryTreeItem[subCategory.category].category = subCategory.category;
+
+
+        if (!CategoryTreeItem[subCategory.category].properties) {
+            CategoryTreeItem[subCategory.category].properties = []; // Initialize as an empty array if it doesn't exist
+
+        }
+
+        if (foundProperty) {
+            CategoryTreeItem[subCategory.category].properties.push(foundProperty);
+        }
+
+
+
+        // console.log(subCategory)
+        if (typeof subCategory.onlyInPropertyImage !== 'undefined') {
+
+            // Check if the object already exists in the array
+            const exists = CategoryTreeItem[subCategory.category].some(item => item.onlyInPropertyImage);
+
+            // If it doesn't exist, push it to the array
+            if (!exists) {
+                CategoryTreeItem[subCategory.category].push({ onlyInPropertyImage: subCategory.onlyInPropertyImage });
+                // console.log(CategoryTreeItem)
+
+            }
+        }
+    }
+
+    const FillCategoryProperties = ({ categoryItem, propName }) => {
+
+        const propertyName = GetPropertyNameIfArray(propName)
+        const foundProperty = GetPropertyDataByName(propertyName);
+
+        if (!CategorySubCateroryMap[categoryItem.category].properties) {
+            CategorySubCateroryMap[categoryItem.category].properties = []; // Initialize as an empty array if it doesn't exist
+
+        }
+
+        if (foundProperty) {
+            CategorySubCateroryMap[categoryItem.category].properties.push(foundProperty);
+            CategorySubCateroryMap[categoryItem.category].category = categoryItem.category;
+
+        }
+        let onlyInPropertyImageValue = "false"
+        const exists = CategorySubCateroryMap[categoryItem.category].some(item => item.onlyInPropertyImage);
+
+        if (typeof categoryItem.onlyInPropertyImage !== 'undefined') {
+            onlyInPropertyImageValue = categoryItem.onlyInPropertyImage
+        };
+
+
+        if (!exists) {
+            CategorySubCateroryMap[categoryItem.category].push({ onlyInPropertyImage: onlyInPropertyImageValue });
+
+        }
+    }
+
 
     propertyMap = {};
     CategoryImageMap = {};
@@ -17,64 +170,344 @@ function PropertyRender({ className }) {
     // console.log(classRootProperties);
     classProperties.forEach(item => {
         {
+            CategorySubCateroryMap[item.category] = []
+
             CategoryImageMap[item.category] = item.image;
             item.categoryProperties.forEach(name => {
-                const foundProperty = propertiesData.Properties.find(property => property.name === name);
-                if (foundProperty) {
-                    if (!propertyMap[item.category]) {
-                        propertyMap[item.category] = []; // Initialize as an empty array if it doesn't exist
-                    }
-                    propertyMap[item.category].push(foundProperty);
-                }
+
+                FillCategoryProperties({ categoryItem: item, propName: name })
+                //     const propertyName = GetPropertyNameIfArray(name)
+                //     const foundProperty = GetPropertyDataByName(propertyName);
+                //     if (foundProperty) {
+                //         if (!propertyMap[item.category]) {
+                //             propertyMap[item.category] = []; // Initialize as an empty array if it doesn't exist
+                //         }
+                //         propertyMap[item.category].push(foundProperty);
+                //         CategorySubCateroryMap[item.category].push(foundProperty);
+                //     }
             });
 
+            TraverseSubCategories(item, [item.category])
 
         }
     });
+
+    console.log(CategorySubCateroryMap)
     return (
-        <div>
-            {propertyMap && (
-                <div>
-                    {Object.keys(propertyMap).map((item, index) => (
-                        <div className={styles.propertyCategory} style={{ background: '#080000' }}>
-                            <div className={styles.propertyCategoryTitle}> {item} </div>
-                            {CategoryImageMap[item] && (
-                                <img src={CategoryImageMap[item]} style=
-                                    {{
-                                        border: '1px solid',
-                                        borderColor: 'darkred',
-                                        animation: 'pulse_src-components-Plugins-KeyFeatures-KeyFeatures-module 3s infinite',
-                                        boxShadow: '0 0px 20px 10px rgb(255 0 0 / 10%)',
-                                        placeSelf: 'center',
-                                        marginBottom: "20px"
-                                    }} />
+        <>
+            {CategoryImageMap && (
+                <>
+                    {
+                        Object.keys(CategorySubCateroryMap).map((CategoryClass, index) => (
+                            <>
+                                <div className={styles.propertyCategory} >
+                                    <div className={styles.propertyCategoryTitle}>  {CategoryClass} </div>
 
-                            )
-                            }
-                            {propertyMap[item].map((prop, index) => (
-                                <div key={index} className={styles.propertyGrid} style={{ marginBottom: "20px" }} >
-                                    <DoPropertyTable key={index} property={prop} />
-
+                                    <DoPropertyImageCategory CategoryClass={CategorySubCateroryMap[CategoryClass]} index={0} />
                                 </div>
-                            ))}
+                                <DoPropertyTableCategory CategoryClass={CategorySubCateroryMap[CategoryClass]} index={index} />
 
-                        </div>
-                    ))}
+                            </>
 
-                </div>
-
+                        ))
+                    }
+                </>
             )}
 
-            <hr style={{ marginLeft: "0" }}></hr>
+        </>
+    )
+}
 
-        </div>
+function DoPropertyImageCategory({ CategoryClass, index }) {
+
+
+    let hasSubProperties = false;
+    let lastElement = false;
+    if (typeof CategoryClass.subCategoryNames !== 'undefined') {
+        hasSubProperties = CategoryClass.subCategoryNames.length > 0;
+    };
+
+    if (typeof CategoryClass.lastElement !== 'undefined') {
+        lastElement = CategoryClass.lastElement
+    };
+    const PropertiesCount = CategoryClass.properties.length;
+    console.log("HasSubProperties", hasSubProperties)
+    console.log("CatSubCat", CategoryClass.category)
+
+    
+    {
+        return (
+            <>
+                {/* <div style={{
+                    display: "grid",
+                    gridTemplateColumns: '50%',
+                    gridTemplateRows: '1fr'
+                }}> */}
+
+                {/* {CategoryImageMap[CategoryClass.category] && (
+                    <img src={CategoryImageMap[CategoryClass.category]} style=
+                        {{
+                            border: '1px solid',
+                            borderColor: 'darkred',
+                            animation: 'pulse_src-components-Plugins-KeyFeatures-KeyFeatures-module 3s infinite',
+                            boxShadow: '0 0px 20px 10px rgb(255 0 0 / 10%)',
+                            placeSelf: 'center',
+                            marginBottom: "20px"
+                        }} />
+                )} */}
+                <div className={styles.propertyImageContainer} style={index === 0 ? {
+                    width: '60%',
+                    border: '1px solid',
+                    borderColor: 'darkred',
+                    animation: 'pulse 3s infinite',
+                    boxShadow: '0 0px 20px 10px rgb(255 0 0 / 10%)',
+                    marginBottom: '20px',
+                    paddingBottom: '15px'
+                    
+                } : {}}>
+                    <div className={styles.propertyImageCategory}>
+                        <div className={styles.triangleDown}></div>
+
+                        {CategoryClass.category}</div>
+                    <div className={styles.propertyImageElementContainer} style={{ marginBottom: lastElement ? '20px' : '0' }} >
+                    
+                        {/* {console.log("categoryMap: ", CategorySubCateroryMap[CategoryClass])} */}
+                        {CategoryClass.properties.map((prop, index) => (
+                            <>
+                                <DoPropertyImageElement key={index} property={prop} />
+                            </>
+                        ))}
+
+                        {hasSubProperties === true && (
+                            <>
+
+
+                                {CategoryClass.subCategoryNames.map((SubCategoryName, index2) => (
+                                    <React.Fragment key={index2}>
+                                        {console.log("FUCKSs", SubCategoryName)}
+                                    </React.Fragment>
+                                ))}
+
+
+                                {CategoryClass.subCategoryNames && (
+                                    CategoryClass.subCategoryNames.map((SubCategoryName, index2) => (
+                                        <React.Fragment key={index2}>
+                                            <DoPropertyImageCategory CategoryClass={CategoryClass[SubCategoryName]} index={12} />
+                                        </React.Fragment>
+                                    ))
+
+                                )}
+                            </>
+                        )}
+
+
+                    </div>
+                </div>
+
+
+
+                {/* {CategorySubCateroryMap[CategoryClass].properties.map((prop, index) => (
+            <div key={index} className={styles.propertyGrid} style={{ marginBottom: "20px" }} >
+                <DoPropertyTable key={index} property={prop} />
+
+            </div>
+        ))}  */}
+
+                {/* </div > */}
+                {/* {CategoryClass.properties.map((prop, index) => (
+                    <div key={index} className={styles.propertyGrid} style={{ marginBottom: "20px" }} >
+                        <DoPropertyTable key={index} property={prop} />
+
+                    </div>
+                ))} */}
+            </>
+        )
+    }
+}
+
+function DoPropertyTableCategory({ CategoryClass, index }) {
+
+    return (
+        <>
+
+            {CategoryClass.properties.map((prop, index) => (
+                <div key={index} className={styles.propertyGrid} style={{ marginBottom: "20px" }} >
+                    <DoPropertyTable key={index} property={prop} />
+
+                </div>
+            ))}
+        </>
+    )
+}
+
+function DoPropertyImageElementType({ property }) {
+
+    let IsArray = false
+
+    if (typeof property.containerType !== 'undefined') {
+        IsArray = property.containerType.toLowerCase() === "array"
+    };
+
+    if (IsArray) {
+        return (
+            <>
+                <div style={{
+                    gridTemplateColumns: '75% 1fr',
+                    paddingLeft: '8px',
+                    display: 'grid'
+                }}>
+                    <div className={styles.propertyImageType} style={{
+                        gridArea: '1 / 1'
+                    }}>
+                        0 Array element
+                    </div>
+
+                    <div style={{
+                        gridTemplateColumns: 'auto auto auto auto',
+                        gridTemplateRows: '1fr',
+                        display: 'grid'
+
+                    }}>
+                        <div style={{
+                            width: '16px',
+                            height: '16px',
+                            display: 'flex',
+                            borderRadius: '50%',
+                            border: '2px solid #a6a6a6',
+                            borderStyle: 'solid',
+                            placeContent: 'center',
+                            alignSelf: 'center'
+                        }}>
+                            <div className={styles.plus} />
+                        </div>
+                        <div className={styles.trash} />
+
+                    </div>
+                </div>
+            </>
+        )
+    }
+
+    switch (property.dataType.toLowerCase()) {
+        case 'bool':
+            return <DoPropertyImageElementTypeBool property={property} />;
+        case 'float':
+            return <DoPropertyImageElementTypeFloat property={property} />;
+        case 'int':
+            return <DoPropertyImageElementTypeInt property={property} />;
+        case 'struct':
+            return <DoPropertyImageElementTypeStruct property={property} />;
+        case 'enum':
+            return <DoPropertyImageElementTypeEnum property={property} />;
+        case 'uobject':
+        case 'actor':
+        case 'component':
+        case 'uobject':
+            return <DoPropertyImageElementTypeUObject property={property} />;
+
+    }
+}
+
+function DoPropertyImageElementTypeBool({ property }) {
+    return (
+        <div className={styles.propertyBool}></div>
     );
 }
 
+function DoPropertyImageElementTypeInt({ property }) {
+    const integerString = property.defaultValue;
+    const intValue = parseInt(integerString);
+    return (
+        <div className={styles.propertyInputField}>{intValue}</div>
+    );
+}
+
+function DoPropertyImageElementTypeFloat({ property }) {
+
+
+    const integerString = property.defaultValue;
+    const floatValue = parseFloat(integerString).toFixed(1);
+    return (
+        <div className={styles.propertyInputField}>{floatValue}</div>
+    );
+}
+
+function DoPropertyImageElementTypeUObject({ property }) {
+
+    let defaultValue
+    if (property.defaultValue) {
+        if (property.defaultValue.toLowerCase() === "null") {
+            defaultValue = "None";
+        }
+        else {
+            defaultValue = property.defaultValue
+        }
+
+    }
+    return (
+        <>
+            <div className={styles.propertyInputFieldDropdown}>{defaultValue}
+                <div className={styles.arrowDown} ></div>
+            </div>
+
+        </>
+    );
+}
+
+function DoPropertyImageElementTypeEnum({ property }) {
+
+    return (
+        <>
+            <div className={styles.propertyInputFieldDropdown}>{property.defaultValue}
+                <div className={styles.arrowDown} ></div>
+            </div>
+
+        </>
+
+    );
+}
+
+function DoPropertyImageElementTypeStruct({ property }) {
+    return (
+        <>
+
+            <div className={styles.propertyImageType}>{property.dataType}</div>
+
+        </>
+    );
+}
+
+function DoPropertyImageElement({ property }) {
+    if (typeof property.name === 'undefined') {
+        return
+    }
+    // console.log("PROP: ",property)
+    return (
+        <React.Fragment>
+
+            <div className={styles.propertyImageElement}>
+                <div className={styles.propertyImageName}>{property.name}</div>
+                {/* <div className={styles.propertyDefault}>{property.defaultValue}</div> */}
+                <DoPropertyImageElementType property={property} />
+
+
+            </div>
+
+            {/* <div className={styles.rightCell} >
+                <div className={styles.propertyDescription} style={{ borderBottom: 'groove', borderColor: "#470000" }}>{property.description}</div>
+                <div className={styles.propertyComment}>
+                    {property.comments}
+
+                </div>
+            </div> */}
+
+        </React.Fragment>
+    );
+}
+
+
 function DoPropertyTable({ property }) {
 
-
-    //Print all property names
     const propertyInfo = property.info;
     return (
         <React.Fragment>
@@ -171,9 +604,9 @@ function DoInfo({ info, count }) {
         });
 
         if (!dataObject) {
-         console.log(infoType, info, dataObject)
+            // console.log(infoType, info, dataObject)
             property = true
-            infoTitle = "ERROR:::"+infoObject+ " not Found  "
+            infoTitle = "ERROR:::" + infoObject + " not Found  "
         }
         else {
             dataObjectName = dataObject.name
@@ -205,8 +638,8 @@ function DoInfo({ info, count }) {
             {property ? (
                 <div >
                     <div className={styles.propertyInfoHeader}>
-                    <div className={styles.propertyInfoName}>{infoTitle}</div>
-                    {dataObjectName && (<div className={styles.propertyInfoType}>{dataObjectType} : : {dataObjectName}</div>)}
+                        <div className={styles.propertyInfoName}>{infoTitle}</div>
+                        {dataObjectName && (<div className={styles.propertyInfoType}>{dataObjectType} : : {dataObjectName}</div>)}
                     </div>
                     <div className={styles.propertyInfoShortTitleDescription}>{infoDescription}</div>
 

@@ -5,13 +5,48 @@ const ClassProperties = [
       {
         category: "Relevancy",
         image: "/lxr/relevancy2.png",
+        onlyInPropertyImage: "false",
         categoryProperties:
           [
-            "Relevancy Check Quality",
+            ["Relevancy Check Quality"],
             "Relevancy Check Type",
             "Relevancy Light Batch Count",
             "Relevancy Target Type",
             "Passed Targets Required",
+          ],
+        subCategories:
+          [
+            {
+              category: "Quality",
+              onlyInPropertyImage: "true",
+              categoryProperties:
+                [
+                  "Relevancy Smart Distance Min",
+                  "Relevancy Smart Distance Max",
+                  "Relevancy Smart Check Rate Divider",
+                  "Relevancy Check Rate",
+                  "Relevancy Octree Check Bounds Size",
+                ],
+                subCategories:
+                [
+                  {
+                    category: "Test",
+                    onlyInPropertyImage: "true",
+                    categoryProperties:
+                      [
+                        "Relevancy Smart Distance Min",
+                      ],
+                  },        
+                ]
+            },
+            {
+              category: "Test2",
+              onlyInPropertyImage: "false",
+              categoryProperties:
+                [
+                  "Relevancy Check Rate"
+                ],
+            },  
           ]
       },
       {
@@ -341,13 +376,7 @@ const Properties = [
     comments: "Can be modified if Socket Preset is set to Custom."
 
   },
-  {
-    name: "IgnoreVisibilityActors",
-    dataType: "Actor",
-    containerType: "Array",
-    description: "List of actors to ignore when checking visibility.",
-    defaultValue: "{}",
-  },
+
   {
     name: "Relevancy Check Quality",
     dataType: "enum",
@@ -355,7 +384,7 @@ const Properties = [
     description: "Quality for Relevancy Check.",
     defaultValue: "Medium",
     comments: "Custom enables editability of Relevancy|Quality group."
-    
+
   },
   {
     name: "Directional Light Trace Distance",
@@ -376,14 +405,14 @@ const Properties = [
     dataType: "enum",
     object: "Task Process Type",
     description: "Method to use for tracing checks.",
-    defaultValue: "Multithread.",
+    defaultValue: "Multithread",
     info:
-    [
-      {
-        object: "Task Process Type",
-        infoType: "enum"
-      }
-    ]
+      [
+        {
+          object: "Task Process Type",
+          infoType: "enum"
+        }
+      ]
   },
   {
     name: "Relevant Target Type",
@@ -574,7 +603,7 @@ const Properties = [
     dataType: "enum",
     object: "Method To Use",
     description: "Which implementation to use for checking is the SourceComponent enabled",
-    defaultValue: "",
+    defaultValue: "Class",
   },
   {
     name: "Get Source Actor State Method to Use",
@@ -626,10 +655,12 @@ const Properties = [
     comments: ""
   },
 
+
   {
     name: "Ignore Visibility Actors",
-    dataType: "Array Actor",
-    description: "Array of actors to ignore when checking visibility.",
+    dataType: "Actor",
+    containerType: "Array",
+    description: "List of actors to ignore when checking visibility.",
     defaultValue: "{}",
   },
 
@@ -761,7 +792,7 @@ const Properties = [
   {
     name: "Silhouette Check Quality",
     dataType: "enum",
-    object: "Check Quality",    
+    object: "Check Quality",
     description: "Quality to use for Silhouette Check",
     defaultValue: "Medium",
     info: [

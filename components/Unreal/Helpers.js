@@ -1,6 +1,11 @@
 import React from 'react';
 import Unreal_DataTypes from './Unreal_DataTypes';
 
+function GetInputAsString({input})
+{
+
+}
+
 function FindObjectByDataTypeAndName({ dataType, objectName, projectDataTypes }) {
 
     let dataTypePath;

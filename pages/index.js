@@ -8,7 +8,7 @@ import LXR_DataTypes from '../components/Unreal/LXR/LXR_DataTypes';
 
 const PropertiesPage = () => {
   return (
-    <div style={{width: '50%'}}>
+    <div style={{background: 'black'}}>
       <h1>Properties</h1>
       <Property className="Detection Component" properties={LXR_Properties} dataTypes={LXR_DataTypes}/>
       <br></br>

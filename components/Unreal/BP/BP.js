@@ -457,9 +457,7 @@ function GetPinIconColors({ pin }) {
             dataTypesToFind = pin.DataTypes;
         }
         else {
-
             dataTypesToFind.push(pin.dataTypes.join('').toLowerCase());
-
         }
     }
     else {

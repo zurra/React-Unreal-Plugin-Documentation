@@ -79,6 +79,7 @@
 }
 
 .nodeImageDelegate {
+  border-radius: 10px;
   border: 1px solid;
   border-Color: darkred;
   animation: pulseDelegate 3s infinite;
