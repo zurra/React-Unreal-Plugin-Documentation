@@ -489,7 +489,7 @@
   height: 12px;
   /* background-color: #af0000; */
   border-radius: 50%;
-  border: solid;
+  border: solid 2px;
   place-self: center;
   /* Define a custom property for border color */
   border-color: var(--pin-color);

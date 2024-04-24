@@ -70,12 +70,11 @@ function PropertyRender({ className }) {
                 }
             });
         }
-        else
-        {
+        else {
             CategoryTreeItem.lastElement = true;
         }
 
-        
+
     }
 
     const FillSubCategoryProperties = ({ CategoryTreeItem, subCategoryProperty, subCategory }) => {
@@ -234,7 +233,7 @@ function DoPropertyImageCategory({ CategoryClass, index }) {
     console.log("HasSubProperties", hasSubProperties)
     console.log("CatSubCat", CategoryClass.category)
 
-    
+
     {
         return (
             <>
@@ -256,21 +255,21 @@ function DoPropertyImageCategory({ CategoryClass, index }) {
                         }} />
                 )} */}
                 <div className={styles.propertyImageContainer} style={index === 0 ? {
-                    width: '60%',
+                    width: '550px',
                     border: '1px solid',
                     borderColor: 'darkred',
                     animation: 'pulse 3s infinite',
                     boxShadow: '0 0px 20px 10px rgb(255 0 0 / 10%)',
                     marginBottom: '20px',
                     paddingBottom: '15px'
-                    
+
                 } : {}}>
                     <div className={styles.propertyImageCategory}>
                         <div className={styles.triangleDown}></div>
 
                         {CategoryClass.category}</div>
                     <div className={styles.propertyImageElementContainer} style={{ marginBottom: lastElement ? '20px' : '0' }} >
-                    
+
                         {/* {console.log("categoryMap: ", CategorySubCateroryMap[CategoryClass])} */}
                         {CategoryClass.properties.map((prop, index) => (
                             <>
@@ -369,14 +368,15 @@ function DoPropertyImageElementType({ property }) {
 
                     }}>
                         <div style={{
-                            width: '16px',
-                            height: '16px',
+                            width: '12px',
+                            height: '12px',
                             display: 'flex',
                             borderRadius: '50%',
                             border: '2px solid #a6a6a6',
                             borderStyle: 'solid',
                             placeContent: 'center',
-                            alignSelf: 'center'
+                            alignSelf: 'center',
+                            justifySelf: 'center'
                         }}>
                             <div className={styles.plus} />
                         </div>
@@ -571,7 +571,24 @@ function DoInfo({ info, count }) {
     let relevantProperties = []
     let property = true;
     let infoTitle = info.infoName;
-    let infoDescription = info.description;
+    let infoDescription = [];
+    let infoDescriptionSet = false;
+
+    if (typeof info.description !== 'undefined') {
+        infoDescriptionSet = true;
+        if (Array.isArray(info.description)) {
+            if (info.description.length > 1) {
+                infoDescription = info.description;
+            }
+            else {
+                infoDescription.push(info.description);
+            }
+
+        }
+        else {
+            infoDescription.push(info.description);
+        }
+    }
 
     const infoType = info.infoType;
     const infoObject = info.object
@@ -634,14 +651,34 @@ function DoInfo({ info, count }) {
 
     // console.log(infoTitle, relevantProperties, property)
     return (
-        <div >
+        <>
             {property ? (
-                <div >
+                <>
                     <div className={styles.propertyInfoHeader}>
                         <div className={styles.propertyInfoName}>{infoTitle}</div>
                         {dataObjectName && (<div className={styles.propertyInfoType}>{dataObjectType} : : {dataObjectName}</div>)}
                     </div>
-                    <div className={styles.propertyInfoShortTitleDescription}>{infoDescription}</div>
+
+                    {infoDescriptionSet && (
+                            <div className={styles.propertyInfoShortTitleDescription}>
+                                {infoDescription.map((comment, index) => (
+                                    <div key={index} >{comment} </div>
+                                ))}
+                            </div>
+                    )}
+{/* 
+                    {infoDescriptionSet && (
+
+                        <div >
+                            <div className={styles.nodeComment}>
+                                {node.comments.map((comment, index) => (
+                                    <div key={index} >{comment} </div>
+                                ))}
+                            </div>
+
+                        </div>
+                    )} */}
+
 
                     {relevantProperties.map((relatedProp, index) => (
 
@@ -670,10 +707,10 @@ function DoInfo({ info, count }) {
                     ))}
 
 
-                </div>
+                </>
             ) : (
 
-                <div >
+                < >
 
 
                     {relevantProperties.map((relatedProp, index) => (
@@ -701,10 +738,10 @@ function DoInfo({ info, count }) {
                         </div>
                     ))}
 
-                </div>
+                </>
             )
             }
-        </div >
+        </>
 
 
     );

@@ -36,7 +36,7 @@
 .propertyGrid {
   display: grid;
   grid-template-rows: auto auto auto;
-  grid-template-columns: 10% 10% 20% 60%;
+  grid-template-columns: 1fr 2fr;
   /* grid-template-columns: 25% 75%; */
   /* grid-template-rows: auto auto auto; */
   /* grid-gap: 10px; */
@@ -195,7 +195,7 @@
 
 
 .leftCell {
-  grid-area: 1 / 1 / span 2 / span 3;
+  grid-area: 1 / 1;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 2fr 1fr;
   display: grid;
@@ -208,7 +208,7 @@
 }
 
 .rightCell {
-  grid-area: 1 / 4 / span 2;
+  grid-area: 1 / 2;
   grid-template-rows: 1fr 1fr;
   display: grid;
   border-top: 1px solid;
@@ -219,7 +219,7 @@
 }
 
 .firstInfoCell {
-  grid-area: 1 / 1 / span 2 / span 3;
+  grid-area: 1 / 1;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 2fr 1fr;
   display: grid;
@@ -231,7 +231,7 @@
 }
 
 .secondInfoCell {
-  grid-area: 1 / 4 / span 2;
+  grid-area: 1 / 2;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 2fr 1fr;
   display: grid;
@@ -242,11 +242,12 @@
 }
 
 .infoCell {
-  grid-area: 3 / 2 / span 2 / span 3;
+  grid-area: 3 / 1 / span 1 / span 4;
   align-content: center;
   border: 1px solid;
   border-color: #4e0000;
-
+width: 75%;
+justify-self: right;
 }
 
 .propertyInfoContainer

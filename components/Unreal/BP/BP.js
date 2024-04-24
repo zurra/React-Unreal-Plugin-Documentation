@@ -392,7 +392,7 @@ function DoSetIcon({ color }) {
 
 
     return (
-        <div style={{ color: `${color}`, fontWeight: 'bold', placeSelf: 'center' }} >
+        <div style={{ color: `${color}`, fontWeight: 'bold', placeSelf: 'center', fontSize: '20px', marginLeft: "4px" }} >
 
             {'{ }'}
         </div>
@@ -700,11 +700,10 @@ function DoNodePinInfo({ pin, count, extra, output = true }) {
 
             {hasExtraPins && (
                 <div style={{gridArea: '1 / 2 / span 10 / span 1',
-                marginLeft: '20px',
                 justifySelf: 'center',
                 width: '100px',
-                border: '30px double var(--pin-color)',
-                margin: '17px 0px'}}></div>
+                margin: '20px 0px',
+                background: 'linear-gradient(90deg, transparent 0%, var(--pin-color) 50%, transparent 100%)'}}></div>
             )}
 
             <div style={{
