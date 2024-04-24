@@ -286,7 +286,7 @@ const Nodes = [
   {
     functionTypes: ["delegate"],
     title: "On Light State Changed",
-    comments: ["Blueprint Assignable event","Broadcasts when Source Component state changes."],
+    comments: ["Blueprint Assignable event","Broadcasts when Source Component state changes.",],
     example: "",
     outputs:
       [

@@ -94,7 +94,7 @@ function NodeRender({ className }) {
                                             {node.example && (
                                                 <div className={styles.nodeExample} >
                                                     Example
-                                                    <iframe className={styles.nodeExampleBP} src={node.example} style={{height:"300px", width:"100%"}}  scrolling="no" allowfullscreen="true"></iframe>
+                                                    <iframe className={styles.nodeExampleBP} src={node.example} style={{ height: "300px", width: "100%" }} scrolling="no" allowfullscreen="true"></iframe>
                                                 </div>
                                             )}
                                         </div>
@@ -110,7 +110,6 @@ function NodeRender({ className }) {
 
             )}
 
-            <hr style={{ marginLeft: "0" }}></hr>
 
         </div>
     );
@@ -122,6 +121,7 @@ function DoNodeTable({ node }) {
     const nodeInputs = node.inputs;
     const nodeOutputs = node.outputs;
     const nodeColor = GetNodeColorAsCSSType({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 })
+    const nodeColorRGB = GetNodeColorAsStringRGB({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 })
 
     const IsCommentsEmpty = (node) => {
         return node.comments.length > 0 && node.comments[0] !== ""
@@ -143,8 +143,17 @@ function DoNodeTable({ node }) {
                 </div>
             }
 
-            <div className={styles.topCell}>
-                <DoNode node={node} />
+            <div className={styles.topCell} style={{
+                '--node-color': nodeColor,
+                '--node-color-rgb': nodeColorRGB
+            }}>
+                {node.comments.length > 0 && (
+                    <div className={styles.nodeComment}>
+                        {node.comments.map((comment, index) => (
+                            <div key={index} dangerouslySetInnerHTML={{ __html: comment }} />
+                        ))}
+                    </div>
+                )}
 
             </div>
 
@@ -152,15 +161,8 @@ function DoNodeTable({ node }) {
 
                 <div className={styles.botCell} style={{ '--node-color': nodeColor }}>
                     {console.log(node.comments)}
-                    <div className={styles.nodeTitle}>
-                        {node.comments.length > 0 && (
-                            <div className={styles.nodeComment}>
-                                {node.comments.map((comment, index) => (
-                                    <div key={index} dangerouslySetInnerHTML={{ __html: comment }} />
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                    <DoNode node={node} />
+
 
                 </div>
             )}
@@ -654,6 +656,13 @@ function DoNodePinInfo({ pin, count, extra }) {
 
     return (
         <div className={styles.pin}>
+            <div style={{ gridArea: '2 / 2', borderLeft: '1px solid' }} />
+            <div style={{
+                background: 'aliceblue',
+                height: '1px',
+                gridArea: '1 / 1 / span 3',
+                alignSelf: 'center'
+            }} />
             <div className={styles.nodePinTitle}> {pin.name} </div>
             {
 
