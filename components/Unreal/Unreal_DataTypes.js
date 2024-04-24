@@ -84,6 +84,10 @@ const DataTypes = [
   {
     dataType: "interface",
     color: "#5700b6"
+  },
+  {
+    dataType: "delegate",
+    color: "red"
   }
 
 ];

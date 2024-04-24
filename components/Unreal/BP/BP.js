@@ -77,22 +77,21 @@ function NodeRender({ className }) {
                                 {nodeMap[item].map((node, index) => (
                                     <>
                                         {index > 0 && (
-                                            <div style={{
-                                                height: '15px',
-                                                marginBottom: '40px',
-                                                background: 'black',
-                                                /* border-top: 1px white solid; */
-                                                borderBottom: '1px darkred solid',
-                                                boxShadow: '0px 0px 16px 0px black',
-
-                                            }} />
+                                            <div />
                                         )}
                                         <div key={index} className={styles.nodeGrid} >
+                                            <div style={{
+                                                gridArea: '1 / 1 / span 5 / span 100',
+                                                '--node-color': GetNodeColorAsCSSType({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 }),
+                                                border: 'solid 1px var(--node-color)',
+                                                // padding: '8%'
+                                            }}
+                                            ></div>
                                             {/* <div className={`${node.type === 'nonpure' ? styles.nodeTypeBGNonPure : node.type === 'delegate' ? styles.nodeTypeBGDelegate : node.type === 'pure' ? styles.nodeTypeBGPure : ''}`} /> */}
                                             <div className={styles.nodeBG} style={{ '--node-color': GetNodeColorAsStringRGB({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 }) }} />
                                             <DoNodeTable key={index} node={node} />
                                             {node.example && (
-                                                <div className={styles.nodeExample} >
+                                                <div className={styles.nodeExample} style={{ '--node-color': GetNodeColorAsStringRGB({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 }) }} >
                                                     Example
                                                     <iframe className={styles.nodeExampleBP} src={node.example} style={{ height: "300px", width: "100%" }} scrolling="no" allowfullscreen="true"></iframe>
                                                 </div>
@@ -136,7 +135,7 @@ function DoNodeTable({ node }) {
                     <div className={styles.inputPinContainer} >
 
                         {nodeInputs.map((pin, index) => (
-                            <DoNodePinInfo pin={pin} count={index} />
+                            <DoNodePinInfo pin={pin} count={index} output={false} />
                         ))}
 
                     </div>
@@ -307,7 +306,7 @@ function DoNode({ node }) {
 function DoSingleIcon({ color }) {
 
     return (
-        <div className={styles.single} style={{ '--node-color': color }} />
+        <div className={styles.single} style={{ '--pin-color': color }} />
     );
 };
 
@@ -612,8 +611,7 @@ function DoNodeBPPin({ pin, input }) {
     );
 };
 
-function DoNodePinInfo({ pin, count, extra }) {
-
+function DoNodePinInfo({ pin, count, extra, output = true }) {
 
     let extraPins = GetExtraPins({ pin: pin })
 
@@ -654,20 +652,26 @@ function DoNodePinInfo({ pin, count, extra }) {
     //     console.log(item)
     // })
 
+    const color = GetPinIconColors({ pin });
+
     return (
-        <div className={styles.pin}>
-            <div style={{ gridArea: '2 / 2', borderLeft: '1px solid' }} />
+        <div className={styles.pin} style={{ '--pin-color': color }}>
             <div style={{
-                background: 'aliceblue',
-                height: '1px',
-                gridArea: '1 / 1 / span 3',
-                alignSelf: 'center'
+                gridArea: '1 / 2 / span 3 / 2',
+                border: '1px solid var(--pin-color)',
+                background: 'black'
             }} />
-            <div className={styles.nodePinTitle}> {pin.name} </div>
+            <div style={{
+                height: '1px',
+                gridArea: output ? '1 / 1 / span 3' : '1 / 3 / span 3',
+                alignSelf: 'center',
+                background: 'var(--pin-color)'
+            }} />
+            <div className={styles.nodePinTitle} style={{ padding: output ? '0 0 0 10px' : '0 10px 0 0' }}> {pin.name} </div>
             {
 
                 descToUse.length > 0 && (
-                    <div className={styles.nodePinComment}>
+                    <div className={styles.nodePinComment} style={{ padding: output ? '0 0 0 10px' : '0 10px 0 0' }}>
                         {descToUse.map((comment, index) => (
                             <div key={index} >
                                 {comment}

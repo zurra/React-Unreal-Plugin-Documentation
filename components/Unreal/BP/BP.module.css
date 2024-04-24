@@ -88,8 +88,8 @@
   grid-template-columns: 1fr 500px 1fr;
   color: rgb(169 169 169);
   border-color: #2b2b2b;
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin: 20px 0px;
+  padding: 20px;
 }
 
 .nodeImageDelegate {
@@ -124,11 +124,11 @@
 .nodeCategory {
   display: grid;
   grid-template-rows: auto;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
   border-style: ridge;
   border-color: #000000;
-  border: 1px solid darkred;
-  animation: 3s ease 0s infinite normal none running BP_pulse_src-components-Plugins-KeyFeatures-KeyFeatures-module_src-components-Plugins-BP-BP-module_src-components-Plugins-BP-BP-module__jt2LK;
+  /* border: 1px solid darkred; */
+  animation: 3s ease 0s infinite normal none running BP_BP_pulse_src-components-Plugins-KeyFeatures-KeyFeatures-module_src-components-Plugins-BP-BP-module_src-components-Plugins-BP-BP-module__jt2LK__p4by6;
   /* box-shadow: #330000 0px 0px 20px 10px; */
   background: linear-gradient(360deg, #1b0101, #1b0000);
   overflow: hidden;
@@ -191,10 +191,12 @@
   grid-area: 5 / 1 / span 1 / span 3;
   align-content: baseline;
   color: white;
-  border-bottom: solid 1px;
-  border-color: #860000;
+  border: solid 1px;
+  border-color: rgb(var(--node-color));
   text-align: center;
-  background: black;
+  /* background: black; */
+  padding: 10px  0;
+  /* margin: 40px; */
 }
 
 .nodeExampleBP {
@@ -203,6 +205,7 @@
   align-content: baseline;
   color: white;
   text-align: center;
+  border: 0;
 }
 
 .leftCell {
@@ -223,21 +226,24 @@
 .topLeftCell {
   align-self: center;
   grid-area: 3 / 1;
-   border-top: 1px solid;
+  /* border-top: 1px solid;
   border-right: 1px solid;
-  border-bottom: 1px solid;
-  border-color: var(--node-color);
-  box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1);
+  border-bottom: 1px solid; */
+  /* border-color: var(--node-color); */
+  box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1);  
+  background: black;
 }
 
 .topRightCell {
   align-self: center;
   grid-area: 3 / 3;
-  border-top: 1px solid;
+  /* border-top: 1px solid;
   border-left: 1px solid;
-  border-bottom: 1px solid;
-  border-color: var(--node-color);
+  border-bottom: 1px solid; */
+  /* border-color: var(--node-color); */
   box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1);
+  /* background: black; */
+  padding: 20px 0;
 }
 
 .middleCell {
@@ -265,8 +271,8 @@
 
 .botCell {
   grid-area: 3 / 2;
-  text-align: center;
-
+  align-content: center;
+  padding: 20px 0;
 }
 
 .inputPinContainer {
@@ -280,40 +286,41 @@
 
 .outputPinContainer {
   text-align: center;
-  padding: 10px;
   text-align: left;
-  background: black;
+  /* background: black; */
   height: 100%;
 }
 
 .pin {
-  grid-template-rows: 20px 4px 20px;
-  grid-template-columns: 10px auto;
+  grid-template-rows: 25px 4px auto;
+  grid-template-columns: 10px auto 10px;
   display: grid;
+  margin: 5px 0px;
 
 }
 
 .nodePinTitle {
   grid-area: 1 / 2;
   font-size: 14px;
-  color: white;
-  border-top: solid 1px;
-  color: rgb(169 169 169);
-  border-left: solid 1px;
-  padding-left: 10px;
+  /* color: white; */
+  /* border-top: solid 1px; */
+  color: rgb(223 223 223);
+  /* border-left: solid 1px; */
   align-content: center;
+  background: black;
 }
 
 
 .nodePinComment {
-    color: rgb(169 169 169);
-    border-bottom: solid 1px;
-    font-size: 10px;
-    /* margin-bottom: 15px; */
-    grid-area: 3 / 2;
-    border-left: solid 1px;
-    padding-left: 10px;
-    align-content: center;
+  color: rgb(169 169 169);
+  /* border-bottom: solid 1px; */
+  font-size: 12px;
+  /* margin-bottom: 15px; */
+  grid-area: 3 / 2;
+  /* border-left: solid 1px; */
+  align-content: center;
+  margin-bottom: 5px;
+  background: black;
 
 }
 
@@ -456,16 +463,15 @@
   border-radius: 50%;
   border: solid;
   place-self: center;
-  --node-color: rgb(229, 255, 0);
   /* Define a custom property for border color */
-  border-color: var(--node-color);
+  border-color: var(--pin-color);
 }
 
 .single::after {
   content: "";
   /* position: absolute; */
   border-top: 4px solid transparent;
-  border-left: 4px solid var(--node-color);
+  border-left: 4px solid var(--pin-color);
   border-bottom: 4px solid transparent;
   position: absolute;
   top: 50%;
@@ -537,7 +543,7 @@
   border: 2px solid white;
   border-left: 0;
   border-top: 0;
-  transform: rotate(315deg) scale(0.8) translate(-4px, -4px);
+  transform: rotate(315deg) scale(0.8) translate(-0px, -0px);
   border-radius: 20%;
 }
 
