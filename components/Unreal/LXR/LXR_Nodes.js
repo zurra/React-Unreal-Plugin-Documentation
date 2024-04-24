@@ -174,9 +174,9 @@ const Nodes = [
   {
     functionTypes: ["nonpure"],
     title: 'Query Locations LXR',
-    comments: ["Query any world location(s) for LXR.", 
-    "Check Multithreaded version <a href=/docs/LXR/Classes/Tasks/QueryLXRAsyncTask>here</a>"],
-    example: "",
+    comments: ["Query any world location(s) for LXR.",
+      "Check Multithreaded version <a href=/docs/LXR/Classes/Tasks/QueryLXRAsyncTask>here</a>"],
+
     inputs: [
       {
         name: "Points",
@@ -223,7 +223,7 @@ const Nodes = [
     functionTypes: ["delegate"],
     title: "On Silhouette Spotted Actor",
     comments: [""],
-    example: "",
+
     outputs:
       [
         {
@@ -239,7 +239,12 @@ const Nodes = [
     functionTypes: ["pure"],
     title: "Get Combined LXR Intensity",
     comments: ["Combined LXR Intensity is light intensity from all targets combined to one value."],
-    example: "https://blueprintue.com/render/k1n8dpyc/",
+    example:
+    {
+      url: "https://blueprintue.com/render/k1n8dpyc/",
+      comments: ["Example Comment", "Multi-Line", "Comment"],
+    },
+
     outputs:
       [
         {
@@ -255,7 +260,7 @@ const Nodes = [
     functionTypes: ["pure"],
     title: "Get Combined LXR Color",
     comments: ["Combined LXR Color is light color from all targets combined to one value."],
-    example: "",
+
     outputs:
       [
         {
@@ -270,8 +275,8 @@ const Nodes = [
   {
     functionTypes: ["pure"],
     title: "Get Relevant Trace Targets",
-    comments: ["Gets world locations of relevant Trace Targets"],
-    example: "",
+    comments: "",
+
     outputs:
       [
         {
@@ -286,8 +291,8 @@ const Nodes = [
   {
     functionTypes: ["delegate"],
     title: "On Light State Changed",
-    comments: ["Blueprint Assignable event","Broadcasts when Source Component state changes.",],
-    example: "",
+    comments: ["Blueprint Assignable event", "Broadcasts when Source Component state changes.",],
+
     outputs:
       [
         {
@@ -317,8 +322,8 @@ const Nodes = [
   {
     functionTypes: ["delegate"],
     title: "On Light Component State Changed",
-    comments: ["Blueprint Assignable event","Broadcasts when any Light Component state changes."],
-    example: "",
+    comments: ["Blueprint Assignable event", "Broadcasts when any Light Component state changes."],
+
     outputs:
       [
         {

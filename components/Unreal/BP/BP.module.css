@@ -187,8 +187,10 @@
 
 
 .nodeExample {
+  display: grid;
   font-size: large;
   grid-area: 5 / 1 / span 1 / span 3;
+  grid-template-rows: 40px auto auto;
   align-content: baseline;
   color: white;
   border: solid 1px;
@@ -199,14 +201,42 @@
   /* margin: 40px; */
 }
 
+.nodeExampleTitle {
+  grid-area: 1 / 1;
+  font-size: xx-large;
+  /* color: white; */
+  border-bottom: solid 1px;
+  /* color: rgb(223 223 223); */
+  /* border-left: solid 1px; */
+  /* align-content: center; */
+  width: 25%;
+  justify-self: center;
+}
+
 .nodeExampleBP {
   font-size: large;
-  grid-area: 4 / 1 / span 1 / span 3;
-  align-content: baseline;
+  grid-area: 2 / 1 /span 1 / span 1;
+  /* align-content: baseline; */
   color: white;
-  text-align: center;
+  /* text-align: center; */
+  justify-self: center;
   border: 0;
 }
+
+.nodeExampleCommentBox {
+  grid-area: 3 / 1;
+  text-align: center;
+  border-top: 1px solid var(--node-color);
+  border-bottom: 1px solid var(--node-color);
+  /* box-shadow: inset 0px 0px 20px 3px var(--node-color); */
+  min-height: 60px;
+  align-content: space-evenly;
+  /* background: #280000; */
+  /* border: solid 1px #ffffff; */
+  /* border-radius: 6px; */
+  /* width: 50%; */
+}
+
 
 .leftCell {
   grid-area: 3 / 1;
@@ -230,8 +260,8 @@
   border-right: 1px solid;
   border-bottom: 1px solid; */
   /* border-color: var(--node-color); */
-  box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1);  
-  background: black;
+  /* box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1);   */
+  /* background: black; */
 }
 
 .topRightCell {
@@ -241,7 +271,7 @@
   border-left: 1px solid;
   border-bottom: 1px solid; */
   /* border-color: var(--node-color); */
-  box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1);
+  /* box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1); */
   /* background: black; */
   padding: 20px 0;
 }
@@ -279,7 +309,7 @@
   text-align: center;
   padding: 10px;
   text-align: right;
-  background: black;
+  /* background: black; */
   height: 100%;
 
 }
@@ -307,7 +337,6 @@
   color: rgb(223 223 223);
   /* border-left: solid 1px; */
   align-content: center;
-  background: black;
 }
 
 
@@ -320,7 +349,6 @@
   /* border-left: solid 1px; */
   align-content: center;
   margin-bottom: 5px;
-  background: black;
 
 }
 

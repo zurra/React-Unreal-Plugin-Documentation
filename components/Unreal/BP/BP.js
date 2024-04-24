@@ -64,6 +64,7 @@ function NodeRender({ className }) {
     //     }
     // });
 
+
     return (
         <div>
             {nodeMap && (
@@ -90,12 +91,6 @@ function NodeRender({ className }) {
                                             {/* <div className={`${node.type === 'nonpure' ? styles.nodeTypeBGNonPure : node.type === 'delegate' ? styles.nodeTypeBGDelegate : node.type === 'pure' ? styles.nodeTypeBGPure : ''}`} /> */}
                                             <div className={styles.nodeBG} style={{ '--node-color': GetNodeColorAsStringRGB({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 }) }} />
                                             <DoNodeTable key={index} node={node} />
-                                            {node.example && (
-                                                <div className={styles.nodeExample} style={{ '--node-color': GetNodeColorAsStringRGB({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 }) }} >
-                                                    Example
-                                                    <iframe className={styles.nodeExampleBP} src={node.example} style={{ height: "300px", width: "100%" }} scrolling="no" allowfullscreen="true"></iframe>
-                                                </div>
-                                            )}
                                         </div>
                                     </>
                                 ))}
@@ -125,7 +120,30 @@ function DoNodeTable({ node }) {
     const IsCommentsEmpty = (node) => {
         return node.comments.length > 0 && node.comments[0] !== ""
     };
-    const commentsEmpty = IsCommentsEmpty(node, 0.2)
+    const commentsSet = IsCommentsEmpty(node, 0.2)
+    let exampleCommentsSet
+    let exampleComments = []
+
+    let exampleAvailable = false
+    if (typeof node.example !== 'undefined') {
+        exampleAvailable = true
+        if (Array.isArray(node.example.comments)) {
+            if (node.example.comments.length > 1) {
+                exampleComments = node.example.comments;
+            }
+            else {
+                exampleComments.push(node.example.comments.join(''));
+            }
+        }
+        else {
+
+            exampleComments = node.example.comments;
+        }
+    }
+
+    if (exampleComments.length > 0)
+        exampleCommentsSet = true;
+
     return (
         <React.Fragment>
 
@@ -142,29 +160,28 @@ function DoNodeTable({ node }) {
                 </div>
             }
 
-            <div className={styles.topCell} style={{
-                '--node-color': nodeColor,
-                '--node-color-rgb': nodeColorRGB
-            }}>
-                {node.comments.length > 0 && (
+            {commentsSet && (
+
+                <div className={styles.topCell} style={{
+                    '--node-color': nodeColor,
+                    '--node-color-rgb': nodeColorRGB
+                }}>
                     <div className={styles.nodeComment}>
                         {node.comments.map((comment, index) => (
-                            <div key={index} dangerouslySetInnerHTML={{ __html: comment }} />
+                            <div key={index} >{comment} </div>
                         ))}
                     </div>
-                )}
-
-            </div>
-
-            {commentsEmpty && (
-
-                <div className={styles.botCell} style={{ '--node-color': nodeColor }}>
-                    {console.log(node.comments)}
-                    <DoNode node={node} />
-
 
                 </div>
             )}
+
+
+            <div className={styles.botCell} style={{ '--node-color': nodeColor }}>
+                {console.log(node.comments)}
+                <DoNode node={node} />
+
+
+            </div>
 
 
             {nodeOutputs &&
@@ -179,6 +196,30 @@ function DoNodeTable({ node }) {
                     </div>
                 </div>
             }
+
+            {node.example && (
+                <div className={styles.nodeExample} style={{ '--node-color': GetNodeColorAsStringRGB({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 }) }} >
+                    <div className={styles.nodeExampleTitle}>
+                        Example
+                    </div>
+                    <iframe className={styles.nodeExampleBP} src={node.example.url} style={{ height: "400px", width: "100%" }} scrolling="no" allowfullscreen="true"></iframe>
+
+                    {exampleCommentsSet && (
+                        <div className={styles.nodeExampleCommentBox} style={{
+                            '--node-color': nodeColor,
+                            '--node-color-rgb': nodeColorRGB
+                        }}>
+                            <div className={styles.nodeComment}>
+                                {exampleComments.map((comment, index) => (
+                                    <div key={index} > {comment}</div>
+                                ))}
+                            </div>
+
+                        </div>
+                    )}
+                </div>
+
+            )}
         </React.Fragment>
     );
 }
@@ -614,7 +655,7 @@ function DoNodeBPPin({ pin, input }) {
 function DoNodePinInfo({ pin, count, extra, output = true }) {
 
     let extraPins = GetExtraPins({ pin: pin })
-
+    const hasExtraPins = extraPins.length > 0
     let data
     let descToUse = [];
     if (pin.dataTypes === "struct") {
@@ -656,6 +697,16 @@ function DoNodePinInfo({ pin, count, extra, output = true }) {
 
     return (
         <div className={styles.pin} style={{ '--pin-color': color }}>
+
+            {hasExtraPins && (
+                <div style={{gridArea: '1 / 2 / span 10 / span 1',
+                marginLeft: '20px',
+                justifySelf: 'center',
+                width: '100px',
+                border: '30px double var(--pin-color)',
+                margin: '17px 0px'}}></div>
+            )}
+
             <div style={{
                 gridArea: '1 / 2 / span 3 / 2',
                 border: '1px solid var(--pin-color)',
@@ -682,9 +733,15 @@ function DoNodePinInfo({ pin, count, extra, output = true }) {
                 )
 
             }
-            {extraPins.map((extraPin, index) => (
-                <DoNodePinInfo pin={extraPin} extra={true} />
-            ))}
+            <div style={{
+                gridArea: '4/1 /span 1 / span 3',
+                marginLeft: '20px'
+            }}>
+                {extraPins.map((extraPin, index) => (
+                    <DoNodePinInfo pin={extraPin} extra={true} />
+                ))}
+            </div>
+
 
         </div>
     );
