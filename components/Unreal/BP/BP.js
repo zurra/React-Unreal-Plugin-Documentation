@@ -699,11 +699,13 @@ function DoNodePinInfo({ pin, count, extra, output = true }) {
         <div className={styles.pin} style={{ '--pin-color': color }}>
 
             {hasExtraPins && (
-                <div style={{gridArea: '1 / 2 / span 10 / span 1',
-                justifySelf: 'center',
-                width: '100px',
-                margin: '20px 0px',
-                background: 'linear-gradient(90deg, transparent 0%, var(--pin-color) 50%, transparent 100%)'}}></div>
+                <div style={{
+                    gridArea: '1 / 2 / span 10 / span 1',
+                    justifySelf: 'center',
+                    width: '100px',
+                    margin: '20px 0px',
+                    background: 'linear-gradient(90deg, transparent 0%, var(--pin-color) 50%, transparent 100%)'
+                }}></div>
             )}
 
             <div style={{
