@@ -8,7 +8,7 @@ const ClassProperties = [
         onlyInPropertyImage: "false",
         categoryProperties:
           [
-            ["Relevancy Check Quality"],
+            "Relevancy Check Quality",
             "Relevancy Check Type",
             "Relevancy Light Batch Count",
             "Relevancy Target Type",

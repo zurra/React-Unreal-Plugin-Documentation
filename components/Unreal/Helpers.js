@@ -22,15 +22,20 @@ function FindObjectByDataTypeAndName({ dataType, objectName, projectDataTypes })
     }
 
 
-    let foundObject = dataTypePath.find(data => data.name === objectName);
-    if (!foundObject) {
-        foundObject = Unreal_DataTypes.DataTypes.find(data => data.name === objectName);
-
+    if(typeof dataTypePath === 'undefined')
+    {
+        console.log("FUCKS")
     }
 
-    // console.log("found", objectName, foundObject)
+    let foundObject = dataTypePath.find(data => data.name === objectName);
+    let isProjectType = !!foundObject;
 
-    return foundObject;
+    if (!foundObject) {
+        foundObject = Unreal_DataTypes.DataTypes.find(data => data.datatype === objectName);
+        isProjectType = false;
+    }
+
+    return {isProjectType, foundObject};
 
 }
 

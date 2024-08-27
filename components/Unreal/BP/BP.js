@@ -2,10 +2,26 @@ import React from 'react';
 import styles from './BP.module.css';
 import Unreal_DataTypes from '../Unreal_DataTypes';
 import Helpers from '../Helpers';
+import Tooltip from '../../tooltip';
 let projectDataTypesData
 let nodesData
 let nodeMap = {};
 let nodeTypeMap = {};
+
+const GetPropertyDataByName = (propertyName) => {
+    for (const element of classData.classPropertyCategories) {
+        const foundProperty = element.categoryProperties.find(property => property.name === propertyName);
+        if (foundProperty)
+            return foundProperty;
+    }
+    return null;
+}
+
+// classData = classesData.Classes.find(s => s.className === className);
+// let classProperties = classData.classPropertyCategories
+// // console.log(classRootProperties);
+// classProperties.forEach(item => {
+//     {
 
 function NodeRender({ className }) {
 
@@ -17,42 +33,128 @@ function NodeRender({ className }) {
     nodeTypeMap["nonpure"] = []
     nodeTypeMap["delegate"] = []
 
-    const classNodesRoot = nodesData.ClassNodes.find(s => s.className === className);
-    let ClassNodes = classNodesRoot.classNodes
+    const classData = nodesData.Classes.find(s => s.className === className);
+    let classNodeCategories = classData.classNodeCategories
+    let classProperties = classData.classPropertyCategories
+    // console.log(classRootProperties);
+    classProperties.forEach(item => {
+        let nodeDelegateMap = [];
 
-    // console.log(classNodesRoot);    
-    // console.log(nodesData);
+        item.categoryProperties.forEach(prop => {
+            if (prop.dataType == "delegate") {
 
-    ClassNodes.forEach(item => {
-        {
-            // CategoryImageMap[item.category] = item.image;
-            item.categoryNodes.forEach(name => {
-                const foundNode = nodesData.Nodes.find(node => node.title === name);
-                if (foundNode) {
 
-                    if (!nodeMap[item.category]) {
-                        nodeMap[item.category] = []; // Initialize as an empty array if it doesn't exist
+
+                let nodeDelegateData = {}
+                let nodeInputs = []
+                let nodeOutputs = []
+                let nodeReturns = []
+                nodeDelegateData.inputs = []
+                nodeDelegateData.outputs = []
+                nodeDelegateData.comments = []
+                nodeDelegateData.name = prop.name;
+                nodeDelegateData.description = prop.description
+
+                prop.comments.forEach(comment => {
+                    if (comment.includes("@return")) {
+                        nodeReturns.push(comment)
                     }
-                    nodeMap[item.category].push(foundNode);
+                    else {
+                        nodeDelegateData.comments.push()
 
-                    if (foundNode.functionTypes.includes("nonpure")) {
-                        nodeTypeMap["nonpure"].push(foundNode.title);
-                    } else if (foundNode.functionTypes.includes("pure")) {
-                        nodeTypeMap["pure"].push(foundNode.title);
-                    } else if (foundNode.functionTypes.includes("delegate")) {
-                        nodeTypeMap["delegate"].push(foundNode.title);
                     }
+                })
+
+                const foundDelegate = projectDataTypesData.Delegates.find(delegate => delegate.name === prop.name);
+                if (foundDelegate) {
+                    console.log(foundDelegate);
+                    foundDelegate.data.forEach(output => {
+                        let outputPin = {};
+                        outputPin.name = output.name;
+                        outputPin.dataType = output.dataType;
+                        outputPin.containerType = output.containerType;
+                        outputPin.object = output.object;
+
+                        nodeReturns.forEach(r => {
+                            if (r.includes(output.name)) {
+                                const parts = r.split(":");
+                                const returnValue = parts[1].trim();
+                                outputPin.description = returnValue
+                            }
+                        })
+
+
+                        outputPin.comments = output.comments;
+                        outputPin.defaultValue = output.defaultValue;
+                        outputPin.metas = output.metas;
+                        nodeOutputs.push(outputPin)
+                    })
+                }
+
+                nodeDelegateData.outputs = nodeOutputs;
+
+                nodeDelegateData.object = prop.object;
+
+                nodeDelegateMap.push(nodeDelegateData)
+                console.log(prop)
+            }
+
+        })
+
+        nodeDelegateMap.forEach(delegate => {
+            if (!nodeMap[item.category]) {
+                nodeMap[item.category] = []; // Initialize as an empty array if it doesn't exist
+            }
+            nodeMap[item.category].push(delegate);
+            nodeTypeMap["delegate"].push(delegate.name);
+
+        })
+
+    });
+
+    classNodeCategories.forEach(item => {
+
+        // CategoryImageMap[item.category] = item.image;
+        item.categoryNodes.forEach(node => {
+
+            if (!nodeMap[item.category]) {
+                nodeMap[item.category] = []; // Initialize as an empty array if it doesn't exist
+            }
+
+            node.comments.forEach(comment => {
+                if (comment.includes("Target is ")) {
+                    console.log(comment)
+                    const parts = comment.split("Target is ");
+                    const target = parts[1].trim();
+                    console.log(target);
+                    node.target = target;
 
                 }
-            });
-        }
+            })
+
+            if (node.flags.includes("BlueprintPure")) {
+                nodeTypeMap["pure"].push(node.name);
+
+            }
+            else if (node.functionTypes.includes("delegate")) {
+                nodeTypeMap["delegate"].push(node.name);
+            }
+            else {
+                nodeTypeMap["nonpure"].push(node.name);
+            }
+
+            nodeMap[item.category].push(node);
+
+
+        })
+
     });
 
     // ClassNodes.forEach(item => {
     //     {
     //         // CategoryImageMap[item.category] = item.image;
     //         item.functionTypes.forEach(functionType => {
-    //             const foundNode = nodesData.Nodes.find(node => node.title === name);
+    //             const foundNode = nodesData.Nodes.find(node => node.name === name);
     //             if (foundNode) {
 
     //                 if (!nodeMap[item.category]) {
@@ -84,8 +186,7 @@ function NodeRender({ className }) {
                                             <div style={{
                                                 gridArea: '1 / 1 / span 5 / span 100',
                                                 '--node-color': GetNodeColorAsCSSType({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 }),
-                                                border: 'solid 1px var(--node-color)',
-                                                // padding: '8%'
+
                                             }}
                                             ></div>
                                             {/* <div className={`${node.type === 'nonpure' ? styles.nodeTypeBGNonPure : node.type === 'delegate' ? styles.nodeTypeBGDelegate : node.type === 'pure' ? styles.nodeTypeBGPure : ''}`} /> */}
@@ -147,7 +248,7 @@ function DoNodeTable({ node }) {
     return (
         <React.Fragment>
 
-            {nodeInputs &&
+            {nodeInputs.length > 0 &&
                 <div className={styles.topLeftCell} style={{ '--node-color': nodeColor }} >
 
                     <div className={styles.inputPinContainer} >
@@ -162,7 +263,7 @@ function DoNodeTable({ node }) {
 
             {commentsSet && (
 
-                <div className={styles.topCell} style={{
+                <div className={styles.botCell} style={{
                     '--node-color': nodeColor,
                     '--node-color-rgb': nodeColorRGB
                 }}>
@@ -176,7 +277,7 @@ function DoNodeTable({ node }) {
             )}
 
 
-            <div className={styles.botCell} style={{ '--node-color': nodeColor }}>
+            <div className={styles.topCell} style={{ '--node-color': nodeColor }}>
                 {console.log(node.comments)}
                 <DoNode node={node} />
 
@@ -228,7 +329,7 @@ function GetNodeType({ node }) {
     let nodeType;
     Object.keys(nodeTypeMap).forEach(nodeKey => {
         const types = nodeTypeMap[nodeKey];
-        if (types.includes(node.title)) {
+        if (types.includes(node.name)) {
             nodeType = nodeKey
         }
     });
@@ -295,14 +396,19 @@ function DoNode({ node }) {
                     <GetNodeTypeIcon node={node} />
                 </div>
                 <div className={styles.nodeBPTitle}>
-                    {node.title}
+                    {node.name}
                 </div>
+                {node.target &&
+                    <div className={styles.nodeBPTarget}>
+                        Target Is {node.target}
+                    </div>
+                }
             </div>
 
             <div className={styles.nodeBPBodyContainer} >
 
 
-                {node.inputs &&
+                {node.inputs.length > 0 &&
 
                     <div className={styles.nodeBPInputsContainer} >
 
@@ -344,10 +450,13 @@ function DoNode({ node }) {
     );
 }
 
-function DoSingleIcon({ color }) {
+export function DoSingleIcon({ color, extraStyle }) {
 
     return (
-        <div className={styles.single} style={{ '--pin-color': color }} />
+        <div className={styles.single} style={{ 
+            '--pin-color': color,
+            ...extraStyle
+    }} />
     );
 };
 
@@ -392,7 +501,7 @@ function DoSetIcon({ color }) {
 
 
     return (
-        <div style={{ color: `${color}`, fontWeight: 'bold', placeSelf: 'center', fontSize: '20px', marginLeft: "4px" }} >
+        <div style={{ color: `${color}`, fontWeight: 'bold', placeSelf: 'center', fontSize: '20px' }} >
 
             {'{ }'}
         </div>
@@ -492,29 +601,33 @@ function DoArrayIcon({ color }) {
 
 function GetPinIconColors({ pin }) {
     const color = [];
-    let dataTypesToFind = []
+    let datatypesToFind = []
 
-    if (Array.isArray(pin.dataTypes)) {
-        if (pin.dataTypes.length > 1) {
-            dataTypesToFind = pin.DataTypes;
-        }
-        else {
-            dataTypesToFind.push(pin.dataTypes.join('').toLowerCase());
-        }
-    }
-    else {
-
-        const dataType = pin.dataTypes.toLowerCase();
-
-        const FoundDataType = Unreal_DataTypes.DataTypes.find(data => data.dataType === dataType);
-        if (FoundDataType) {
-            return FoundDataType.color;
-        }
+    if (typeof pin.dataType === 'undefined') {
+        console.log(pin)
+        return
     }
 
+    let datatype = pin.dataType.toLowerCase();
 
-    dataTypesToFind.forEach(dataType => {
-        const FoundDataType = Unreal_DataTypes.DataTypes.find(data => data.dataType === dataType);
+    if (datatype === "class") {
+        datatype = pin.object
+    }
+
+    if (datatype === "struct") {
+        datatype = pin.object
+    }
+    if (datatype.includes("Component")) {
+        datatype = "UComponent"
+    }
+    const FoundDataType = Unreal_DataTypes.DataTypes.find(data => data.datatype === datatype);
+    if (FoundDataType) {
+        return FoundDataType.color;
+    }
+
+
+    datatypesToFind.forEach(datatype => {
+        const FoundDataType = Unreal_DataTypes.datatype.find(data => data.datatype === datatype);
         if (FoundDataType) {
             color.push(FoundDataType.color);
         }
@@ -528,12 +641,7 @@ function GetPinIconColors({ pin }) {
 }
 
 function GetIsPinTypeOf({ pin, typeToCheck }) {
-    if (Array.isArray(pin.dataTypes)) {
-        return pin.dataTypes.includes(typeToCheck)
-    }
-    else {
-        return pin.dataTypes === typeToCheck
-    }
+    return pin.datatype === typeToCheck
 }
 
 
@@ -578,27 +686,26 @@ function GetNodeTypeIcon({ node }) {
 
 function GetPinTypeIcon({ pin }) {
 
-    let containerType
-    if (pin.dataTypes === "delegate") {
-        containerType = "delegate"
+    let containertype = pin.containerType
+    if (pin.datatype === "delegate") {
+        containertype = "delegate"
     }
 
-    if (typeof containerType === 'undefined') {
-        containerType = pin.containerType;
+    if (typeof containertype === 'undefined') {
+        containertype = pin.containertype;
     }
-    if (typeof containerType === 'undefined') {
-        containerType = "single";
+    if (typeof containertype === 'undefined') {
+        containertype = "single";
     }
 
-    containerType = containerType.toLowerCase();
     const color = GetPinIconColors({ pin });
-    // console.log(pin.name, containerType)
-    switch (containerType) {
-        case 'array':
+    // console.log(pin.name, containertype)
+    switch (containertype) {
+        case 'TArray':
             return <DoArrayIcon color={color} />;
-        case 'set':
+        case 'TSet':
             return <DoSetIcon color={color} />;
-        case 'map':
+        case 'TMap':
             return <DoMapIcon colors={color} />;
         case 'single':
             return <DoSingleIcon color={color} />;
@@ -611,19 +718,20 @@ function GetPinTypeIcon({ pin }) {
 function GetExtraPins({ pin }) {
     let dataObject;
     let extraPins = []
+    const PinDataType = pin.datatype;
 
     if (GetIsPinTypeOf({ pin: pin, typeToCheck: "delegate" })) {
         dataObject = Helpers.FindObjectByDataTypeAndName({
-            dataType: pin.dataTypes,
+            dataType: pin.datatype,
             objectName: pin.name,
             projectDataTypes: projectDataTypesData
         });
 
-        dataObject.parameters.forEach(extraPinData => {
+        dataObject.data.forEach(extraPinData => {
             const extraPin = {
                 name: extraPinData.name,
-                dataTypes: extraPinData.dataType,
-                containerType: extraPinData.containerType,
+                datatype: extraPinData.datatype,
+                containertype: extraPinData.containertype,
             }
             extraPins.push(extraPin)
         });
@@ -658,27 +766,32 @@ function DoNodePinInfo({ pin, count, extra, output = true }) {
     const hasExtraPins = extraPins.length > 0
     let data
     let descToUse = [];
-    if (pin.dataTypes === "struct") {
+    if (pin.dataType === "struct") {
         const foundStruct = projectDataTypesData.Structs.find(str => str.name === pin.name);
         if (foundStruct) {
             data = foundStruct;
         }
     };
 
-    if (pin.dataTypes === "delegate") {
+    if (pin.dataType === "delegate") {
         const foundDelegate = projectDataTypesData.Delegates.find(delegate => delegate.name === pin.name);
         if (foundDelegate) {
             data = foundDelegate;
         }
     };
 
-
-    if (data) {
-        descToUse = Array.isArray(data.description) ? data.description : [data.description];
+    if (pin.description !== "") {
+        descToUse.push(pin.description)
     }
-    else {
+    if (descToUse === undefined || descToUse === "") {
         descToUse = Array.isArray(pin.comments) ? pin.comments : [pin.comments];
     }
+
+
+    if (descToUse.length === 0) {
+        descToUse.push("N/A");
+    }
+
 
     // if (Array.isArray(descToUse)) {
     //     console.log("IS ARRAY -- ", pin, " -- ",descToUse)
@@ -702,7 +815,7 @@ function DoNodePinInfo({ pin, count, extra, output = true }) {
                 <div style={{
                     gridArea: '1 / 2 / span 10 / span 1',
                     justifySelf: 'center',
-                    width: '100px',
+                    // width: '100px',
                     margin: '20px 0px',
                     background: 'linear-gradient(90deg, transparent 0%, var(--pin-color) 50%, transparent 100%)'
                 }}></div>
@@ -719,7 +832,7 @@ function DoNodePinInfo({ pin, count, extra, output = true }) {
                 alignSelf: 'center',
                 background: 'var(--pin-color)'
             }} />
-            <div className={styles.nodePinTitle} style={{ padding: output ? '0 0 0 10px' : '0 10px 0 0' }}> {pin.name} </div>
+            <div className={styles.nodePinTitle} style={{ padding: output ? '0 0 0 10px' : '0 10px 0 0' }}> {pin.containerType} {pin.object} </div>
             {
 
                 descToUse.length > 0 && (
@@ -750,10 +863,10 @@ function DoNodePinInfo({ pin, count, extra, output = true }) {
 
 
 
-export default function RenderNodes({ className, dataTypes, nodes }) {
+export default function RenderNodes({ className, datatypes, nodes }) {
 
     nodesData = nodes
-    projectDataTypesData = dataTypes
+    projectDataTypesData = datatypes
     return (
         <section>
             <div className="container">

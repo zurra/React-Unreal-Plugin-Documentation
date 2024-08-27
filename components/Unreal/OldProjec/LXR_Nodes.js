@@ -81,20 +81,20 @@ const ClassNodes = [
 const Nodes = [
   {
     functionTypes: ["nonpure"],
-    title: 'Unregister Light',
+    name: 'Unregister Light',
     comments: ["Removes light source from LXR"],
     inputs: [
       {
         name: "Target",
-        dataTypes: "actor",
-        containerType: "single",
+        datatype: "actor",
+        containertype: "single",
         comments: ["LXRSubsystem Object Reference"],
         default: "{}"
       },
       {
         name: "Light Source",
-        dataTypes: "Actor",
-        containerType: "single",
+        datatype: "Actor",
+        containertype: "single",
         comments: ["Actor Object Reference."],
         default: "{}"
       },
@@ -102,8 +102,8 @@ const Nodes = [
     outputs: [
       {
         name: "On Query LXR Done",
-        dataTypes: "delegate",
-        containerType: "single",
+        datatype: "delegate",
+        containertype: "single",
         object: "OnQueryLXRDone",
         comments: ["Executes when query is Done"],
       },
@@ -111,20 +111,20 @@ const Nodes = [
   },
   {
     functionTypes: ["nonpure"],
-    title: 'Register Light',
+    name: 'Register Light',
     comments: ["Registers new light source for LXR"],
     inputs: [
       {
         name: "Target",
-        dataTypes: "actor",
-        containerType: "single",
+        datatype: "actor",
+        containertype: "single",
         comments: ["LXRSubsystem Object Reference"],
         default: "{}"
       },
       {
         name: "Light Source",
-        dataTypes: "Actor",
-        containerType: "single",
+        datatype: "Actor",
+        containertype: "single",
         comments: ["Actor Object Reference."],
         default: "{}"
       },
@@ -132,8 +132,8 @@ const Nodes = [
     outputs: [
       {
         name: "On Query LXR Done",
-        dataTypes: "delegate",
-        containerType: "single",
+        datatype: "delegate",
+        containertype: "single",
         object: "OnQueryLXRDone",
         comments: ["Executes when query is Done"],
       },
@@ -141,20 +141,20 @@ const Nodes = [
   },
   {
     functionTypes: ["nonpure", "latent"],
-    title: 'Query Locations LXR Async',
+    name: 'Query Locations LXR Async',
     comments: ["Query any world location(s) for LXR.", "This is async multithreaded function."],
     inputs: [
       {
         name: "Points",
-        dataTypes: "Vector",
-        containerType: "Array",
+        datatype: "Vector",
+        containertype: "Array",
         comments: ["Points to Query LXR"],
         default: "{}"
       },
       {
         name: "Lights",
-        dataTypes: "Actor",
-        containerType: "Array",
+        datatype: "Actor",
+        containertype: "Array",
         comments: ["Relevant Lights for this query.",
           "Can be empty, then LXRSubsystem will fetch automatically relevant lights for this query."
         ],
@@ -164,8 +164,8 @@ const Nodes = [
     outputs: [
       {
         name: "On Query LXR Done",
-        dataTypes: "delegate",
-        containerType: "single",
+        datatype: "delegate",
+        containertype: "single",
         object: "OnQueryLXRDone",
         comments: ["Executes when query is Done"],
       },
@@ -173,22 +173,22 @@ const Nodes = [
   },
   {
     functionTypes: ["nonpure"],
-    title: 'Query Locations LXR',
+    name: 'Query Locations LXR',
     comments: ["Query any world location(s) for LXR.",
       "Check Multithreaded version <a href=/docs/LXR/Classes/Tasks/QueryLXRAsyncTask>here</a>"],
 
     inputs: [
       {
         name: "Points",
-        dataTypes: "Vector",
-        containerType: "set",
+        datatype: "Vector",
+        containertype: "set",
         comments: ["Points to Query LXR"],
         default: "{}"
       },
       {
         name: "Lights",
-        dataTypes: ["Actor"],
-        containerType: "Array",
+        datatype: "Actor",
+        containertype: "Array",
         comments: ["Relevant Lights for this query.",
           "Can be empty, then LXRSubsystem will fetch automatically relevant lights for this query."
         ],
@@ -196,8 +196,8 @@ const Nodes = [
       },
       {
         name: "Query LXR Debug Options",
-        dataTypes: "struct",
-        containerType: "single",
+        datatype: "struct",
+        containertype: "single",
         comments: ["Debug Options",
           "Optional."
         ],
@@ -207,29 +207,29 @@ const Nodes = [
     outputs: [
       {
         name: "Targets LXR",
-        dataTypes: "struct",
-        containerType: "single",
+        datatype: "struct",
+        containertype: "single",
         comments: ["fa"]
       },
       {
         name: "Passed Data",
-        dataTypes: "struct",
-        containerType: "set",
+        datatype: "struct",
+        containertype: "set",
         comments: ["pesu"]
       },
     ],
   },
   {
     functionTypes: ["delegate"],
-    title: "On Silhouette Spotted Actor",
+    name: "On Silhouette Spotted Actor",
     comments: [""],
 
     outputs:
       [
         {
           name: "Detector",
-          dataTypes: "Actor",
-          containerType: "object",
+          datatype: "Actor",
+          containertype: "object",
           comments: ["Detected Actor."],
           default: "{}"
         }
@@ -237,7 +237,7 @@ const Nodes = [
   },
   {
     functionTypes: ["pure"],
-    title: "Get Combined LXR Intensity",
+    name: "Get Combined LXR Intensity",
     comments: ["Combined LXR Intensity is light intensity from all targets combined to one value."],
     example:
     {
@@ -249,8 +249,8 @@ const Nodes = [
       [
         {
           name: "Combined LXR Intensity",
-          dataTypes: "float",
-          containerType: "single",
+          datatype: "float",
+          containertype: "single",
           comments: ["Final combined LXR intensity from all Trace Targets."],
           default: "{}"
         }
@@ -258,15 +258,15 @@ const Nodes = [
   },
   {
     functionTypes: ["pure"],
-    title: "Get Combined LXR Color",
+    name: "Get Combined LXR Color",
     comments: ["Combined LXR Color is light color from all targets combined to one value."],
 
     outputs:
       [
         {
           name: "Combined LXR Coloe",
-          dataTypes: "linearcolor",
-          containerType: "single",
+          datatype: "linearcolor",
+          containertype: "single",
           comments: ["Final combined LXR color from all Trace Targets."],
           default: "{}"
         }
@@ -274,15 +274,15 @@ const Nodes = [
   },
   {
     functionTypes: ["pure"],
-    title: "Get Relevant Trace Targets",
+    name: "Get Relevant Trace Targets",
     comments: "",
 
     outputs:
       [
         {
           name: "Get Relevant Trace Targets",
-          dataTypes: "vector",
-          containerType: "array",
+          datatype: "vector",
+          containertype: "array",
           comments: ["Get Relevant Trace Targets."],
           default: "{}"
         }
@@ -290,29 +290,29 @@ const Nodes = [
   },
   {
     functionTypes: ["delegate"],
-    title: "On Light State Changed",
+    name: "On Light State Changed",
     comments: ["Blueprint Assignable event", "Broadcasts when Source Component state changes.",],
 
     outputs:
       [
         {
           name: "Light Source Component",
-          dataTypes: "component",
-          containerType: "single",
+          datatype: "component",
+          containertype: "single",
           comments: ["State Changed Source Component"],
           default: "{}"
         },
         {
           name: "Old Light State",
-          dataTypes: "enum",
+          datatype: "enum",
           object: "LightState",
           comments: ["Old State of Source Component"],
           default: "{}"
         },
         {
           name: "New Light State",
-          dataTypes: "enum",
-          containerType: "single",
+          datatype: "enum",
+          containertype: "single",
           object: "Light State",
           comments: ["New State of Source Component"],
           default: "{}"
@@ -321,36 +321,36 @@ const Nodes = [
   },
   {
     functionTypes: ["delegate"],
-    title: "On Light Component State Changed",
+    name: "On Light Component State Changed",
     comments: ["Blueprint Assignable event", "Broadcasts when any Light Component state changes."],
 
     outputs:
       [
         {
           name: "Light Source Component",
-          dataTypes: "component",
-          containerType: "single",
+          datatype: "component",
+          containertype: "single",
           comments: ["State Changed Source Component"],
           default: "{}"
         },
         {
           name: "Light Component",
-          dataTypes: "component",
-          containerType: "single",
+          datatype: "component",
+          containertype: "single",
           comments: ["State Changed Light Component"],
           default: "{}"
         },
         {
           name: "Old Light State",
-          dataTypes: "enum",
+          datatype: "enum",
           object: "LightState",
           comments: ["Old State of Light Component"],
           default: "{}"
         },
         {
           name: "New Light State",
-          dataTypes: "enum",
-          containerType: "single",
+          datatype: "enum",
+          containertype: "single",
           object: "Light State",
           comments: ["New State of Light Component"],
           default: "{}"

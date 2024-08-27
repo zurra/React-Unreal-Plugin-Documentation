@@ -1,92 +1,96 @@
 const DataTypes = [
   {
-    dataType: "bool",
+    datatype: "bool",
     color: "maroon"
   },
   {
-    dataType: "byte",
+    datatype: "byte",
     color: "darkcyan"
   },
   {
-    dataType: "enum",
+    datatype: "enum",
     color: "darkcyan"
   },
   {
-    dataType: "int",
+    datatype: "int",
     color: "#22e0ac"
   },
   {
-    dataType: "int64",
+    datatype: "int64",
     color: "darkseagreen"
   },
   {
-    dataType: "float",
+    datatype: "float",
     color: "yellowgreen"
   },
   {
-    dataType: "string",
+    datatype: "FString",
     color: "magenta"
   },
   {
-    dataType: "uobject",
+    datatype: "UObject",
     color: "#0074ff"
   },
   {
-    dataType: "actor",
+    datatype: "AActor",
     color: "#0074ff"
   },
   {
-    dataType: "component",
+    datatype: "AActor*",
+    color: "#0074ff"
+  },
+  {
+    datatype: "UComponent",
     color: "#0074ff"
   },
 
   {
-    dataType: "vector",
+    datatype: "FVector",
     color: "gold"
   },
   {
-    dataType: "name",
+    datatype: "FName",
     color: "#ca80fb"
   },
   {
-    dataType: "text",
+    datatype: "FTxt",
     color: "pink"
   },
   {
-    dataType: "rotator",
+    datatype: "FRotator",
     color: "cornflowerblue"
   },
   {
-    dataType: "transform",
+    datatype: "FTransform",
     color: "orange"
   },
   {
-    dataType: "struct",
+    datatype: "struct",
     color: "#000ec3"
   },
   {
-    dataType: "linearcolor",
+    datatype: "FLinearColor",
     color: "#000ec3"
   },
   {
-    dataType: "color",
+    datatype: "FColor",
     color: "#000ec3"
   },
 
   {
-    dataType: "wildcard",
+    datatype: "wildcard",
     color: "grey"
   },
   {
-    dataType: "class",
+    datatype: "class",
     color: "#5900bb"
   },
   {
-    dataType: "interface",
+    datatype: "interface",
     color: "#5700b6"
   },
   {
-    dataType: "delegate",
+    datatype: "delegate",
     color: "red"
   }
 

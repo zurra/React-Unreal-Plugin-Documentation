@@ -2,17 +2,17 @@ const Delegates = [
   {
     name: "On Query LXR Done",
     description: ["Delegate which provides query results."],
-    parameters: [
+    data: [
       {
         name: "Targets LXR",
-        dataType: "struct",
-        containerType: "single",
+        datatype: "struct",
+        containertype: "single",
         description: "",
       },
       {
         name: "Passed Data",
-        dataType: "struct",
-        containerType: "set",
+        datatype: "struct",
+        containertype: "set",
         description: "",
       },
     ]
@@ -26,31 +26,31 @@ const Structs = [
     data: [
       {
         name: "Cone Traces",
-        dataType: "int",
+        datatype: "int",
         description: "Amount of edges in cone.",
         defaultValue: "6",
       },
       {
         name: "Cone Angle",
-        dataType: "int",
+        datatype: "int",
         description: "Field of view angle of cone.",
         defaultValue: "20",
       },
       {
         name: "Distance Per Segment",
-        dataType: "int",
+        datatype: "int",
         description: "Distance per trace group in cone edge.",
         defaultValue: "250",
       },
       {
         name: "Sense Distance",
-        dataType: "int",
+        datatype: "int",
         description: "Distance of the Cone",
         defaultValue: "1500",
       },
       {
         name: "Min Distance Per Target",
-        dataType: "int",
+        datatype: "int",
         description: "Min between generated trace targets.",
         defaultValue: "50",
       },
@@ -79,31 +79,31 @@ const Structs = [
     data: [
       {
         name: "Cone Traces",
-        dataType: "int",
+        datatype: "int",
         description: "Amount of edges in cone.",
         defaultValue: "6",
       },
       {
         name: "Cone Angle",
-        dataType: "int",
+        datatype: "int",
         description: "Field of view angle of cone.",
         defaultValue: "20",
       },
       {
         name: "Distance Per Segment",
-        dataType: "int",
+        datatype: "int",
         description: "Distance per trace group in cone edge.",
         defaultValue: "250",
       },
       {
         name: "Sense Distance",
-        dataType: "int",
+        datatype: "int",
         description: "Distance of the Cone",
         defaultValue: "1500",
       },
       {
         name: "Min Distance Per Target",
-        dataType: "int",
+        datatype: "int",
         description: "Min between generated trace targets.",
         defaultValue: "50",
       },
@@ -115,19 +115,19 @@ const Structs = [
     data: [
       {
         name: "Silhouette Edges",
-        dataType: "int",
+        datatype: "int",
         description: "Amount of edges in silhouette cylinder.",
         defaultValue: "6",
       },
       {
         name: "Silhouette Distance",
-        dataType: "int",
+        datatype: "int",
         description: "Distance of Silhouette Trace .",
         defaultValue: "2000",
       },
       {
         name: "Distance Per Segment ",
-        dataType: "int",
+        datatype: "int",
         description: "Distance per trace group in silhouette trace.",
         defaultValue: "300",
       },
@@ -139,43 +139,43 @@ const Structs = [
     data: [
       {
         name: "Debug Relevancy",
-        dataType: "bool",
+        datatype: "bool",
         description: "Draw Debug Shapes for Relevancy check",
         defaultValue: "false",
       },
       {
         name: "Debug Visibility",
-        dataType: "bool",
+        datatype: "bool",
         description: "Draw Debug Shapes for Visibility (relevant) check",
         defaultValue: "false",
       },
       {
         name: "Debug LXR",
-        dataType: "bool",
+        datatype: "bool",
         description: "Draw Debug Shapes for Final LXR",
         defaultValue: "false",
       },
       {
         name: "Debug LXR Only Passed",
-        dataType: "bool",
+        datatype: "bool",
         description: "Only draw LXR for Passed points",
         defaultValue: "false",
       },
       {
         name: "Debug Relevancy DrawTime",
-        dataType: "float",
+        datatype: "float",
         description: "Draw time for Relevancy Debug",
         defaultValue: "1.0",
       },
       {
         name: "Debug Visibility DrawTime",
-        dataType: "float",
+        datatype: "float",
         description: "Draw time for Relevant Debug",
         defaultValue: "1.0",
       },
       {
         name: "Debug LXR DrawTime",
-        dataType: "float",
+        datatype: "float",
         description: "Draw time for Final LXR Debug",
         defaultValue: "1.0",
       }
