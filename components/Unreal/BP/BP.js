@@ -53,7 +53,6 @@ function NodeRender({ className }) {
                 nodeDelegateData.outputs = []
                 nodeDelegateData.comments = []
                 nodeDelegateData.name = prop.name;
-                nodeDelegateData.description = prop.description
 
                 prop.comments.forEach(comment => {
                     if (comment.includes("@return")) {
@@ -92,6 +91,14 @@ function NodeRender({ className }) {
                 }
 
                 nodeDelegateData.outputs = nodeOutputs;
+                if(prop.comments.length>0)
+                {
+                    
+                    
+                    nodeDelegateData.comments.push(prop.description);
+                    nodeDelegateData.comments.push(prop.comments[0]);
+
+                }
 
                 nodeDelegateData.object = prop.object;
 

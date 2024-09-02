@@ -431,7 +431,7 @@
   grid-template-columns: 1fr 1fr;
   background: black;
   padding: 10px;
-  font-size: 0.9em;
+  font-size: small;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 
@@ -633,12 +633,12 @@
   content: "";
   position: absolute;
   right: -7px;
-  width: 1em;
-  height: 1em;
+  width: 15px;
+  height: 15px;
   border: 2px solid white;
   border-left: 0;
   border-top: 0;
-  transform: rotate(315deg) scale(0.8) translate(-0px, -0px);
+  transform: rotate(315deg) scale(0.8) translate(0px, 0px);
   border-radius: 20%;
 }
 
