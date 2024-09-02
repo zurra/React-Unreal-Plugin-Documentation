@@ -175,7 +175,7 @@ function NodeRender({ className }) {
                         <div key={item} className={styles.nodeCategory}>
                             <div className={styles.nodeCategoryInnerShadowBox}>
                                 <div className={styles.nodeCategoryTitle}> {item} </div>
-    
+
                                 {nodeMap[item].map((node, nodeIndex) => (
                                     <React.Fragment key={nodeIndex}>
                                         {nodeIndex > 0 && <div />}
@@ -209,7 +209,7 @@ function NodeRender({ className }) {
             )}
         </div>
     );
-    
+
 }
 
 function DoNodeTable({ node }) {
@@ -421,7 +421,7 @@ function DoNode({ node }) {
 
                             </div>
 
-                        )} 
+                        )}
                         {node.inputs.map((pin, index) => (
                             <DoNodeBPPin key={index} pin={pin} input={true} />
                         ))}
@@ -431,7 +431,7 @@ function DoNode({ node }) {
 
                 <div className={styles.nodeBPOutputsContainer}  >
 
-                    {nodeType === 'nonpure'  && (
+                    {(nodeType === 'nonpure' || nodeType === 'delegate') && (
                         <div className={styles.nodeBPOutputPinContainer} >
                             <DoExecIcon input={false} />
                         </div>
@@ -488,7 +488,6 @@ function DoDelegateNodeIcon({ color }) {
     return (
         <div className={styles.delegateNodeIcon} style={{
             '--pin-color': color,
-            ...extraStyle
         }} />
     );
 };
@@ -659,7 +658,13 @@ function GetIsPinTypeOf({ pin, typeToCheck }) {
 
 
 function GetNodeTypeIcon({ node }) {
-    let nodeType
+
+
+    let nodeType = GetNodeType({ node: node })
+
+
+
+
     if (node.functionTypes === "delegate") {
         nodeType = "delegate"
     }
@@ -729,8 +734,7 @@ export function GetPinTypeIcon({ pin }) {
 
 
                 const colors = GetPinIconColors({ pin, dataTypesToFind });
-                if(colors.length === 2)
-                {
+                if (colors.length === 2) {
                     return <DoMapIcon color1={colors[0]} color2={colors[1]} />;
                 }
             }
