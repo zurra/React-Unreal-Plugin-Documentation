@@ -642,7 +642,7 @@
   margin-top: 20px;
 }
 
-@media (max-width:775px) {
+/* @media (max-width:775px) {
   .propertyImageContainer {
     zoom: 0.8;
   }
@@ -660,15 +660,25 @@
   .grid {
     zoom: 0.6;
   }
-}
+} */
 
 @media (max-width:600px) {
   .propertyImageContainer {
-    zoom: 0.4;
+    zoom: 0.8;
   }
 
   .grid {
-    zoom: 0.4;
+    zoom: 0.6;
+  }
+}
+
+@media (max-width:450px) {
+  .propertyImageContainer {
+    zoom: 0.5;
+  }
+
+  .grid {
+    zoom: 0.6;
   }
 }
 

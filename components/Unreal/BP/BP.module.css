@@ -376,24 +376,24 @@
 
 
 @media (max-width:775px) {
-  .nodeBPGrid {
+  .nodeGrid {
       zoom: 0.8;
   }
 }
 
 @media (max-width:685px) {
-  .nodeBPGrid {
+  .nodeGrid {
       zoom: 0.6;
   }
 }
 
 @media (max-width:600px) {
-  .nodeBPGrid {
-      zoom: 0.4;
+  .nodeGrid {
+      zoom: 0.5;
   }
 }
 
-@media (max-width:540px) {
+/* @media (max-width:540px) {
   .topCell {
       zoom: 0;
       visibility: collapse;
@@ -402,7 +402,7 @@
   .nodeGrid{
     grid-template-columns: 1fr 0.1fr 1fr;
   }
-}
+} */
 
 
 .nodeBPHeaderContainer {
