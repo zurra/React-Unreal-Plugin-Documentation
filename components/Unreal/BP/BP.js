@@ -179,14 +179,15 @@ function NodeRender({ className }) {
                                 {nodeMap[item].map((node, nodeIndex) => (
                                     <React.Fragment key={nodeIndex}>
                                         {nodeIndex > 0 && <div />}
-                                        <div className={styles.nodeGrid}>
+                                        <div className={styles.nodeGrid} style={{
+                                            '--node-color': GetNodeColorAsCSSType({
+                                                nodeType: GetNodeType({ node }),
+                                                multiplier: 0.5,
+                                            }),
+                                        }}>
                                             <div
                                                 style={{
                                                     gridArea: '1 / 1 / span 5 / span 1',
-                                                    '--node-color': GetNodeColorAsCSSType({
-                                                        nodeType: GetNodeType({ node }),
-                                                        multiplier: 1.5,
-                                                    }),
                                                 }}
                                             ></div>
                                             <div
@@ -199,6 +200,12 @@ function NodeRender({ className }) {
                                                 }}
                                             />
                                             <DoNodeTable node={node} />
+                                        </div>
+                                        <div style={{
+                                            height: "50px",
+                                            background: "black"
+                                        }}>
+
                                         </div>
                                     </React.Fragment>
                                 ))}

@@ -62,19 +62,19 @@ const PropertiesPage = () => {
         }}>Nodes</h1>
       </div>
 
-       <div style={{ height: '25px',
+       {/* <div style={{ height: '25px',
         }}>
-        </div>
+        </div> */}
       <Node className="LXRMemoryComponent" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
 
-      <div style={{ height: '50px',
+      {/* <div style={{ height: '50px',
         }}>
-        </div>
+        </div> */}
       <Node className="LXRSourceComponent" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
 
-      <div style={{ height: '50px',
+      {/* <div style={{ height: '50px',
         }}>
-        </div>
+        </div> */}
       <Node className="QueryLXRTask" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
 
 
