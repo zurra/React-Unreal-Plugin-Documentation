@@ -8,7 +8,6 @@ const RelatedProperties = [
 		info: [
 			{
 				infoName: "Smart",
-				description: ["Light sources gets categorized by distance in either Far, Mid or Near categories.", "Categorizing uses ULXRDetectionComponent properties RelevancySmartDistanceMin and RelevancySmartDistanceMax."],
 				infoType: "property",
 				relevantProperties: [
 					"RelevancySmartDistanceMin",
@@ -18,7 +17,6 @@ const RelatedProperties = [
 			},
 			{
 				infoName: "Fixed",
-				description: "Check all lights known lights for relevancy defined by RelevancyCheckRate property.",
 				infoType: "property",
 				relevantProperties: [
 					"RelevancyCheckRate"
@@ -26,7 +24,6 @@ const RelatedProperties = [
 			},
 			{
 				infoName: "Octree",
-				description: "Use octree to iterate nearby lights for relevancy defined by RelevancyCheckRate property.",
 				infoType: "property",
 				relevantProperties: [
 					"RelevancyCheckRate",

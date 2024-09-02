@@ -131,7 +131,6 @@
   box-shadow: #330000 0px 0px 20px 10px;
   background: linear-gradient(360deg, #1b0101, #1b0000);
   overflow: hidden;
-  margin: 50px;
 }
 
 .nodeCategoryInnerShadowBox {
@@ -149,10 +148,13 @@
 
 
 .nodeBG {
-  grid-area: 1 /1 / span 2 / span 3;
+  grid-area: 1 /1 / span 1 / span 3;
   /* background: rgb(255, 255, 255); */
   /* background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(var(--node-color), 0.5) 25%, rgba(var(--node-color), 1) 50%, rgba(143, 0, 0, 0.5) 80%, rgba(15, 0, 0, 0) 100%); */
   background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(var(--node-color), 0.25) 25%, rgba(var(--node-color), 0.7) 40%, rgba(var(--node-color), 1) 50%, rgba(var(--node-color), 0.7) 60%, rgba(var(--node-color), 0.25) 80%, rgba(15, 0, 0, 0) 100%);
+  border-top: 1px solid rgba(var(--node-color), 1);
+  border-bottom: 1px solid rgba(var(--node-color), 1);
+  box-shadow: 0px 0px 20px 0px rgba(var(--node-color), 1);
 }
 
 .nodeTypeBGPure {
@@ -261,6 +263,7 @@
   border-bottom: 1px solid;
   border-color: var(--node-color);
   box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1);
+  margin: 15px 0px
 }
 
 .topRightCell {
@@ -271,6 +274,7 @@
     border-bottom: 1px solid;
     border-color: var(--node-color);
     box-Shadow: 0 0px 20px 9px rgb(0 0 0 / 1);
+    margin: 15px 0px
 }
 
 .middleCell {
@@ -283,15 +287,14 @@
 }
 
 .topCell {
-  display: flex;
-  grid-area: 1 / 1 / span 1 / span 3;
+  display: grid;
+  grid-area: 1 / 2 ;
   text-align: center;
-  border-top: 1px solid var(--node-color);
-  border-bottom: 1px solid var(--node-color);
   /* box-shadow: inset 0px 0px 20px 3px var(--node-color); */
   min-height: 60px;
-padding: 10px;
+  padding: 10px;
   place-content: center;
+  align-items: center;
 }
 
 .botCell {
@@ -325,7 +328,7 @@ padding: 10px;
 }
 
 .pin {
-  grid-template-rows: 25px 4px auto;
+  grid-template-rows: auto 4px auto;
   grid-template-columns: 10px auto 10px;
   display: grid;
   margin: 5px 0px;
@@ -334,7 +337,7 @@ padding: 10px;
 
 .nodePinTitle {
   grid-area: 1 / 2;
-  font-size: 1vw;
+  font-size: medium;
   /* color: white; */
   /* border-top: solid 1px; */
   color: rgb(223 223 223);
@@ -348,7 +351,7 @@ padding: 10px;
 .nodePinComment {
   color: rgb(169 169 169);
   /* border-bottom: solid 1px; */
-  font-size: 0.8vw;
+  font-size: small;
   /* margin-bottom: 15px; */
   grid-area: 3 / 2;
   /* border-left: solid 1px; */
@@ -365,8 +368,39 @@ padding: 10px;
   border-radius: 10px;
   margin-left: 2em;
   margin-right: 2em;
-  width: 30%;
 }
+
+
+
+@media (max-width:775px) {
+  .nodeBPGrid {
+      zoom: 0.8;
+  }
+}
+
+@media (max-width:685px) {
+  .nodeBPGrid {
+      zoom: 0.6;
+  }
+}
+
+@media (max-width:600px) {
+  .nodeBPGrid {
+      zoom: 0.4;
+  }
+}
+
+@media (max-width:540px) {
+  .topCell {
+      zoom: 0;
+      visibility: collapse;
+  }
+  
+  .nodeGrid{
+    grid-template-columns: 1fr 0.1fr 1fr;
+  }
+}
+
 
 .nodeBPHeaderContainer {
   font-size: medium;
@@ -412,14 +446,14 @@ padding: 10px;
 
 .nodeBPInputPinContainer {
   height: 30px;
-  grid-template-columns: 0.25fr 1fr;
+  grid-template-columns: 35px auto;
   display: grid;
   justify-items: left;
 }
 
 .nodeBPOutputPinContainer {
   height: 30px;
-  grid-template-columns: 1fr 0.25fr;
+  grid-template-columns: auto 35px;
   display: grid;
   justify-items: right;
 }
@@ -432,7 +466,7 @@ padding: 10px;
   align-content: center;
   font-weight: bold;
   /* bottom: 2px; */
-  font-size: 1vw;
+  /* font-size: larger; */
   grid-area: 1 / 2;
 }
 
@@ -443,7 +477,7 @@ padding: 10px;
   text-align: left;
   align-content: center;
   /* bottom: 2px; */
-  font-size: 0.9vw;
+  font-size: small;
   grid-area: 2 / 2;
 }
 
@@ -654,4 +688,14 @@ padding: 10px;
   height: 0;
   border-top: 50px solid #333;
   border-left: 50px solid transparent;
+}
+
+.separator {
+  height: 50px;
+  font-size: xx-large;
+  color: white;
+  text-align: center;
+  /* margin-bottom: 40px; */
+  border-color: #ededed;
+  margin-top: 20px;
 }

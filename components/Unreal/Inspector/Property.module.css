@@ -612,7 +612,7 @@ padding: 2px;
   align-content: center;
   font-weight: bold;
   top: 2px; 
-  font-size: 1vw;
+  font-size: small;
   grid-area: 1 / 2;
   text-align: center;
 }
@@ -625,7 +625,7 @@ padding: 2px;
   align-content: center;
   font-weight: bold;
   top: 2px; 
-  font-size: 1vw;
+  font-size: small;
   grid-area: 1 / 2;
   text-align: center;
 }

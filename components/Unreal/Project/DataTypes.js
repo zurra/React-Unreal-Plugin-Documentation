@@ -1,43 +1,9 @@
 const Delegates = [
 {
-	"name": "OnSeenBySilhouette",
-	"comments": [
-		"On Seen by Silhouette  Delegate Signature"
-	],
-	"data": [
-		{
-			"name": "Detector",
-			"dataType": "class",
-			"containerType": "single",
-			"object": "AActor*",
-			"description": "",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		}
-	],
-	"flags": [
-		"MulticastDelegate",
-		"Public",
-		"Delegate"
-	]
-},
-{
 	"name": "OnLightStateChanged",
-	"comments": [
-		"On Light State Changed  Delegate Signature"
-	],
+	"description": "On Light State Changed  Delegate Signature",
+	"comments": [],
 	"data": [
-		{
-			"name": "LightSourceComponent",
-			"dataType": "class",
-			"containerType": "single",
-			"object": "ULXRSourceComponent*",
-			"description": "",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		},
 		{
 			"name": "OldLightState",
 			"dataType": "enum",
@@ -66,46 +32,15 @@ const Delegates = [
 	]
 },
 {
-	"name": "OnLightComponentStateChanged",
-	"comments": [
-		"On Light Component State Changed  Delegate Signature"
-	],
+	"name": "OnSeenBySilhouette",
+	"description": "Does this work?",
+	"comments": [],
 	"data": [
 		{
-			"name": "LightSourceComponent",
+			"name": "Detector",
 			"dataType": "class",
 			"containerType": "single",
-			"object": "ULXRSourceComponent*",
-			"description": "",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		},
-		{
-			"name": "LightComponent",
-			"dataType": "class",
-			"containerType": "single",
-			"object": "ULightComponent*",
-			"description": "",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		},
-		{
-			"name": "OldLightComponentState",
-			"dataType": "enum",
-			"containerType": "single",
-			"object": "ELightState",
-			"description": "",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		},
-		{
-			"name": "NewLightComponentState",
-			"dataType": "enum",
-			"containerType": "single",
-			"object": "ELightState",
+			"object": "AActor*",
 			"description": "",
 			"comments": [],
 			"defaultValue": "",
@@ -120,9 +55,8 @@ const Delegates = [
 },
 {
 	"name": "OnMemorizedLightStateChanged",
-	"comments": [
-		"On Memorized Light State Changed  Delegate Signature"
-	],
+	"description": "On Memorized Light State Changed  Delegate Signature",
+	"comments": [],
 	"data": [
 		{
 			"name": "LightSourceComponent",
@@ -163,9 +97,8 @@ const Delegates = [
 },
 {
 	"name": "OnMemorizedLightComponentStateChanged",
-	"comments": [
-		"On Memorized Light Component State Changed  Delegate Signature"
-	],
+	"description": "On Memorized Light Component State Changed  Delegate Signature",
+	"comments": [],
 	"data": [
 		{
 			"name": "LightSourceComponent",
@@ -214,15 +147,289 @@ const Delegates = [
 		"Delegate"
 	]
 },
+{
+	"name": "OnQueryLXRDone",
+	"description": "On Query LXRDone  Delegate Signature",
+	"comments": [],
+	"data": [
+		{
+			"name": "TargetsLXR",
+			"dataType": "struct",
+			"containerType": "single",
+			"object": "FTargetsLXR",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "PassedData",
+			"dataType": "struct",
+			"containerType": "TSet",
+			"object": "FLightSourcePassedData",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": [
+		"MulticastDelegate",
+		"Public",
+		"Delegate"
+	]
+},
 ];
 const Structs = [
+{
+	"name": "FLightSourcePassedData",
+	"description": "Data about passed light sources, light components and targets.",
+	"comments": [
+		"Not really usable in Blueprint."
+	],
+	"data": [],
+	"flags": []
+},
+{
+	"name": "TargetsLXR",
+	"description": "Data about the final LXR",
+	"comments": [],
+	"data": [
+		{
+			"name": "TraceTargets",
+			"dataType": "struct",
+			"containerType": "TArray",
+			"object": "FVector",
+			"description": "ALL Trace Targets of this trace batch, not only passed ones.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "TargetsLXR",
+			"dataType": "int:struct",
+			"containerType": "TMap",
+			"object": "int:FLXR",
+			"description": "LXR amount of targets, key of map is index of TraceTargets array. Contains only passed targets.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "IlluminatedTargetsCount",
+			"dataType": "int",
+			"containerType": "single",
+			"object": "int",
+			"description": "Amount of illuminated targets",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		}
+	],
+	"flags": []
+},
+{
+	"name": "QueryLXRDebugOptions",
+	"description": "Query LXRDebug Options",
+	"comments": [],
+	"data": [
+		{
+			"name": "bDebugRelevancy",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "bDebugVisibility",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "bDebugLXR",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "bDebugLXR_OnlyPassed",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "DebugRelevancyDrawTime",
+			"dataType": "float",
+			"containerType": "single",
+			"object": "float",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "DebugVisibilityDrawTime",
+			"dataType": "float",
+			"containerType": "single",
+			"object": "float",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "DebugLXRDrawTime",
+			"dataType": "float",
+			"containerType": "single",
+			"object": "float",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		}
+	],
+	"flags": []
+},
+{
+	"name": "DominantColor",
+	"description": "Dominant Color",
+	"comments": [],
+	"data": [
+		{
+			"name": "Color",
+			"dataType": "enum",
+			"containerType": "single",
+			"object": "EDominantColor",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "ColorValue",
+			"dataType": "float",
+			"containerType": "single",
+			"object": "float",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		}
+	],
+	"flags": []
+},
+{
+	"name": "TraceTaskData",
+	"description": "Trace Task Data",
+	"comments": [],
+	"data": [],
+	"flags": []
+},
 ];
 const Enums = [
 {
-	"name": "ESocketPreset",
-	"comments": [
-		"Use preset sockets or custom one.."
+	"name": "EMethodToUse",
+	"description": "Method to use for ignore visibility actors.",
+	"comments": [],
+	"data": [
+		{
+			"name": "Class",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Class",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "Interface",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Interface",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "UObject",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "UObject",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
 	],
+	"flags": []
+},
+{
+	"name": "ESocketPreset",
+	"description": "Use preset sockets or custom one..",
+	"comments": [],
 	"data": [
 		{
 			"name": "UE4_Mannequin",
@@ -259,9 +466,8 @@ const Enums = [
 },
 {
 	"name": "ECheckQuality",
-	"comments": [
-		"Quality for Relevant Check"
-	],
+	"description": "Quality for Relevancy Check",
+	"comments": [],
 	"data": [
 		{
 			"name": "Low",
@@ -318,9 +524,8 @@ const Enums = [
 },
 {
 	"name": "ERelevancyCheckType",
-	"comments": [
-		"Method to use for checking if light is relevant"
-	],
+	"description": "Method to use for checking if light is relevant",
+	"comments": [],
 	"data": [
 		{
 			"name": "Fixed",
@@ -337,8 +542,13 @@ const Enums = [
 			"dataType": "EnumValue",
 			"containerType": "",
 			"object": "",
-			"description": "Calculate rate from distance to light.\nLights will be categorized in three different category:\nNear: Distance to light is less than RelevancySmartDistanceMin, light will be checked 4 times in second.\nMid: Distance to light is between RelevancySmartDistanceMin and RelevancySmartDistanceMax, light will be checked twice in second.\nFar: Distance to light is more than RelevancySmartDistanceMax, light will be checked every second.",
-			"comments": [],
+			"description": "Calculate rate from distance to light.",
+			"comments": [
+				"Lights will be categorized in three different category:",
+				"Near: Distance to light is less than RelevancySmartDistanceMin, light will be checked 4 times in second.",
+				"Mid: Distance to light is between RelevancySmartDistanceMin and RelevancySmartDistanceMax, light will be checked twice in second.",
+				"Far: Distance to light is more than RelevancySmartDistanceMax, light will be checked every second."
+			],
 			"defaultValue": "",
 			"metas": []
 		},
@@ -347,7 +557,7 @@ const Enums = [
 			"dataType": "EnumValue",
 			"containerType": "",
 			"object": "",
-			"description": "Lights",
+			"description": "Use octree to iterate nearby lights for relevancy defined by RelevancyCheckRate property.",
 			"comments": [],
 			"defaultValue": "",
 			"metas": []
@@ -357,9 +567,8 @@ const Enums = [
 },
 {
 	"name": "ETraceTarget",
-	"comments": [
-		"Target type to use for detection."
-	],
+	"description": "Target type to use for detection.",
+	"comments": [],
 	"data": [
 		{
 			"name": "ActorLocation",
@@ -406,9 +615,8 @@ const Enums = [
 },
 {
 	"name": "ETaskProcessType",
-	"comments": [
-		"Method to use for tracing checks."
-	],
+	"description": "Method to use for tracing checks.",
+	"comments": [],
 	"data": [
 		{
 			"name": "Sync",
@@ -434,10 +642,57 @@ const Enums = [
 	"flags": []
 },
 {
-	"name": "EMemoryCheckClass",
-	"comments": [
-		"Which class to use for Memory checks, either Detection or Sense."
+	"name": "EDominantColor",
+	"description": "",
+	"comments": [],
+	"data": [
+		{
+			"name": "None",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "Red",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "Green",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "Blue",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
 	],
+	"flags": []
+},
+{
+	"name": "EMemoryCheckClass",
+	"description": "Which class to use for Memory checks, either Detection or Sense.",
+	"comments": [],
 	"data": [
 		{
 			"name": "Detection",
@@ -455,6 +710,92 @@ const Enums = [
 			"containerType": "",
 			"object": "",
 			"description": "Sense.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": []
+},
+{
+	"name": "ETraceTransform",
+	"description": "Location and Direction to use for the sense cone.",
+	"comments": [],
+	"data": [
+		{
+			"name": "Actor",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "AI Pawn Location.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "ActorEyesViewPoint",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Actor Eyes.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "Socket",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Use Mesh Socket",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "Custom",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Custom.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "MethodObject",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Method Object.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": []
+},
+{
+	"name": "EEQSNormalizationType",
+	"description": "Specifies how to determine value span used to normalize scores",
+	"comments": [],
+	"data": [
+		{
+			"name": "Absolute",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Use 0 as the base of normalization range.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "RelativeToScores",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Use lowest item score as the base of normalization range.",
 			"comments": [],
 			"defaultValue": "",
 			"metas": []

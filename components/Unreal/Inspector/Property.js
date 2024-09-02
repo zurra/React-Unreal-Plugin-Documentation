@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Property.module.css';
 import Helpers from '../Helpers';
-import Tooltip from '../../tooltip';
-import { DoSingleIcon } from '../BP/BP';
-import ProjectSpecific from '../Project/ProjectSpecific';
+import Tooltip from '../../Utils/tooltip';
+import { DoSingleIcon, GetPinTypeIcon } from '../BP/BP';
 import Unreal_DataTypes from '../Unreal_DataTypes';
+import Classes from '../Project/Classes';
+
+let projectSpecificData
 let projectDataTypesData
 let classesData
 let classData
@@ -223,7 +225,7 @@ function PropertyRender({ className }) {
         const categoryToFind = CategorySubCategoryMap[item].category
         if (categoryToFind === undefined) return;
         console.log(categoryToFind);
-        const categoryPriority = ProjectSpecific.CategoryPriorities.find(data => data.category === item);
+        const categoryPriority = projectSpecificData.CategoryPriorities.find(data => data.category === item);
         let priority = "50";
         if (categoryPriority) {
             console.log(item.category + ":" + categoryPriority.priority)
@@ -281,42 +283,46 @@ function PropertyRender({ className }) {
     console.log(CategoryPriorities)
     return (
         <>
-
-<div className={styles.separator}>
-Properties
-            </div>
-            {CategorySubCategoryMap &&
-                Object.keys(CategorySubCategoryMap).map((CategoryClass, index) => {
-                    const category = CategorySubCategoryMap[CategoryClass];
-                    return (
-                        category.properties.length > 0 && (
-                            <div key={index} className={styles.propertyCategory}>
-                                <DoPropertyImageTitle CategoryClass={category} index={0} />
-                                <DoPropertyImageCategory CategoryClass={category} index={0} />
-                                <DoPropertyTableCategory CategoryClass={category} index={index} getter={false} />
-                            </div>
-                        )
-                    );
-                })
+            {/* Check if CategorySubCategoryMap is valid and has properties */}
+            {CategorySubCategoryMap && 
+                Object.keys(CategorySubCategoryMap).some(key => CategorySubCategoryMap[key].properties.length > 0) && (
+                    <>
+                        <div className={styles.separator}>Properties</div>
+                        {Object.keys(CategorySubCategoryMap).map((CategoryClass, index) => {
+                            const category = CategorySubCategoryMap[CategoryClass];
+                            return (
+                                category.properties.length > 0 && (
+                                    <div key={index} className={styles.propertyCategory}>
+                                        <DoPropertyImageTitle CategoryClass={category} index={0} />
+                                        <DoPropertyImageCategory CategoryClass={category} index={0} />
+                                        <DoPropertyTableCategory CategoryClass={category} index={index} getter={false} />
+                                    </div>
+                                )
+                            );
+                        })}
+                    </>
+                )
             }
-            <div className={styles.separator}>
-Getters
-            </div>
-
+    
+            {/* Check if CategorySubCategoryMapBPProp is valid and has properties */}
             {CategorySubCategoryMapBPProp &&
-                Object.keys(CategorySubCategoryMapBPProp).map((CategoryClass, index) => {
-                    const category = CategorySubCategoryMapBPProp[CategoryClass];
-                    return (
-                        category.properties.length > 0 && (
-                            <div key={index} className={styles.propertyCategory}>
-                                <DoPropertyImageTitle CategoryClass={category} index={0} />
-                                <DoPropertyTableCategory CategoryClass={category} index={index} getter={true} />
-                            </div>
-                        )
-                    );
-                })
+                Object.keys(CategorySubCategoryMapBPProp).some(key => CategorySubCategoryMapBPProp[key].properties.length > 0) && (
+                    <>
+                        <div className={styles.separator}>Getters</div>
+                        {Object.keys(CategorySubCategoryMapBPProp).map((CategoryClass, index) => {
+                            const category = CategorySubCategoryMapBPProp[CategoryClass];
+                            return (
+                                category.properties.length > 0 && (
+                                    <div key={index} className={styles.propertyCategory}>
+                                        <DoPropertyImageTitle CategoryClass={category} index={0} />
+                                        <DoPropertyTableCategory CategoryClass={category} index={index} getter={true} />
+                                    </div>
+                                )
+                            );
+                        })}
+                    </>
+                )
             }
-
         </>
     );
 }
@@ -364,6 +370,16 @@ function GetPropColor(prop) {
 
 function DoBPProperty({ property, PropertyOwner, category, index }) {
 
+    const pin = {}
+    pin.name = property.name
+    pin.dataType = property.dataType
+    pin.containerType = property.containerType
+    pin.object = property.object
+
+    const IconRender = GetPinTypeIcon({
+        pin: pin,
+    });
+
 
     let propertyColor = GetPropColor(property)
     return (
@@ -376,7 +392,15 @@ function DoBPProperty({ property, PropertyOwner, category, index }) {
                             {classData.className}
                         </div>
 
-                        <DoSingleIcon color={propertyColor} extraStyle={{ gridArea: "1/3", top: '4px' }} />
+                        <div style={{
+                            gridArea: '1 / 3',
+                            position: 'relative',
+                            top: '6px'
+                        }} >
+                            {GetPinTypeIcon({ pin: pin })}
+
+                        </div>
+
                     </div>
                 </div>
 
@@ -388,9 +412,17 @@ function DoBPProperty({ property, PropertyOwner, category, index }) {
                     <div className={styles.BPProperty} style={{
                         '--prop-color': propertyColor,
                         float: "left",
-                        boxShadow: 'inset 0px 0px 20px 3px var(--prop-color)'
+                        boxShadow: 'inset 0px 0px 5px 1px var(--prop-color)'
                     }} >
-                        <DoSingleIcon color={propertyColor} extraStyle={{ gridArea: "1/1", top: '4px' }} />
+
+                        <div style={{
+                            gridArea: '1 / 1',
+                            position: 'relative',
+                            top: '6px'
+                        }} >
+                            {GetPinTypeIcon({ pin: pin })}
+
+                        </div>
                         <div className={styles.BPPropertyName}>
                             {property.name}
                         </div>
@@ -761,7 +793,7 @@ function DoPropertyTable({ property }) {
         if (hasPropertyInfo) {
 
             if (potentialPropertyInfo === undefined) {
-                potentialPropertyInfo = ProjectSpecific.RelatedProperties.find(data => data.name === property.name);
+                potentialPropertyInfo = projectSpecificData.RelatedProperties.find(data => data.name === property.name);
             }
 
 
@@ -1332,20 +1364,40 @@ function DoInfo({ propertyData, info, count }) {
 
 
 
+export default function Properties({ className, datatypes, classes, projectSpecific }) {
+    // State for the currently selected class data
+    const [classData, setClassData] = useState(null);
 
-
-export default function Properties({ className, datatypes, classes }) {
+    // Effect to handle updates when className changes
+    useEffect(() => {
+        if (classes && className) {
+            // Find the class data for the given className
+            const foundClassData = classes.Classes.find(s => s.className === className);
+            setClassData(foundClassData);
+        }
+    }, [className, classes]); // Only re-run when className or classes change
 
     classesData = classes
+    projectSpecificData = projectSpecific
     projectDataTypesData = datatypes
     return (
         <section>
             <div className="container">
-                <div className="row" style={{ display: 'grid', width: '75%' }}>
-                    <PropertyRender key={className} className={className} />
+                <div className="row" style={{ display: 'grid' }}>
+                    {/* Ensure PropertyRender is rendered with the correct data */}
+                    {classData ? (
+                        <PropertyRender
+                            key={className}
+                            className={className}
+                            datatypes={datatypes}
+                            classes={classes}
+                            projectSpecific={projectSpecific}
+                        />
+                    ) : (
+                        <div>No data found for the selected class.</div>
+                    )}
                 </div>
             </div>
         </section>
     );
 }
-

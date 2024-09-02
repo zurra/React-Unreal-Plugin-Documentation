@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './BP.module.css';
 import Unreal_DataTypes from '../Unreal_DataTypes';
 import Helpers from '../Helpers';
-import Tooltip from '../../tooltip';
+import Tooltip from '../../Utils/tooltip';
 let projectDataTypesData
 let nodesData
 let nodeMap = {};
@@ -166,48 +166,50 @@ function NodeRender({ className }) {
     //     }
     // });
 
-
     return (
         <div>
             {nodeMap && (
-                <div>
+                <>
+                    <div className={styles.separator}>Nodes</div>
                     {Object.keys(nodeMap).map((item, index) => (
-                        <div className={styles.nodeCategory} >
+                        <div key={item} className={styles.nodeCategory}>
                             <div className={styles.nodeCategoryInnerShadowBox}>
                                 <div className={styles.nodeCategoryTitle}> {item} </div>
-
-
-                                {nodeMap[item].map((node, index) => (
-                                    <>
-                                        {index > 0 && (
-                                            <div />
-                                        )}
-                                        <div key={index} className={styles.nodeGrid} >
-                                            <div style={{
-                                                gridArea: '1 / 1 / span 5 / span 100',
-                                                '--node-color': GetNodeColorAsCSSType({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 }),
-
-                                            }}
+    
+                                {nodeMap[item].map((node, nodeIndex) => (
+                                    <React.Fragment key={nodeIndex}>
+                                        {nodeIndex > 0 && <div />}
+                                        <div className={styles.nodeGrid}>
+                                            <div
+                                                style={{
+                                                    gridArea: '1 / 1 / span 5 / span 1',
+                                                    '--node-color': GetNodeColorAsCSSType({
+                                                        nodeType: GetNodeType({ node }),
+                                                        multiplier: 1.5,
+                                                    }),
+                                                }}
                                             ></div>
-                                            {/* <div className={`${node.type === 'nonpure' ? styles.nodeTypeBGNonPure : node.type === 'delegate' ? styles.nodeTypeBGDelegate : node.type === 'pure' ? styles.nodeTypeBGPure : ''}`} /> */}
-                                            <div className={styles.nodeBG} style={{ '--node-color': GetNodeColorAsStringRGB({ nodeType: GetNodeType({ node: node }), multiplier: 1.5 }) }} />
-                                            <DoNodeTable key={index} node={node} />
+                                            <div
+                                                className={styles.nodeBG}
+                                                style={{
+                                                    '--node-color': GetNodeColorAsStringRGB({
+                                                        nodeType: GetNodeType({ node }),
+                                                        multiplier: 1.5,
+                                                    }),
+                                                }}
+                                            />
+                                            <DoNodeTable node={node} />
                                         </div>
-                                    </>
+                                    </React.Fragment>
                                 ))}
-
                             </div>
-
                         </div>
                     ))}
-
-                </div>
-
+                </>
             )}
-
-
         </div>
     );
+    
 }
 
 function DoNodeTable({ node }) {
@@ -390,7 +392,7 @@ function DoNode({ node }) {
         // <div className={`${node.type === 'nonpure' ? styles.nodeImageNonPure : node.type === 'delegate' ? styles.nodeImageDelegate : node.type === 'pure' ? styles.nodeImageBGPure : ''}`}>
         <div className={styles.nodeBPGrid} style={{ borderColor: nodeColor }}>
 
-            <div className={styles.nodeBPHeaderContainer} style={{ background: `repeating-radial-gradient(${darkerColor}, ${nodeColor} 500px)` }}>
+            <div className={styles.nodeBPHeaderContainer} style={{ background: `repeating-radial-gradient(${darkerColor}, ${nodeColor} 150%)` }}>
 
                 <div className={styles.nodeBPNodeIconContainer}>
                     <GetNodeTypeIcon node={node} />
@@ -419,7 +421,7 @@ function DoNode({ node }) {
 
                             </div>
 
-                        )}
+                        )} 
                         {node.inputs.map((pin, index) => (
                             <DoNodeBPPin key={index} pin={pin} input={true} />
                         ))}
@@ -429,7 +431,7 @@ function DoNode({ node }) {
 
                 <div className={styles.nodeBPOutputsContainer}  >
 
-                    {nodeType === 'nonpure' && (
+                    {nodeType === 'nonpure'  && (
                         <div className={styles.nodeBPOutputPinContainer} >
                             <DoExecIcon input={false} />
                         </div>
@@ -453,24 +455,30 @@ function DoNode({ node }) {
 export function DoSingleIcon({ color, extraStyle }) {
 
     return (
-        <div className={styles.single} style={{ 
+        <div className={styles.single} style={{
             '--pin-color': color,
             ...extraStyle
-    }} />
+        }} />
     );
 };
 
 function DoTaskNodeIcon({ color }) {
 
     return (
-        <div className={styles.taskIcon} />
+        <div className={styles.taskIcon} style={{
+            '--pin-color': color,
+            ...extraStyle
+        }} />
     );
 };
 
 function DoDelegateIcon({ color }) {
 
     return (
-        <div className={styles.delegateIcon} />
+        <div className={styles.delegateIcon} style={{
+            '--pin-color': color,
+            ...extraStyle
+        }} />
     );
 };
 
@@ -478,7 +486,10 @@ function DoDelegateIcon({ color }) {
 function DoDelegateNodeIcon({ color }) {
 
     return (
-        <div className={styles.delegateNodeIcon} />
+        <div className={styles.delegateNodeIcon} style={{
+            '--pin-color': color,
+            ...extraStyle
+        }} />
     );
 };
 
@@ -599,9 +610,18 @@ function DoArrayIcon({ color }) {
     );
 };
 
-function GetPinIconColors({ pin }) {
+function GetPinIconColors({ pin, dataTypesToFind }) {
     const color = [];
-    let datatypesToFind = []
+
+    if (dataTypesToFind) {
+        dataTypesToFind.forEach(datatype => {
+            const FoundDataType = Unreal_DataTypes.DataTypes.find(data => data.datatype === datatype);
+            if (FoundDataType) {
+                color.push(FoundDataType.color);
+            }
+        })
+        return color;
+    }
 
     if (typeof pin.dataType === 'undefined') {
         console.log(pin)
@@ -620,28 +640,21 @@ function GetPinIconColors({ pin }) {
     if (datatype.includes("Component")) {
         datatype = "UComponent"
     }
-    const FoundDataType = Unreal_DataTypes.DataTypes.find(data => data.datatype === datatype);
+
+    let FoundDataType = Unreal_DataTypes.DataTypes.find(data => data.datatype === datatype);
     if (FoundDataType) {
         return FoundDataType.color;
     }
 
-
-    datatypesToFind.forEach(datatype => {
-        const FoundDataType = Unreal_DataTypes.datatype.find(data => data.datatype === datatype);
-        if (FoundDataType) {
-            color.push(FoundDataType.color);
-        }
-    })
-
-    if (color.length == 1) {
-        return color[0]
+    FoundDataType = Unreal_DataTypes.DataTypes.find(data => data.datatype === pin.dataType.toLowerCase());
+    if (FoundDataType) {
+        return FoundDataType.color;
     }
 
-    return color;
 }
 
 function GetIsPinTypeOf({ pin, typeToCheck }) {
-    return pin.datatype === typeToCheck
+    return pin.dataType === typeToCheck
 }
 
 
@@ -684,10 +697,10 @@ function GetNodeTypeIcon({ node }) {
 
 }
 
-function GetPinTypeIcon({ pin }) {
+export function GetPinTypeIcon({ pin }) {
 
     let containertype = pin.containerType
-    if (pin.datatype === "delegate") {
+    if (pin.dataType === "delegate") {
         containertype = "delegate"
     }
 
@@ -706,7 +719,21 @@ function GetPinTypeIcon({ pin }) {
         case 'TSet':
             return <DoSetIcon color={color} />;
         case 'TMap':
-            return <DoMapIcon colors={color} />;
+            {
+                let dataTypesToFind = []
+
+
+                const dataTypesSplit = pin.dataType.split(":");
+                dataTypesToFind.push(dataTypesSplit[0]);
+                dataTypesToFind.push(dataTypesSplit[1]);
+
+
+                const colors = GetPinIconColors({ pin, dataTypesToFind });
+                if(colors.length === 2)
+                {
+                    return <DoMapIcon color1={colors[0]} color2={colors[1]} />;
+                }
+            }
         case 'single':
             return <DoSingleIcon color={color} />;
 
@@ -722,17 +749,17 @@ function GetExtraPins({ pin }) {
 
     if (GetIsPinTypeOf({ pin: pin, typeToCheck: "delegate" })) {
         dataObject = Helpers.FindObjectByDataTypeAndName({
-            dataType: pin.datatype,
-            objectName: pin.name,
+            dataType: pin.dataType,
+            objectName: pin.object,
             projectDataTypes: projectDataTypesData
         });
 
-        dataObject.data.forEach(extraPinData => {
-            const extraPin = {
-                name: extraPinData.name,
-                datatype: extraPinData.datatype,
-                containertype: extraPinData.containertype,
-            }
+        if (dataObject.foundObject === undefined) {
+            console.log("Shit!")
+            return extraPins
+        }
+        dataObject.foundObject.data.forEach(extraPinData => {
+            const extraPin = extraPinData
             extraPins.push(extraPin)
         });
     }
@@ -744,6 +771,9 @@ function DoNodeBPPin({ pin, input }) {
 
     let extraPins = GetExtraPins({ pin: pin })
 
+    if (pin.name.toLowerCase() === "returnvalue") {
+        pin.name = pin.object
+    }
     return (
         <>
             <div className={input ? styles.nodeBPInputPinContainer : styles.nodeBPOutputPinContainer} >
@@ -774,22 +804,34 @@ function DoNodePinInfo({ pin, count, extra, output = true }) {
     };
 
     if (pin.dataType === "delegate") {
-        const foundDelegate = projectDataTypesData.Delegates.find(delegate => delegate.name === pin.name);
+        const foundDelegate = projectDataTypesData.Delegates.find(delegate => delegate.name === pin.object);
         if (foundDelegate) {
             data = foundDelegate;
         }
     };
 
+    if (data !== undefined) {
+        descToUse.push(data.description)
+    }
     if (pin.description !== "") {
         descToUse.push(pin.description)
     }
-    if (descToUse === undefined || descToUse === "") {
+    if (descToUse === undefined || descToUse === "" || descToUse.length === 0) {
         descToUse = Array.isArray(pin.comments) ? pin.comments : [pin.comments];
     }
 
 
     if (descToUse.length === 0) {
-        descToUse.push("N/A");
+        if (pin.dataType === "struct") {
+            const foundStruct = projectDataTypesData.Structs.find(str => str.name === pin.object);
+            if (foundStruct) {
+                descToUse.push(foundStruct.description);
+
+                foundStruct.comments.forEach(comment => {
+                    descToUse.push(comment);
+                });
+            }
+        };
     }
 
 
