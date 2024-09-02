@@ -4,7 +4,6 @@ import Helpers from '../Helpers';
 import Tooltip from '../../Utils/tooltip';
 import { DoSingleIcon, GetPinTypeIcon } from '../BP/BP';
 import Unreal_DataTypes from '../Unreal_DataTypes';
-import Classes from '../Project/Classes';
 
 let projectSpecificData
 let projectDataTypesData

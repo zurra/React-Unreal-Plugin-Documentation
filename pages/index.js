@@ -28,7 +28,7 @@ const PropertiesPage = () => {
 
 
 
-      {/* <div style={{ height: '25px',
+      <div style={{ height: '25px',
         background: '#3f3f3f' }}>
         </div>
       <div style={{
@@ -60,14 +60,14 @@ const PropertiesPage = () => {
           color: "white",
           textAlign: 'center',
         }}>Nodes</h1>
-      </div> */}
+      </div>
 
        <div style={{ height: '25px',
         }}>
         </div>
       <Node className="LXRMemoryComponent" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
 
-      {/* <div style={{ height: '50px',
+      <div style={{ height: '50px',
         }}>
         </div>
       <Node className="LXRSourceComponent" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
@@ -75,7 +75,7 @@ const PropertiesPage = () => {
       <div style={{ height: '50px',
         }}>
         </div>
-      <Node className="QueryLXRTask" nodes={LXR_Classes} datatypes={LXR_DataTypes} /> */}
+      <Node className="QueryLXRTask" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
 
 
 
