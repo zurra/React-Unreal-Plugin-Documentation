@@ -641,7 +641,7 @@ function GetPinIconColors({ pin, dataTypesToFind }) {
         return
     }
 
-    let datatype = pin.dataType.toLowerCase();
+    let datatype = pin.dataType;
 
     if (datatype === "class") {
         datatype = pin.object

@@ -6,6 +6,10 @@ import LXR_Classes from '../components/Unreal/Project/Classes';
 import LXR_DataTypes from '../components/Unreal/Project/DataTypes';
 import LXR_Specific from '../components/Unreal/Project/ProjectSpecific';
 
+import RD_Classes from '../components/Unreal/RD/Classes';
+import RD_DataTypes from '../components/Unreal/RD/DataTypes';
+import RD_Specific from '../components/Unreal/RD/ProjectSpecific';
+
 
 const PropertiesPage = () => {
   return (
@@ -62,20 +66,41 @@ const PropertiesPage = () => {
         }}>Nodes</h1>
       </div>
 
+
+      <Node className="LXRMemoryComponent" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
+
+
+      <Node className="LXRSourceComponent" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
+
+
+      <Node className="QueryLXRTask" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
+
+      <h1 style={{
+          color: "white",
+          textAlign: 'center',
+        }}>RETROO</h1>
+
+      <Property className="RetroDebugSubSystem" classes={RD_Classes} datatypes={RD_DataTypes} projectSpecific={RD_Specific} />
+      <br></br>
+      <div style={{ height: '25px',
+        background: '#3f3f3f' }}>
+        </div>
+      <div style={{
+        alignContent: 'center',
+        background: '#850000',
+        boxShadow: 'inset 0px 0px 10px 5px',
+        border: 'solid #5f5f5f'
+      }}>
+        <h1 style={{
+          color: "white",
+          textAlign: 'center',
+        }}>Nodes</h1>
+      </div>
+
        {/* <div style={{ height: '25px',
         }}>
         </div> */}
-      <Node className="LXRMemoryComponent" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
-
-      {/* <div style={{ height: '50px',
-        }}>
-        </div> */}
-      <Node className="LXRSourceComponent" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
-
-      {/* <div style={{ height: '50px',
-        }}>
-        </div> */}
-      <Node className="QueryLXRTask" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
+      <Node className="RetroDebugSubSystem" nodes={RD_Classes} datatypes={RD_DataTypes} />
 
 
 
