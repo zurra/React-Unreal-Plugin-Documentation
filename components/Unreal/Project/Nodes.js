@@ -1,5 +1,214 @@
 const Nodes = [
 {
+	"name": "GetTraceTargetIndexBySocketName",
+	"comments": [
+		"Get Trace Target Index by Socket Name",
+		" Target is LXRDetection Component"
+	],
+	"functionTypes": [],
+	"inputs": [
+		{
+			"name": "SocketName",
+			"dataType": "FName",
+			"containerType": "single",
+			"object": "FName",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"outputs": [
+		{
+			"name": "ReturnValue",
+			"dataType": "int",
+			"containerType": "single",
+			"object": "int",
+			"description": "",
+			"comments": [
+				"Get Trace Target Index by Socket Name"
+			],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": [
+		"Final",
+		"Native",
+		"Public",
+		"BlueprintCallable",
+		"BlueprintPure"
+	]
+},
+{
+	"name": "GetSocketNameByTraceTargetIndex",
+	"comments": [
+		"Get Socket Name by Trace Target Index",
+		" Target is LXRDetection Component"
+	],
+	"functionTypes": [],
+	"inputs": [
+		{
+			"name": "TraceTargetIndex",
+			"dataType": "int",
+			"containerType": "single",
+			"object": "int",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"outputs": [
+		{
+			"name": "ReturnValue",
+			"dataType": "FName",
+			"containerType": "single",
+			"object": "FName",
+			"description": "",
+			"comments": [
+				"Get Socket Name by Trace Target Index"
+			],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": [
+		"Final",
+		"Native",
+		"Public",
+		"BlueprintCallable",
+		"BlueprintPure"
+	]
+},
+{
+	"name": "GetRelevantTraceTypeTargets",
+	"comments": [
+		"Get relevant trace type targets of this detection component.",
+		" Target is LXRDetection Component"
+	],
+	"functionTypes": [],
+	"inputs": [],
+	"outputs": [
+		{
+			"name": "ReturnValue",
+			"dataType": "struct",
+			"containerType": "TArray",
+			"object": "FVector",
+			"description": "Relevant Trace Type Targets",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": [
+		"Final",
+		"Native",
+		"Public",
+		"BlueprintCallable",
+		"BlueprintPure",
+		"Const"
+	]
+},
+{
+	"name": "GetPassedLights",
+	"comments": [
+		"Get all lights which has passed detection test.",
+		" Target is LXRDetection Component"
+	],
+	"functionTypes": [],
+	"inputs": [],
+	"outputs": [
+		{
+			"name": "ReturnValue",
+			"dataType": "class",
+			"containerType": "TArray",
+			"object": "AActor*",
+			"description": "Passed lights as Array of Actors",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": [
+		"Final",
+		"Native",
+		"Public",
+		"BlueprintCallable",
+		"BlueprintPure",
+		"Const"
+	]
+},
+{
+	"name": "GetPassedLightComponents",
+	"comments": [
+		"Get all light components of a light which has passed detection test.",
+		"If LightSourceOwner is not in passed list return empty array",
+		" Target is LXRDetection Component"
+	],
+	"functionTypes": [],
+	"inputs": [
+		{
+			"name": "LightSourceOwner",
+			"dataType": "class",
+			"containerType": "single",
+			"object": "AActor*",
+			"description": "Passed light actor to get components from.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"outputs": [
+		{
+			"name": "ReturnValue",
+			"dataType": "class",
+			"containerType": "TArray",
+			"object": "ULightComponent*",
+			"description": "Components of passed light.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": [
+		"Final",
+		"Native",
+		"Public",
+		"BlueprintCallable",
+		"BlueprintPure"
+	]
+},
+{
+	"name": "GetIlluminatedTargets",
+	"comments": [
+		"List of all illuminated targets",
+		" Target is LXRDetection Component"
+	],
+	"functionTypes": [],
+	"inputs": [],
+	"outputs": [
+		{
+			"name": "ReturnValue",
+			"dataType": "int:struct",
+			"containerType": "TMap",
+			"object": "int:FLXR",
+			"description": "",
+			"comments": [
+				"List of all illuminated targets"
+			],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": [
+		"Final",
+		"Native",
+		"Public",
+		"BlueprintCallable"
+	]
+},
+{
 	"name": "IsLightComponentEnabled",
 	"comments": [
 		"IF owner does not implement ILightSource::IsLightComponentEnabled, then use this function to determine if light component is enabled.",
@@ -148,7 +357,7 @@ const Nodes = [
 {
 	"name": "GetIsLightLodEnabled",
 	"comments": [
-		"Get actors to ignore when checking visibility.",
+		"Get is light lod system enabled.",
 		" Target is LXRSource Component"
 	],
 	"functionTypes": [],
@@ -161,7 +370,7 @@ const Nodes = [
 			"object": "ELightState",
 			"description": "",
 			"comments": [
-				"Get actors to ignore when checking visibility."
+				"Get is light lod system enabled."
 			],
 			"defaultValue": "",
 			"metas": []
@@ -323,108 +532,10 @@ const Nodes = [
 	]
 },
 {
-	"name": "GetRelevantTraceTypeTargets",
-	"comments": [
-		"Get relevant trace type targets of this detection component.",
-		" Target is LXRDetection Component"
-	],
-	"functionTypes": [],
-	"inputs": [],
-	"outputs": [
-		{
-			"name": "ReturnValue",
-			"dataType": "struct",
-			"containerType": "TArray",
-			"object": "FVector",
-			"description": "Relevant Trace Type Targets",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		}
-	],
-	"flags": [
-		"Final",
-		"Native",
-		"Public",
-		"BlueprintCallable",
-		"BlueprintPure",
-		"Const"
-	]
-},
-{
-	"name": "GetPassedLights",
-	"comments": [
-		"Get all lights which has passed detection test.",
-		" Target is LXRDetection Component"
-	],
-	"functionTypes": [],
-	"inputs": [],
-	"outputs": [
-		{
-			"name": "ReturnValue",
-			"dataType": "class",
-			"containerType": "TArray",
-			"object": "AActor*",
-			"description": "Passed lights as Array of Actors",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		}
-	],
-	"flags": [
-		"Final",
-		"Native",
-		"Public",
-		"BlueprintCallable",
-		"BlueprintPure",
-		"Const"
-	]
-},
-{
-	"name": "GetPassedLightComponents",
-	"comments": [
-		"Get all light components of a light which has passed detection test.",
-		"If LightSourceOwner is not in passed list return empty array",
-		" Target is LXRDetection Component"
-	],
-	"functionTypes": [],
-	"inputs": [
-		{
-			"name": "LightSourceOwner",
-			"dataType": "class",
-			"containerType": "single",
-			"object": "AActor*",
-			"description": "Passed light actor to get components from.",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		}
-	],
-	"outputs": [
-		{
-			"name": "ReturnValue",
-			"dataType": "class",
-			"containerType": "TArray",
-			"object": "ULightComponent*",
-			"description": "Components of passed light.",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		}
-	],
-	"flags": [
-		"Final",
-		"Native",
-		"Public",
-		"BlueprintCallable",
-		"BlueprintPure"
-	]
-},
-{
 	"name": "GetTopTarget",
 	"comments": [
 		"Get Top Target",
-		" Target is LXRIndirect Detector"
+		" Target is LXRFlux Light Detector Component"
 	],
 	"functionTypes": [],
 	"inputs": [],
@@ -455,7 +566,7 @@ const Nodes = [
 	"name": "GetBotTarget",
 	"comments": [
 		"Get Bot Target",
-		" Target is LXRIndirect Detector"
+		" Target is LXRFlux Light Detector Component"
 	],
 	"functionTypes": [],
 	"inputs": [],
@@ -480,83 +591,6 @@ const Nodes = [
 		"BlueprintCallable",
 		"BlueprintPure",
 		"Const"
-	]
-},
-{
-	"name": "StartThreadWorker",
-	"comments": [
-		"Start Thread Worker",
-		" Target is Light Detector"
-	],
-	"functionTypes": [],
-	"inputs": [],
-	"outputs": [],
-	"flags": [
-		"Final",
-		"Native",
-		"Public",
-		"BlueprintCallable"
-	]
-},
-{
-	"name": "GetColor",
-	"comments": [
-		"Get Color",
-		" Target is Light Detector"
-	],
-	"functionTypes": [],
-	"inputs": [],
-	"outputs": [
-		{
-			"name": "ReturnValue",
-			"dataType": "struct",
-			"containerType": "single",
-			"object": "FLinearColor",
-			"description": "",
-			"comments": [
-				"Get Color"
-			],
-			"defaultValue": "",
-			"metas": []
-		}
-	],
-	"flags": [
-		"Final",
-		"Native",
-		"Public",
-		"HasDefaults",
-		"BlueprintCallable",
-		"BlueprintPure"
-	]
-},
-{
-	"name": "GetBrightness",
-	"comments": [
-		"Get Brightness",
-		" Target is Light Detector"
-	],
-	"functionTypes": [],
-	"inputs": [],
-	"outputs": [
-		{
-			"name": "ReturnValue",
-			"dataType": "float",
-			"containerType": "single",
-			"object": "float",
-			"description": "",
-			"comments": [
-				"Get Brightness"
-			],
-			"defaultValue": "",
-			"metas": []
-		}
-	],
-	"flags": [
-		"Final",
-		"Native",
-		"Public",
-		"BlueprintCallable",
-		"BlueprintPure"
 	]
 },
 {
@@ -610,6 +644,109 @@ const Nodes = [
 		"Final",
 		"Native",
 		"Public",
+		"BlueprintCallable"
+	]
+},
+{
+	"name": "UpdateActorDebugFeatures",
+	"comments": [
+		"Update debug features for actor",
+		" Target is LXRDebug Subsystem"
+	],
+	"functionTypes": [],
+	"inputs": [
+		{
+			"name": "InActor",
+			"dataType": "class",
+			"containerType": "single",
+			"object": "AActor*",
+			"description": "Actor to modify debug features",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "InDebugFeatures",
+			"dataType": "struct",
+			"containerType": "single",
+			"object": "FLXRDebugFeatures",
+			"description": "new features.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"outputs": [],
+	"flags": [
+		"Final",
+		"Native",
+		"Public",
+		"HasOutParms",
+		"BlueprintCallable"
+	]
+},
+{
+	"name": "RemoveDebugActor",
+	"comments": [
+		"Remove added debug actor",
+		" Target is LXRDebug Subsystem"
+	],
+	"functionTypes": [],
+	"inputs": [
+		{
+			"name": "InActor",
+			"dataType": "class",
+			"containerType": "single",
+			"object": "AActor*",
+			"description": "Actor to remove",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"outputs": [],
+	"flags": [
+		"Final",
+		"Native",
+		"Public",
+		"BlueprintCallable"
+	]
+},
+{
+	"name": "AddDebugActor",
+	"comments": [
+		"Add new Debug Actor",
+		" Target is LXRDebug Subsystem"
+	],
+	"functionTypes": [],
+	"inputs": [
+		{
+			"name": "InActor",
+			"dataType": "class",
+			"containerType": "single",
+			"object": "AActor*",
+			"description": "Actor To Add",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "InDebugFeatures",
+			"dataType": "struct",
+			"containerType": "single",
+			"object": "FLXRDebugFeatures",
+			"description": "Features to enable.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"outputs": [],
+	"flags": [
+		"Final",
+		"Native",
+		"Public",
+		"HasOutParms",
 		"BlueprintCallable"
 	]
 },
@@ -865,7 +1002,7 @@ const Nodes = [
 			"name": "IlluminatedTargets",
 			"dataType": "struct",
 			"containerType": "single",
-			"object": "FTargetsLXR",
+			"object": "FTargetLXRData",
 			"description": "",
 			"comments": [
 				"Query Locations LXR"
@@ -881,6 +1018,58 @@ const Nodes = [
 		"Public",
 		"HasOutParms",
 		"BlueprintCallable"
+	]
+},
+{
+	"name": "LimbToSocketName",
+	"comments": [
+		"Limb to Socket Name",
+		" Target is LXRFunction Library"
+	],
+	"functionTypes": [],
+	"inputs": [
+		{
+			"name": "WorldContextObject",
+			"dataType": "class",
+			"containerType": "single",
+			"object": "UObject*",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "InLimb",
+			"dataType": "enum",
+			"containerType": "single",
+			"object": "EMannequinLimb",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"outputs": [
+		{
+			"name": "ReturnValue",
+			"dataType": "FName",
+			"containerType": "single",
+			"object": "FName",
+			"description": "",
+			"comments": [
+				"Limb to Socket Name"
+			],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": [
+		"Final",
+		"Native",
+		"Static",
+		"Public",
+		"BlueprintCallable",
+		"BlueprintPure"
 	]
 },
 {
@@ -1068,9 +1257,9 @@ const Nodes = [
 	]
 },
 {
-	"name": "GetLXR",
+	"name": "GetLux",
 	"comments": [
-		"Get LXR",
+		"Get Lux",
 		" Target is LXRFunction Library"
 	],
 	"functionTypes": [],
@@ -1124,17 +1313,27 @@ const Nodes = [
 			"comments": [],
 			"defaultValue": "",
 			"metas": []
+		},
+		{
+			"name": "MinLuxThreshold",
+			"dataType": "float",
+			"containerType": "single",
+			"object": "float",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
 		}
 	],
 	"outputs": [
 		{
-			"name": "TargetsLXR",
+			"name": "TargetLXRData",
 			"dataType": "struct",
 			"containerType": "single",
-			"object": "FTargetsLXR",
+			"object": "FTargetLXRData",
 			"description": "",
 			"comments": [
-				"Get LXR"
+				"Get Lux"
 			],
 			"defaultValue": "",
 			"metas": []
@@ -1146,7 +1345,7 @@ const Nodes = [
 			"object": "bool",
 			"description": "",
 			"comments": [
-				"Get LXR"
+				"Get Lux"
 			],
 			"defaultValue": "",
 			"metas": []
@@ -1987,7 +2186,7 @@ const Nodes = [
 			"name": "TargetsLXR",
 			"dataType": "struct",
 			"containerType": "single",
-			"object": "FTargetsLXR",
+			"object": "FTargetLXRData",
 			"description": "",
 			"comments": [],
 			"defaultValue": "",

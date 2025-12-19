@@ -5,14 +5,15 @@ import Tooltip from '../../Utils/tooltip';
 import { DoSingleIcon, GetPinTypeIcon } from '../BP/BP';
 import Unreal_DataTypes from '../Unreal_DataTypes';
 
-let projectSpecificData
-let projectDataTypesData
-let classesData
-let classData
-let CategorySubCategoryMap = {};
-let CategorySubCategoryMapBPProp = {};
+ let projectSpecificData
+ let projectDataTypesData
+ let usedStructs
 
-const GetPropertyDataByName = (propertyName) => {
+
+const GetPropertyDataByName = (classData,propertyName) => {
+    console.log("------------------------------------------ S")
+    console.log(classData)
+    console.log("------------------------------------------ e")
     for (const element of classData.classPropertyCategories) {
         const foundProperty = element.categoryProperties.find(property => property.name === propertyName);
         if (foundProperty)
@@ -22,7 +23,29 @@ const GetPropertyDataByName = (propertyName) => {
 }
 
 
-function PropertyRender({ className }) {
+function PropertyRender({
+    className,
+    classes,          // pass in your data as props
+    projectSpecific,
+    datatypes,
+  }) {
+  
+    // 2) fresh maps on every render (or useMemo below)
+    let CategorySubCategoryMap = {};
+    let CategorySubCategoryMapBPProp = {};
+  
+    // 3) helper now closes over local classData:
+    // const GetPropertyDataByName = name => {
+    //   for (const cat of classData.classPropertyCategories) {
+    //     const found = cat.categoryProperties.find(p => {
+    //       // if propertyData is array:
+    //       const propName = Array.isArray(p) ? p[0].name : p.name;
+    //       return propName === name;
+    //     });
+    //     if (found) return found;
+    //   }
+    //   return null;
+    // };
 
 
     // Function to recursively get the item from the nested map
@@ -95,7 +118,7 @@ function PropertyRender({ className }) {
         }
 
         const propertyName = GetPropertyNameIfArray(subCategoryProperty)
-        const foundProperty = GetPropertyDataByName(propertyName);
+        const foundProperty = GetPropertyDataByName(classData,propertyName);
 
         if (!CategoryTreeItem.subCategoryNames) {
             CategoryTreeItem.subCategoryNames = []; // Initialize as an empty array if it doesn't exist
@@ -144,7 +167,7 @@ function PropertyRender({ className }) {
     const FillCategoryProperties = ({ categoryItem, propName }) => {
 
         const propertyName = GetPropertyNameIfArray(propName)
-        const foundProperty = GetPropertyDataByName(propertyName);
+        const foundProperty = GetPropertyDataByName(classData,propertyName);
 
         if (!CategorySubCategoryMap[categoryItem.category].properties) {
             CategorySubCategoryMap[categoryItem.category].properties = []; // Initialize as an empty array if it doesn't exist
@@ -153,11 +176,16 @@ function PropertyRender({ className }) {
 
         if (foundProperty) {
 
+            if(propName.name == "DebugOptions")
+            {
+                console.log("I am an alert box!");
+
+            }
             if (foundProperty.metas.includes("CPF_Edit")) {
                 CategorySubCategoryMap[categoryItem.category].properties.push(foundProperty);
                 CategorySubCategoryMap[categoryItem.category].category = categoryItem.category;
             }
-            else if (foundProperty.metas.includes("CPF_BlueprintVisible")) {
+            else if (!foundProperty.metas.includes("CPF_BlueprintAssignable") && (foundProperty.metas.includes("CPF_BlueprintVisible") || foundProperty.metas.includes("CPF_NativeAccessSpecifierPublic"))) {
                 {
 
                     if (!Object.keys(CategorySubCategoryMapBPProp).includes(categoryItem.category)) {
@@ -190,9 +218,13 @@ function PropertyRender({ className }) {
     }
 
 
-    classData = classesData.Classes.find(s => s.className === className);
+    const projectSpecificData = projectSpecific
+    let classData = classes.Classes.find(c => c.className === className);
+    if (classData === undefined) return <div>No data for {className}</div>;
+
+
     let classProperties = classData.classPropertyCategories
-    // console.log(classRootProperties);
+     
     classProperties.forEach(item => {
         {
             CategorySubCategoryMap[item.category] = []
@@ -277,9 +309,7 @@ function PropertyRender({ className }) {
     CategorySubCategoryMap = ReOrderCategories(CategoryPriorities, CategorySubCategoryMap);
     CategorySubCategoryMapBPProp = ReOrderCategories(CategoryPriorities, CategorySubCategoryMapBPProp);
 
-    console.log(CategorySubCategoryMap);
-
-    console.log(CategoryPriorities)
+    
     return (
         <>
             {/* Check if CategorySubCategoryMap is valid and has properties */}
@@ -294,7 +324,7 @@ function PropertyRender({ className }) {
                                     <div key={index} className={styles.propertyCategory}>
                                         <DoPropertyImageTitle CategoryClass={category} index={0} />
                                         <DoPropertyImageCategory CategoryClass={category} index={0} />
-                                        <DoPropertyTableCategory CategoryClass={category} index={index} getter={false} />
+                                        <DoPropertyTableCategory CategoryClass={category} index={index} getter={false} InClassData={classData} />
                                     </div>
                                 )
                             );
@@ -314,7 +344,7 @@ function PropertyRender({ className }) {
                                 category.properties.length > 0 && (
                                     <div key={index} className={styles.propertyCategory}>
                                         <DoPropertyImageTitle CategoryClass={category} index={0} />
-                                        <DoPropertyTableCategory CategoryClass={category} index={index} getter={true} />
+                                        <DoPropertyTableCategory CategoryClass={category} index={index} getter={true} InClassData={classData} />
                                     </div>
                                 )
                             );
@@ -367,7 +397,7 @@ function GetPropColor(prop) {
     return color;
 }
 
-function DoBPProperty({ property, PropertyOwner, category, index }) {
+function DoBPProperty({InClassData, property, PropertyOwner, category, index }) {
 
     const pin = {}
     pin.name = property.name
@@ -375,10 +405,19 @@ function DoBPProperty({ property, PropertyOwner, category, index }) {
     pin.containerType = property.containerType
     pin.object = property.object
 
+
+
     const IconRender = GetPinTypeIcon({
         pin: pin,
     });
 
+    if(InClassData === undefined) 
+        {
+            console.log ("-------- EARLY RETURN ----------")
+            return
+        }
+
+        console.log("classData")
 
     let propertyColor = GetPropColor(property)
     return (
@@ -388,7 +427,7 @@ function DoBPProperty({ property, PropertyOwner, category, index }) {
                     <div className={styles.BPProperty} style={{ float: "right" }} >
 
                         <div className={styles.BPPropertyOwner}>
-                            {classData.className}
+                            {InClassData.className}
                         </div>
 
                         <div style={{
@@ -566,7 +605,7 @@ function DoPropertyImageCategory({ CategoryClass, index }) {
     }
 }
 
-function DoPropertyTableCategory({ CategoryClass, index, getter }) {
+function DoPropertyTableCategory({InClassData, CategoryClass, index, getter }) {
 
     let hasProperties = false;
 
@@ -577,18 +616,19 @@ function DoPropertyTableCategory({ CategoryClass, index, getter }) {
     if (!hasProperties)
         return;
 
+
     return (
         <>
             {CategoryClass.properties.map((prop, index) => (
                 <div key={index} className={styles.propertyGrid} style={{ marginBottom: "20px", padding: "10px" }}>
                     {getter ? (
                         <>
-                            <DoPropertyTable key={index} property={prop} />
+                            <DoPropertyTable key={index} property={prop} InClassData={InClassData} />
 
-                            <DoBPProperty key={index} property={prop} />
+                            <DoBPProperty key={index} property={prop} InClassData={InClassData} />
                         </>
                     ) : (
-                        <DoPropertyTable key={index} property={prop} />
+                        <DoPropertyTable key={index} property={prop} InClassData={InClassData} />
                     )}
                 </div>
             ))}
@@ -764,7 +804,7 @@ function DoPropertyImageElement({ property }) {
 }
 
 
-function DoPropertyTable({ property }) {
+function DoPropertyTable({InClassData, property }) {
 
     let propetyInfo;
     const IsPropDefinedInBP = false;
@@ -846,6 +886,7 @@ function DoPropertyTable({ property }) {
         console.log(propertyInfo);
     }
 
+    
 
     return (
         <React.Fragment>
@@ -932,33 +973,32 @@ function DoPropertyTable({ property }) {
 
             {hasPropertyInfo &&
 
-                <div className={styles.infoCell} >
+                <div className={styles.infoCell}>
+                    {propertyInfo.dataType === "struct" ? (
+                        // Struct case: render one DoInfo with the full info payload
 
-                    {propertyInfo.info.map((info, index) => (
-                        <div key={index} className={styles.propertyInfoContainer} >
-                            {/* {prop.infoType} */}
-                            <DoInfo propertyData={property} info={info} count={index} />
-
-                            {/*
-                            {prop.infoType == "property" &&
-                                <div>
-                                    <div className={styles.propertyInfoName}>{prop.infoName}</div>
-                                    <div className={styles.propertyInfoShortTitleDescription}>{prop.description}
-                                    </div>
-                                    {console.log(prop)}
-                                </div>
-
-                            }
-                            {prop.relatedProps.map((relatedProp, index2) => (
-                                <div key={index2} style={{ background: (prop.infoType === "property" ? index2 : index) % 2 === 0 ? '#220000' : '#140000' } }>
-
-                                    <DoPropertyInfo relatedProp={relatedProp} property={prop.infoType == "property"} prop={prop} />
-                                </div>
-                            ))} */}
-
-                        </div>
-
-                    ))}
+                            <div key="{idx}" className={styles.propertyInfoContainer}>
+                                <DoInfo
+                                    propertyData={propertyInfo}
+                                    info={propertyInfo.info[0]}
+                                    count="-1"
+                                    InClassData={InClassData}
+                                />
+                            </div>
+                        
+                    ) : (
+                        // Non-struct case: map over the info array
+                        propertyInfo.info.map((infoItem, idx) => (
+                            <div key={idx} className={styles.propertyInfoContainer}>
+                                <DoInfo
+                                    propertyData={property}
+                                    info={infoItem}
+                                    count={idx}
+                                    InClassData={InClassData}
+                                />
+                            </div>
+                        ))
+                    )}
                 </div>
             }
 
@@ -966,7 +1006,7 @@ function DoPropertyTable({ property }) {
     );
 }
 
-function DoInfo({ propertyData, info, count }) {
+function DoInfo({InClassData, propertyData, info, count }) {
 
     let relevantProperties = []
     let property = true;
@@ -1008,7 +1048,8 @@ function DoInfo({ propertyData, info, count }) {
             info.relevantProperties.forEach(relevantPropName => {
                 // const foundProperty = propertiesData.Properties.find(data => data.name === relevantPropName);
                 // const foundProperty = classData.classPropertyCategories.find(data => data.name === relevantPropName);
-                const foundProperty = GetPropertyDataByName(relevantPropName)
+                // const foundProperty = GetPropertyDataByName(InClassData,relevantPropName)
+                const foundProperty = GetPropertyDataByName(InClassData,relevantPropName)
                 if (foundProperty) {
                     relevantProperties.push(foundProperty);
                     dataObjectName = foundProperty.object
@@ -1016,6 +1057,8 @@ function DoInfo({ propertyData, info, count }) {
             });
         }
     }
+
+
 
     if (infoType === "struct" || infoType === "enum") {
         const result = Helpers.FindObjectByDataTypeAndName({
@@ -1035,7 +1078,7 @@ function DoInfo({ propertyData, info, count }) {
             if (result.foundObject.data.length > 0) {
                 if (typeof info.relevantProperties !== 'undefined') {
                     info.relevantProperties.forEach(relevantPropName => {
-                        const foundProperty = GetPropertyDataByName(relevantPropName)
+                        const foundProperty = GetPropertyDataByName(InClassData,relevantPropName)
                         if (foundProperty) {
                             relevantProperties.push(foundProperty);
                         }
@@ -1051,352 +1094,172 @@ function DoInfo({ propertyData, info, count }) {
             }
         }
     }
-
+    if (infoType === "struct") {
+        property = true
+        infoTitle = ""
+    }
 
     // console.log(infoTitle, relevantProperties, property)
     return (
         <>
-            {property ? (
-                <>
-                    <div className={styles.propertyInfoHeader}>
-                        <div className={styles.propertyInfoName}>{infoTitle}</div>
-                        {/* {dataObjectName && (<div className={styles.propertyInfoType}>{dataObjectType} : : {dataObjectName}</div>)} */}
+          {!property ? (
+            // ─── NO PROPERTY: “else” branch ────────────────────────────
+            <div className={styles.propertyInfoGridContainer}>
+              <div
+                className={styles.propertyGrid}
+                style={{ background: count % 2 === 0 ? '#220000' : '#140000' }}
+              >
+                <div className={styles.firstInfoCell}>
+                  <div
+                    className={styles.propertyTitle}
+                    style={{ gridArea: '1 / 1 / span 2 / span 1', alignSelf: 'center' }}
+                  >
+                    {info.infoName}
+                  </div>
+                </div>
+                <div className={styles.secondInfoCell} style={{ display: 'grid' }}>
+                  <div className={styles.propertyInfoDescription}>{info.description}</div>
+                </div>
+                {info.comments?.length > 0 && (
+                  <div
+                    style={{
+                      borderBottom: 'double',
+                      borderColor: '#470000',
+                      padding: '10px',
+                      gridArea: '3 / 1 / span 1 / span 3',
+                    }}
+                  >
+                    {info.comments.map((c, i) => (
+                      <li key={i}>{c}</li>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            // ─── PROPERTY EXISTS: “if” branch ──────────────────────────
+            <>
+              {/* ── HEADER (only when infoTitle has content) ── */}
+              {infoTitle?.trim() && (
+                <div className={styles.propertyInfoHeader}>
+                  <div className={styles.propertyInfoName}>{infoTitle}</div>
+                  {/* Uncomment if you need type/name */}
+                  {/* {dataObjectName && (
+                    <div className={styles.propertyInfoType}>
+                      {dataObjectType} :: {dataObjectName}
                     </div>
-
-                    {infoDescriptionSet && (
-                        <div className={styles.propertyInfoShortTitleDescription}>
-                            {infoDescription.map((comment, index) => (
-                                <div key={index} >{comment} </div>
-                            ))}
+                  )} */}
+                </div>
+              )}
+      
+              {/* ── DESCRIPTION (only when you showed the title) ── */}
+              {infoTitle?.trim() && infoDescriptionSet && (
+                <div className={styles.propertyInfoShortTitleDescription}>
+                  {infoDescription.map((comment, idx) => (
+                    <div key={idx}>{comment}</div>
+                  ))}
+                </div>
+              )}
+      
+              {/* ── GRID OF RELEVANT PROPERTIES ── */}
+              <div className={styles.propertyInfoGridContainer}>
+                {relevantProperties.map((relatedProp, idx) => (
+                  <div
+                    key={idx}
+                    className={styles.propertyGrid}
+                    style={{
+                      background: idx % 2 === 0 ? '#220000' : '#140000',
+                    }}
+                  >
+                    <Tooltip
+                      text="Relevant Property"
+                      style={{
+                        gridArea: '1 / 1 / span 1 / span 2',
+                        gridTemplateRows: 'auto auto',
+                        gridTemplateColumns: '70% 30%',
+                        alignContent: 'center',
+                        border: '1px solid #470000',
+                        justifyItems: 'left',
+                      }}
+                    >
+                      <div className={styles.firstInfoCell}>
+                        <div className={styles.propertyTitle}>{relatedProp.name}</div>
+                        <div className={styles.propertyDefault}>
+                          {relatedProp.defaultValue}
                         </div>
-                    )}
-                    {/*
-                    {infoDescriptionSet && (
-
-                        <div >
-                            <div className={styles.nodeComment}>
-                                {node.comments.map((comment, index) => (
-                                    <div key={index} >{comment} </div>
-                                ))}
-                            </div>
-
+                        <div className={styles.propertyType}>
+                          {relatedProp.dataType}
                         </div>
-                    )} */}
-
-                    <div className={styles.propertyInfoGridContainer}>
-                        {relevantProperties.map((relatedProp, index) => (
-
-                            <div className={styles.propertyGrid} style={{ background: index % 2 === 0 ? '#220000' : '#140000' }}>
-                                <Tooltip text="Relevant Property" style={{
-                                    gridArea: '1 / 1 / span 1 / span 2',
-                                    gridTemplateRows: 'auto auto',
-                                    gridTemplateColumns: '70% 30%',
-                                    alignContent: 'center',
-                                    borderRight: '1px solid',
-                                    borderBottom: '1px solid',
-                                    borderTop: '1px solid',
-                                    borderColor: '#470000',
-                                    justifyItems: 'left'
-                                }}>
-
-
-
-
-                                    <div className={styles.firstInfoCell} >
-
-                                        <div className={styles.propertyTitle}>{relatedProp.name}</div>
-                                        <div className={styles.propertyDefault}>{relatedProp.defaultValue}</div>
-                                        <div className={styles.propertyType}>{relatedProp.dataType}</div>
-
-                                    </div>
-                                </Tooltip>
-                                <div className={styles.secondInfoCell} style={{ display: 'grid' }} >
-                                    <div className={styles.propertyInfoDescription}>{relatedProp.description}</div>
-
-                                </div>
-
-                                {relatedProp.comments?.length > 0 && (
-                                    <div style={{ borderBottom: 'double', borderColor: "#470000", paddingLeft: "10px", gridArea: "3/ 1/ span 1/ span 4", padding: "10px" }}>
-                                        {relatedProp.comments.map((comment, index) => (
-                                            <div key={index} style={{ textAlign: 'left' }}>
-                                                <li>{comment}</li>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                      </div>
+                    </Tooltip>
+      
+                    <div className={styles.secondInfoCell} style={{ display: 'grid' }}>
+                      <div className={styles.propertyInfoDescription}>
+                        {relatedProp.description}
+                      </div>
+                    </div>
+      
+                    {relatedProp.comments?.length > 0 && (
+                      <div
+                        style={{
+                          borderBottom: 'double',
+                          borderColor: '#470000',
+                          padding: '10px',
+                          gridArea: '3 / 1 / span 1 / span 4',
+                        }}
+                      >
+                        {relatedProp.comments.map((c, i) => (
+                          <li key={i}>{c}</li>
                         ))}
-                    </div>
-
-                </>
-            ) : (
-
-                < >
-
-
-                    <div className={styles.propertyInfoGridContainer}>
-                        <div className={styles.propertyGrid} style={{ background: count % 2 === 0 ? '#220000' : '#140000' }}>
-
-                            <div className={styles.firstInfoCell} >
-                                <div className={styles.propertyTitle} style={{ gridArea: "1 / 1 / span 2 / span 1", alignSelf: "center" }} >{info.infoName}</div>
-                            </div>
-                            <div className={styles.secondInfoCell} style={{ display: 'grid' }} >
-                                <div className={styles.propertyInfoDescription}>{info.description}</div>
-                            </div>
-
-                            {info.comments?.length > 0 && (
-                                <div style={{ borderBottom: 'double', borderColor: "#470000", paddingLeft: "10px", gridArea: "3/ 1/ span 1/ span 3", padding: "10px" }}>
-                                    {info.comments.map((comment, index) => (
-                                        <div key={index} >
-                                            <li>{comment}</li>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
-
-                </>
-            )
-            }
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </>
-
-
-    );
+      );
+      
 };
 
-// function DoInfo({ info, count }) {
 
-//     let relevantProperties = []
-//     let propertyDraw = true;
-//     let infoTitle = infoObject.name;
-//     let infoDescription = [];
-//     let infoDescriptionSet = false;
+export default function Properties({
+    className,
+    datatypes,
+    classes,
+    projectSpecific,
+  }) {
+    // Synchronously derive the right class data every render
+    // classData = classes.Classes.find(s => s.className === className);
 
-//     if (typeof infoObject.description !== 'undefined') {
-//         infoDescriptionSet = true;
-//         if (Array.isArray(info.description)) {
-//             if (info.description.length > 1) {
-//                 infoDescription = info.description;
-//             }
-//             else {
-//                 infoDescription.push(info.description);
-//             }
-
-//         }
-//         else {
-//             infoDescription.push(info.description);
-//         }
-//     }
-
-//     const infoType = property.dataType;
-//     let dataObjectName;
-//     let dataObjectType;
-
-//     switch (infoType) {
-//         case 'enum':
-//             propertyDraw = false;
-//             break;
-//         case "struct":
-//             propertyDraw = true;
-//             break;
-//     }
-//     if (infoType === "property") {
-//         if (typeof info.relevantProperties !== 'undefined') {
-//             info.relevantProperties.forEach(relevantPropName => {
-//                 const foundProperty = classesData.Properties.find(data => data.name === relevantPropName);
-//                 if (foundProperty) {
-//                     relevantProperties.push(foundProperty);
-//                 }
-//             });
-//         }
-//     }
-
-//     if (infoType === "struct" || infoType === "enum") {
-//         const result = Helpers.FindObjectByDataTypeAndName({
-//             dataType: infoType,
-//             objectName: infoObject,
-//             projectDataTypes: projectDataTypesData
-//         });
-
-//         if (!result.foundObject) {
-//             // console.log(infoType, info, dataObject)
-//             propertyDraw = true
-//             infoTitle = "ERROR:::" + infoObject + " not Found  "
-//         }
-//         else {
-//             if (result.isProjectType) {
-//                 dataObjectName = result.foundObject.name
-//                 dataObjectType = infoType
-//                 if (result.foundObject.data.length > 0) {
-
-//                     relevantProperties = result.foundObject.data;
-
-//                 }
-//                 if (typeof infoTitle == 'undefined') {
-//                     infoTitle = result.foundObject.name;
-//                 }
-//             }
-//         }
-//     }
-
-
-//     // console.log(infoTitle, relevantProperties, property)
-//     return (
-//         <>
-//             {property ? (
-//                 <>
-//                     <div className={styles.propertyInfoHeader}>
-//                         <div className={styles.propertyInfoName}>{infoTitle}</div>
-//                         {dataObjectName && (<div className={styles.propertyInfoType}>{dataObjectType} : : {dataObjectName}</div>)}
-//                     </div>
-
-//                     {infoDescriptionSet && (
-//                         <div className={styles.propertyInfoShortTitleDescription}>
-//                             {infoDescription.map((comment, index) => (
-//                                 <div key={index} >{comment} </div>
-//                             ))}
-//                         </div>
-//                     )}
-//                     {/*
-//                     {infoDescriptionSet && (
-
-//                         <div >
-//                             <div className={styles.nodeComment}>
-//                                 {node.comments.map((comment, index) => (
-//                                     <div key={index} >{comment} </div>
-//                                 ))}
-//                             </div>
-
-//                         </div>
-//                     )} */}
-
-
-//                     {relevantProperties.map((relatedProp, index) => (
-
-//                         <div className={styles.propertyGrid}
-//                             style={{ background: index % 2 === 0 ? isBp ? 'midnightblue' : 'darkred' : isBp ? '#00004a' : "#580000" }}
-//                         >
-
-//                             <div className={styles.firstInfoCell} >
-//                                 <div className={styles.propertyTitle}>{relatedProp.name}</div>
-//                                 {/* <div className={styles.propertyDefault}>{relatedProp.defaultValue}</div> */}
-//                                 {/* <div className={styles.propertyType}>{relatedProp.dataType}</div> */}
-
-//                             </div>
-//                             <div className={styles.secondInfoCell} style={{
-//                                 display: 'grid',
-//                                 background: index % 2 === 0 ? isBp ? '#000048' : '#5c0000' : isBp ? '#00004a' : "#260000"
-//                             }}>
-//                                 <div className={styles.propertyInfoDescription}>{relatedProp.description}</div>
-
-//                                 {relatedProp.comments?.length > 0 && (
-//                                     <div style={{
-//                                         borderBottom: 'double',
-//                                         borderColor: '#470000',
-//                                         gridArea: '3/ 1/ span 1/ span 3',
-//                                         textAlign: 'center'
-//                                     }}>
-//                                         {relatedProp.comments.map((comment, index) => (
-//                                             <div key={index}>
-//                                                 <li>{comment}</li>
-//                                             </div>
-//                                         ))}
-//                                     </div>
-//                                 )}
-//                             </div>
-
-
-//                         </div>
-//                     ))}
-
-
-//                 </>
-//             ) : (
-
-//                 < >
-
-
-//                     {relevantProperties.map((relatedProp, index) => (
-
-//                         <div className={styles.propertyGrid}
-//                             style={{ background: index % 2 === 0 ? isBp ? 'midnightblue' : 'darkred' : isBp ? '#00004a' : "#580000" }}
-//                         >
-
-//                             <div className={styles.firstInfoCell} style={{
-//                                 borderBottom: 'unset'
-//                             }} >
-//                                 <div className={styles.propertyTitle} style={{ gridArea: "1 / 1 / span 2 / span 3", alignSelf: "center" }} >{relatedProp.name}</div>
-//                                 <div className={styles.propertyDefault}>{relatedProp.defaultValue}</div>
-//                                 <div className={styles.propertyType}>{relatedProp.dataType}</div>
-//                             </div>
-//                             <div className={styles.secondInfoCell} style={{
-//                                 display: 'grid',
-//                                 boxShadow: 'unset',
-//                                 borderTop: 'unset'
-//                             }} >
-
-//                                 <div className={styles.propertyInfoDescription}>{relatedProp.description}</div>
-//                                 {relatedProp.comments?.length > 0 && (
-//                                     <div style={{ borderBottom: 'double', borderColor: "#470000", paddingLeft: "10px", gridArea: "3/ 1/ span 1/ span 3", padding: "10px" }}>
-//                                         {relatedProp.comments.map((comment, index) => (
-//                                             <div key={index}>
-//                                                 <li>{comment}</li>
-//                                             </div>
-//                                         ))}
-//                                     </div>
-//                                 )}
-//                             </div>
-//                         </div>
-//                     ))}
-
-//                 </>
-//             )
-//             }
-//         </>
-
-
-//     );
-// };
-
-
-
-
-export default function Properties({ className, datatypes, classes, projectSpecific }) {
-    // State for the currently selected class data
-    const [classData, setClassData] = useState(null);
-
-    // Effect to handle updates when className changes
-    useEffect(() => {
-        if (classes && className) {
-            // Find the class data for the given className
-            const foundClassData = classes.Classes.find(s => s.className === className);
-            setClassData(foundClassData);
-        }
-    }, [className, classes]); // Only re-run when className or classes change
-
-    classesData = classes
-    projectSpecificData = projectSpecific
-    projectDataTypesData = datatypes
+    // classesData = classes
+     projectSpecificData = projectSpecific
+     projectDataTypesData = datatypes
+  
+    // if (!classData) {
+    //   return (
+    //     <section>
+    //       <div className="container">
+    //         <div className="row">No data found for “{className}”.</div>
+    //       </div>
+    //     </section>
+    //   );
+    // }
+  
     return (
-        <section>
-            <div className="container">
-                <div className="row" style={{ display: 'grid' }}>
-                    {/* Ensure PropertyRender is rendered with the correct data */}
-                    {classData ? (
-                        <PropertyRender
-                            key={className}
-                            className={className}
-                            datatypes={datatypes}
-                            classes={classes}
-                            projectSpecific={projectSpecific}
-                        />
-                    ) : (
-                        <div>No data found for the selected class.</div>
-                    )}
-                </div>
-            </div>
-        </section>
+      <section>
+        <div className="container">
+          <div className="row" style={{ display: 'grid' }}>
+            {/* key here is optional now—you’re remounting via prop lookup */}
+            <PropertyRender
+              className={className}
+              datatypes={datatypes}
+              classes={classes}
+              projectSpecific={projectSpecific}
+            />
+          </div>
+        </div>
+      </section>
     );
-}
+  }

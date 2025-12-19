@@ -1,843 +1,5 @@
 const Classes = [
 {
-	"className": "LXRSourceComponent",
-	"description": "",
-	"classPropertyCategories": [
-		{
-			"category": "LXR|Source|Debug",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "bDrawDebug",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "Should LightDetection component show debug about this light source actor.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bSolo",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "Disables detection from all other non-solo LXR Sources",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				}
-			]
-		},
-		{
-			"category": "LXR|Source",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "OverlapDetectionDistance",
-					"dataType": "float",
-					"containerType": "single",
-					"object": "float",
-					"description": "Defines the distance within which static actors are considered part of this Source Component.",
-					"comments": [
-						"Actors within this distance will be ignored when checking for visibility."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bDisable",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "Disables detection from all other non-solo LXR Sources",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bAlwaysRelevant",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "Should this light source actor be always relevant to Light Detection.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bAddDetected",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "Add detected actors to list. DetectionComponent bAddToSourceWhenDetected needs to be true.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "AttenuationMultiplierToBeRelevant",
-					"dataType": "float",
-					"containerType": "single",
-					"object": "float",
-					"description": "Attenuation multiplier to be relevant.",
-					"comments": [
-						"Light is relevant if Actor is closer than Attenuation * AttenuationMultiplierToBeRelevant."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "LXRMultiplier",
-					"dataType": "float",
-					"containerType": "single",
-					"object": "float",
-					"description": "LXR multiplier.",
-					"comments": [
-						"Multiplier to add to final LXR.",
-						"Added to all LightComponents unless overriden with LightLXRMultipliers variable."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "LXRColorMultiplier",
-					"dataType": "float",
-					"containerType": "single",
-					"object": "float",
-					"description": "LXR color multiplier.",
-					"comments": [
-						"Multiplier to add to final LXR color.",
-						"Added to all LightComponents unless overriden with LightLXRColorMultipliers variable."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "LXRSenseMultiplier",
-					"dataType": "float",
-					"containerType": "single",
-					"object": "float",
-					"description": "LXR multiplier for Sense.",
-					"comments": [
-						"Multiplier to add to Sense LXR."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "LXRSilhouetteMultiplier",
-					"dataType": "float",
-					"containerType": "single",
-					"object": "float",
-					"description": "LXR multiplier for Silhouette.",
-					"comments": [
-						"Multiplier to add to Silhouette LXR."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "LightLXRMultipliers",
-					"dataType": "struct",
-					"containerType": "TArray",
-					"object": "FLightSourceData",
-					"description": "LXR Intensity multiplier per LightComponent.",
-					"comments": [
-						"Overrides LXR Multiplier for light contained in array."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "LightLXRColorMultipliers",
-					"dataType": "struct",
-					"containerType": "TArray",
-					"object": "FLightSourceData",
-					"description": "LXR Color multiplier per LightComponent.",
-					"comments": [
-						" Overrides LXR Color Multiplier for light contained in array."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "ExcludedLights",
-					"dataType": "struct",
-					"containerType": "TArray",
-					"object": "FComponentReference",
-					"description": "List of LightComponents to exclude from LightDetection, Only used when GetMyLightComponentsMethodToUse is set to Class.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "IsEnabledMethodToUse",
-					"dataType": "enum",
-					"containerType": "single",
-					"object": "EMethodToUse",
-					"description": "Method to use for is actor light enabled",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "GetSourceActorStateMethodToUse",
-					"dataType": "enum",
-					"containerType": "single",
-					"object": "EMethodToUse",
-					"description": "Method to use for actor light state",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "GetLightComponentStateMethodToUse",
-					"dataType": "enum",
-					"containerType": "single",
-					"object": "EMethodToUse",
-					"description": "Method to use for light component state",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "IsLightComponentEnabledMethodToUse",
-					"dataType": "enum",
-					"containerType": "single",
-					"object": "EMethodToUse",
-					"description": "Method to use for if actor light component is enabled.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "GetMyLightComponentsMethodToUse",
-					"dataType": "enum",
-					"containerType": "single",
-					"object": "EMethodToUse",
-					"description": "Method to use for get my lights components.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "IgnoreVisibilityActorsMethodToUse",
-					"dataType": "enum",
-					"containerType": "single",
-					"object": "EMethodToUse",
-					"description": "Method to use for ignore visibility actors.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "LODDetectionMethodToUse",
-					"dataType": "enum",
-					"containerType": "single",
-					"object": "EMethodToUse",
-					"description": "Method to use for ignore visibility actors.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "LXRMethodObject",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FSoftClassPath",
-					"description": "Assign the LXRMethodObject to use which overrides the specified method.",
-					"comments": [
-						" If any of the Method To Use properties are set to UObject then field LXRMethodObject can be set."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "DetectedActors",
-					"dataType": "class",
-					"containerType": "TArray",
-					"object": "AActor*",
-					"description": "List of Detected actors.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "IgnoreVisibilityActors",
-					"dataType": "class",
-					"containerType": "TArray",
-					"object": "AActor*",
-					"description": "List of actors to ignore when checking visibility.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "MyLightComponents",
-					"dataType": "class",
-					"containerType": "TArray",
-					"object": "ULightComponent*",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierProtected"
-					]
-				}
-			]
-		},
-		{
-			"category": "LXR|Sense",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "bEnableLightSense",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "This actor can be sensed by light sense component",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				}
-			]
-		},
-		{
-			"category": "LXR|Memory",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "bIsMemorizable",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "This actor can be memorized by memory  component",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bBroadcastStateChanges",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "When enabled, SourceComponent will broadcast Light State changes.",
-					"comments": [
-						" OnLightStateChanged event can be implemented in BP or c++."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "OnLightStateChanged",
-					"dataType": "delegate",
-					"containerType": "single",
-					"object": "FOnLightStateChanged",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_BlueprintAssignable",
-						"CPF_NativeAccessSpecifierProtected"
-					]
-				}
-			]
-		},
-		{
-			"category": "None",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "MyOverlappingActors",
-					"dataType": "class",
-					"containerType": "TArray",
-					"object": "AActor*",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierProtected"
-					]
-				},
-				{
-					"name": "MethodObject",
-					"dataType": "class",
-					"containerType": "single",
-					"object": "ULXRMethodObject*",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierProtected"
-					]
-				}
-			]
-		},
-		{
-			"category": "LXR|LOD",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "OnLightLodStateChanged",
-					"dataType": "delegate",
-					"containerType": "single",
-					"object": "FOnLightStateChanged",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_BlueprintAssignable",
-						"CPF_NativeAccessSpecifierProtected"
-					]
-				}
-			]
-		}
-	],
-	"classNodeCategories": [
-		{
-			"category": "LXR|Source",
-			"categoryNodes": [
-				{
-					"name": "IsLightComponentEnabled",
-					"comments": [
-						"IF owner does not implement ILightSource::IsLightComponentEnabled, then use this function to determine if light component is enabled.",
-						" Target is LXRSource Component"
-					],
-					"functionTypes": [],
-					"inputs": [
-						{
-							"name": "LightComponent",
-							"dataType": "class",
-							"containerType": "single",
-							"object": "ULightComponent*",
-							"description": "",
-							"comments": [],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "bool",
-							"containerType": "single",
-							"object": "bool",
-							"description": "",
-							"comments": [
-								"IF owner does not implement ILightSource::IsLightComponentEnabled, then use this function to determine if light component is enabled."
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Final",
-						"Native",
-						"Public",
-						"BlueprintCallable",
-						"BlueprintPure",
-						"Const"
-					]
-				},
-				{
-					"name": "IsEnabled",
-					"comments": [
-						"IF owner does not implement ILightSource::IsEnabled, then use this function to determine if light source is enabled.",
-						" Target is LXRSource Component"
-					],
-					"functionTypes": [],
-					"inputs": [],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "bool",
-							"containerType": "single",
-							"object": "bool",
-							"description": "",
-							"comments": [
-								"IF owner does not implement ILightSource::IsEnabled, then use this function to determine if light source is enabled."
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Final",
-						"Native",
-						"Public",
-						"BlueprintCallable",
-						"BlueprintPure",
-						"Const"
-					]
-				},
-				{
-					"name": "GetLightState",
-					"comments": [
-						"Get Light State",
-						" Target is LXRSource Component"
-					],
-					"functionTypes": [],
-					"inputs": [],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "enum",
-							"containerType": "single",
-							"object": "ELightState",
-							"description": "",
-							"comments": [
-								"Get Light State"
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Final",
-						"Native",
-						"Public",
-						"BlueprintCallable",
-						"BlueprintPure",
-						"Const"
-					]
-				},
-				{
-					"name": "GetLightComponentState",
-					"comments": [
-						"Get Light Component State",
-						" Target is LXRSource Component"
-					],
-					"functionTypes": [],
-					"inputs": [
-						{
-							"name": "InComponent",
-							"dataType": "class",
-							"containerType": "single",
-							"object": "ULightComponent*",
-							"description": "",
-							"comments": [],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "enum",
-							"containerType": "single",
-							"object": "ELightState",
-							"description": "",
-							"comments": [
-								"Get Light Component State"
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Final",
-						"Native",
-						"Public",
-						"BlueprintCallable",
-						"BlueprintPure",
-						"Const"
-					]
-				},
-				{
-					"name": "GetIsLightLodEnabled",
-					"comments": [
-						"Get actors to ignore when checking visibility.",
-						" Target is LXRSource Component"
-					],
-					"functionTypes": [],
-					"inputs": [],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "enum",
-							"containerType": "single",
-							"object": "ELightState",
-							"description": "",
-							"comments": [
-								"Get actors to ignore when checking visibility."
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Native",
-						"Event",
-						"Public",
-						"BlueprintCallable",
-						"BlueprintEvent"
-					]
-				},
-				{
-					"name": "GetIgnoreVisibilityActors",
-					"comments": [
-						"Get actors to ignore when checking visibility.",
-						" Target is LXRSource Component"
-					],
-					"functionTypes": [],
-					"inputs": [],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "class",
-							"containerType": "TArray",
-							"object": "AActor*",
-							"description": "",
-							"comments": [
-								"Get actors to ignore when checking visibility."
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Native",
-						"Event",
-						"Public",
-						"BlueprintCallable",
-						"BlueprintEvent"
-					]
-				},
-				{
-					"name": "GetCombinedColorsByComponents",
-					"comments": [
-						"Get Combined Colors by Components",
-						" Target is LXRSource Component"
-					],
-					"functionTypes": [],
-					"inputs": [
-						{
-							"name": "LightComponents",
-							"dataType": "class",
-							"containerType": "TArray",
-							"object": "ULightComponent*",
-							"description": "",
-							"comments": [],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "struct",
-							"containerType": "single",
-							"object": "FLinearColor",
-							"description": "",
-							"comments": [
-								"Get Combined Colors by Components"
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Final",
-						"Native",
-						"Public",
-						"HasOutParms",
-						"HasDefaults",
-						"BlueprintCallable",
-						"BlueprintPure"
-					]
-				},
-				{
-					"name": "GetCombinedColorsByComponentIndices",
-					"comments": [
-						"Get Combined Colors by Component Indices",
-						" Target is LXRSource Component"
-					],
-					"functionTypes": [],
-					"inputs": [
-						{
-							"name": "Indices",
-							"dataType": "int",
-							"containerType": "TArray",
-							"object": "int",
-							"description": "",
-							"comments": [],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "struct",
-							"containerType": "single",
-							"object": "FLinearColor",
-							"description": "",
-							"comments": [
-								"Get Combined Colors by Component Indices"
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Final",
-						"Native",
-						"Public",
-						"HasOutParms",
-						"HasDefaults",
-						"BlueprintCallable",
-						"BlueprintPure"
-					]
-				},
-				{
-					"name": "GetCombinedColors",
-					"comments": [
-						"Get Combined Colors",
-						" Target is LXRSource Component"
-					],
-					"functionTypes": [],
-					"inputs": [],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "struct",
-							"containerType": "single",
-							"object": "FLinearColor",
-							"description": "",
-							"comments": [
-								"Get Combined Colors"
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Final",
-						"Native",
-						"Public",
-						"HasDefaults",
-						"BlueprintCallable",
-						"BlueprintPure"
-					]
-				}
-			]
-		}
-	]
-},
-{
 	"className": "LXRDetectionComponent",
 	"description": "",
 	"classPropertyCategories": [
@@ -847,39 +9,11 @@ const Classes = [
 			"onlyInPropertyImage": false,
 			"categoryProperties": [
 				{
-					"name": "bDrawDebug",
-					"dataType": "bool",
+					"name": "DebugOptions",
+					"dataType": "struct",
 					"containerType": "single",
-					"object": "bool",
-					"description": "Render debug shapes, also needs to be enabled on Light Source Component.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bPrintDebug",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "Print debug messages, if bDrawDebug is enabled on Light Source Component.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bDebugRelevantAndPassed",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "Debug Render Relevant lights & Passed lights",
+					"object": "FQueryLXRDebugOptions",
+					"description": "Debug Options to use.",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
@@ -899,19 +33,6 @@ const Classes = [
 					"metas": [
 						"CPF_Edit",
 						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "DebugDrawTime",
-					"dataType": "float",
-					"containerType": "single",
-					"object": "float",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -936,6 +57,19 @@ const Classes = [
 			"onlyInPropertyImage": false,
 			"categoryProperties": [
 				{
+					"name": "SkeletalMeshComponent",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FComponentReference",
+					"description": "Which Skeletal Mesh Component use if many are present.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Edit",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
 					"name": "SocketPreset",
 					"dataType": "enum",
 					"containerType": "single",
@@ -950,14 +84,16 @@ const Classes = [
 				},
 				{
 					"name": "TargetSockets",
-					"dataType": "FName",
-					"containerType": "TArray",
-					"object": "FName",
+					"dataType": "FName:float",
+					"containerType": "TMap",
+					"object": "FName:float",
 					"description": "Bones or sockets to use as detection targets",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
+						"CPF_BlueprintVisible",
+						"CPF_BlueprintReadOnly",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -971,6 +107,8 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
+						"CPF_BlueprintVisible",
+						"CPF_BlueprintReadOnly",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -989,33 +127,18 @@ const Classes = [
 					]
 				},
 				{
-					"name": "bGetIlluminatedTargets",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "Gets illuminated targets and their LXR value.",
-					"comments": [
-						" Causes some extra calculations."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
 					"name": "IgnoreVisibilityActors",
 					"dataType": "class",
 					"containerType": "TArray",
-					"object": "AActor*",
+					"object": "TObjectPtr<AActor>",
 					"description": "List of actors to ignore when checking visibility.",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
 						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
+						"CPF_NativeAccessSpecifierPublic",
+						"CPF_ExperimentalOverridableLogic"
 					]
 				}
 			]
@@ -1190,6 +313,128 @@ const Classes = [
 			]
 		},
 		{
+			"category": "LXR|Detection|Smoothing",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "LuxValueSmoothSpeed",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Edit",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXR|Detection|Lux",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "LuxReturnType",
+					"dataType": "enum",
+					"containerType": "single",
+					"object": "ELuxReturnType",
+					"description": "Determines how Lux capture data is summarized.",
+					"comments": [
+						"Choose between averaging all sockets, only lit sockets, taking the brightest value, or using socket-specific importance weighting."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Edit",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "GetWeightedAverage",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Edit",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "WeightToUseAboveMinLuxThreshold",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Edit",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "WeightedMinLuxThreshold",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "Lux amount target must have to be considered as valid for Lux calculation",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Edit",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "MinLuxThreshold",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "Lux amount target must have to be considered as valid for Lux calculation",
+					"comments": [
+						"Used for Weighted Socket"
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Edit",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "MinimumCoveragePercent",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "% of lit sockets required",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Edit",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "LowCoveragePenaltyMultiplier",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "Multiplier if low coverage",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Edit",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
 			"category": "LXR|Detection|Relevant",
 			"image": "",
 			"onlyInPropertyImage": false,
@@ -1231,6 +476,7 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
+						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -1320,7 +566,7 @@ const Classes = [
 					"containerType": "single",
 					"object": "FLinearColor",
 					"description": "Combined LXR color from all received LXR Sources",
-					"comments": ["Color combined from all targets."],
+					"comments": [],
 					"defaultValue": "",
 					"metas": [
 						"CPF_BlueprintVisible",
@@ -1334,20 +580,6 @@ const Classes = [
 					"containerType": "single",
 					"object": "float",
 					"description": "Combined LXR intensity from all received LXR Sources",
-					"comments": ["Value combined from all targets."],
-					"defaultValue": "",
-					"metas": [
-						"CPF_BlueprintVisible",
-						"CPF_BlueprintReadOnly",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "IlluminatedTargets",
-					"dataType": "int:struct",
-					"containerType": "TMap",
-					"object": "int:FLinearColor",
-					"description": "List of all illuminated targets",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
@@ -1390,36 +622,26 @@ const Classes = [
 					"name": "MemoryComponent",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "ULXRMemoryComponent*",
+					"object": "TObjectPtr<ULXRMemoryComponent>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_NativeAccessSpecifierPrivate",
+						"CPF_ExperimentalOverridableLogic"
 					]
 				},
 				{
 					"name": "LXRSubsystem",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "ULXRSubsystem*",
+					"object": "TObjectPtr<ULXRSubsystem>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				},
-				{
-					"name": "DetectionDebugWidget",
-					"dataType": "TWeakObjectPtr<UUserWidget>",
-					"containerType": "single",
-					"object": "TWeakObjectPtr<UUserWidget>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_NativeAccessSpecifierPrivate",
+						"CPF_ExperimentalOverridableLogic"
 					]
 				},
 				{
@@ -1471,43 +693,7 @@ const Classes = [
 					]
 				},
 				{
-					"name": "RelevantLights",
-					"dataType": "TWeakObjectPtr<AActor>",
-					"containerType": "TArray",
-					"object": "TWeakObjectPtr<AActor>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				},
-				{
-					"name": "RelevantLightsPassed",
-					"dataType": "TWeakObjectPtr<AActor>",
-					"containerType": "TArray",
-					"object": "TWeakObjectPtr<AActor>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				},
-				{
 					"name": "NewRelevantLightsToAdd",
-					"dataType": "TWeakObjectPtr<AActor>",
-					"containerType": "TArray",
-					"object": "TWeakObjectPtr<AActor>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				},
-				{
-					"name": "RelevantLightsToRemove",
 					"dataType": "TWeakObjectPtr<AActor>",
 					"containerType": "TArray",
 					"object": "TWeakObjectPtr<AActor>",
@@ -1687,21 +873,109 @@ const Classes = [
 					]
 				},
 				{
-					"name": "SkeletalMeshComponent",
+					"name": "RealSkeletalMeshComponent",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "USkeletalMeshComponent*",
+					"object": "TObjectPtr<USkeletalMeshComponent>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_NativeAccessSpecifierPrivate",
+						"CPF_ExperimentalOverridableLogic"
 					]
 				}
 			]
 		}
 	],
 	"classNodeCategories": [
+		{
+			"category": "LXR|Detection| Illuminated Targets",
+			"categoryNodes": [
+				{
+					"name": "GetTraceTargetIndexBySocketName",
+					"comments": [
+						"Get Trace Target Index by Socket Name",
+						" Target is LXRDetection Component"
+					],
+					"functionTypes": [],
+					"inputs": [
+						{
+							"name": "SocketName",
+							"dataType": "FName",
+							"containerType": "single",
+							"object": "FName",
+							"description": "",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "int",
+							"containerType": "single",
+							"object": "int",
+							"description": "",
+							"comments": [
+								"Get Trace Target Index by Socket Name"
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"BlueprintCallable",
+						"BlueprintPure"
+					]
+				},
+				{
+					"name": "GetSocketNameByTraceTargetIndex",
+					"comments": [
+						"Get Socket Name by Trace Target Index",
+						" Target is LXRDetection Component"
+					],
+					"functionTypes": [],
+					"inputs": [
+						{
+							"name": "TraceTargetIndex",
+							"dataType": "int",
+							"containerType": "single",
+							"object": "int",
+							"description": "",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "FName",
+							"containerType": "single",
+							"object": "FName",
+							"description": "",
+							"comments": [
+								"Get Socket Name by Trace Target Index"
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"BlueprintCallable",
+						"BlueprintPure"
+					]
+				}
+			]
+		},
 		{
 			"category": "LXR|Detection| Trace Targets",
 			"categoryNodes": [
@@ -1809,15 +1083,1073 @@ const Classes = [
 					]
 				}
 			]
+		},
+		{
+			"category": "LXR|Detection| Passed",
+			"categoryNodes": [
+				{
+					"name": "GetIlluminatedTargets",
+					"comments": [
+						"List of all illuminated targets",
+						" Target is LXRDetection Component"
+					],
+					"functionTypes": [],
+					"inputs": [],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "int:struct",
+							"containerType": "TMap",
+							"object": "int:FLXR",
+							"description": "",
+							"comments": [
+								"List of all illuminated targets"
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"BlueprintCallable"
+					]
+				}
+			]
 		}
 	]
 },
 {
-	"className": "LXRIndirectDetector",
+	"className": "LXRSourceComponent",
 	"description": "",
 	"classPropertyCategories": [
 		{
-			"category": "LXR|Detection|Indirect",
+			"category": "LXR|Source|Debug",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "bDrawDebug",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "Should LightDetection component show debug about this light source actor.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "bSolo",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "Disables detection from all other non-solo LXR Sources",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXR|Source",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "OverlapDetectionDistance",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "Defines the distance within which static actors are considered part of this Source Component.",
+					"comments": [
+						"Actors within this distance will be ignored when checking for visibility."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "bDisable",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "Disables detection from all other non-solo LXR Sources",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "bAlwaysRelevant",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "Should this light source actor be always relevant to Light Detection.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "bAddDetected",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "Add detected actors to list. DetectionComponent bAddToSourceWhenDetected needs to be true.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "AttenuationMultiplierToBeRelevant",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "Attenuation multiplier to be relevant.",
+					"comments": [
+						"Light is relevant if Actor is closer than Attenuation * AttenuationMultiplierToBeRelevant."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "LXRMultiplier",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "LXR multiplier.",
+					"comments": [
+						"Multiplier to add to final LXR.",
+						"Added to all LightComponents unless overriden with LightLXRMultipliers variable."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "LXRColorMultiplier",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "LXR color multiplier.",
+					"comments": [
+						"Multiplier to add to final LXR color.",
+						"Added to all LightComponents unless overriden with LightLXRColorMultipliers variable."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "LXRSenseMultiplier",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "LXR multiplier for Sense.",
+					"comments": [
+						"Multiplier to add to Sense LXR."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "LXRSilhouetteMultiplier",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "LXR multiplier for Silhouette.",
+					"comments": [
+						"Multiplier to add to Silhouette LXR."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "LightLXRMultipliers",
+					"dataType": "struct",
+					"containerType": "TArray",
+					"object": "FLightSourceData",
+					"description": "LXR Intensity multiplier per LightComponent.",
+					"comments": [
+						"Overrides LXR Multiplier for light contained in array."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "LightLXRColorMultipliers",
+					"dataType": "struct",
+					"containerType": "TArray",
+					"object": "FLightSourceData",
+					"description": "LXR Color multiplier per LightComponent.",
+					"comments": [
+						" Overrides LXR Color Multiplier for light contained in array."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "ExcludedLights",
+					"dataType": "struct",
+					"containerType": "TArray",
+					"object": "FComponentReference",
+					"description": "List of LightComponents to exclude from LightDetection, Only used when GetMyLightComponentsMethodToUse is set to Class.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "IsEnabledMethodToUse",
+					"dataType": "enum",
+					"containerType": "single",
+					"object": "EMethodToUse",
+					"description": "Method to use for is actor light enabled",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "GetSourceActorStateMethodToUse",
+					"dataType": "enum",
+					"containerType": "single",
+					"object": "EMethodToUse",
+					"description": "Method to use for actor light state",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "GetLightComponentStateMethodToUse",
+					"dataType": "enum",
+					"containerType": "single",
+					"object": "EMethodToUse",
+					"description": "Method to use for light component state",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "IsLightComponentEnabledMethodToUse",
+					"dataType": "enum",
+					"containerType": "single",
+					"object": "EMethodToUse",
+					"description": "Method to use for if actor light component is enabled.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "GetMyLightComponentsMethodToUse",
+					"dataType": "enum",
+					"containerType": "single",
+					"object": "EMethodToUse",
+					"description": "Method to use for get my lights components.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "IgnoreVisibilityActorsMethodToUse",
+					"dataType": "enum",
+					"containerType": "single",
+					"object": "EMethodToUse",
+					"description": "Method to use for ignore visibility actors.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "LODDetectionMethodToUse",
+					"dataType": "enum",
+					"containerType": "single",
+					"object": "EMethodToUse",
+					"description": "Method to use for ignore visibility actors.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "LXRMethodObject",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FSoftClassPath",
+					"description": "Assign the LXRMethodObject to use which overrides the specified method.",
+					"comments": [
+						" If any of the Method To Use properties are set to UObject then field LXRMethodObject can be set."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "DetectedActors",
+					"dataType": "class",
+					"containerType": "TArray",
+					"object": "TObjectPtr<AActor>",
+					"description": "List of Detected actors.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic",
+						"CPF_ExperimentalOverridableLogic"
+					]
+				},
+				{
+					"name": "IgnoreVisibilityActors",
+					"dataType": "class",
+					"containerType": "TArray",
+					"object": "TObjectPtr<AActor>",
+					"description": "List of actors to ignore when checking visibility.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic",
+						"CPF_ExperimentalOverridableLogic"
+					]
+				},
+				{
+					"name": "MyLightComponents",
+					"dataType": "class",
+					"containerType": "TArray",
+					"object": "TObjectPtr<ULightComponent>",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_BlueprintReadOnly",
+						"CPF_Protected",
+						"CPF_ExperimentalOverridableLogic"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXR|Sense",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "bEnableLightSense",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "This actor can be sensed by light sense component",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXR|Memory",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "bIsMemorizable",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "This actor can be memorized by memory  component",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "bBroadcastStateChanges",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "When enabled, SourceComponent will broadcast Light State changes.",
+					"comments": [
+						" OnLightStateChanged event can be implemented in BP or c++."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_BlueprintReadOnly",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "OnLightStateChanged",
+					"dataType": "delegate",
+					"containerType": "single",
+					"object": "FOnLightStateChanged",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_BlueprintAssignable",
+						"CPF_Protected"
+					]
+				}
+			]
+		},
+		{
+			"category": "None",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "MyOverlappingActors",
+					"dataType": "class",
+					"containerType": "TArray",
+					"object": "TObjectPtr<AActor>",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Protected",
+						"CPF_ExperimentalOverridableLogic"
+					]
+				},
+				{
+					"name": "MethodObject",
+					"dataType": "class",
+					"containerType": "single",
+					"object": "TObjectPtr<ULXRMethodObject>",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_Protected",
+						"CPF_ExperimentalOverridableLogic"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXR|LOD",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "OnLightLodStateChanged",
+					"dataType": "delegate",
+					"containerType": "single",
+					"object": "FOnLightStateChanged",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_BlueprintAssignable",
+						"CPF_Protected"
+					]
+				}
+			]
+		}
+	],
+	"classNodeCategories": [
+		{
+			"category": "LXR|Source",
+			"categoryNodes": [
+				{
+					"name": "IsLightComponentEnabled",
+					"comments": [
+						"IF owner does not implement ILightSource::IsLightComponentEnabled, then use this function to determine if light component is enabled.",
+						" Target is LXRSource Component"
+					],
+					"functionTypes": [],
+					"inputs": [
+						{
+							"name": "LightComponent",
+							"dataType": "class",
+							"containerType": "single",
+							"object": "ULightComponent*",
+							"description": "",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "bool",
+							"containerType": "single",
+							"object": "bool",
+							"description": "",
+							"comments": [
+								"IF owner does not implement ILightSource::IsLightComponentEnabled, then use this function to determine if light component is enabled."
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"BlueprintCallable",
+						"BlueprintPure",
+						"Const"
+					]
+				},
+				{
+					"name": "IsEnabled",
+					"comments": [
+						"IF owner does not implement ILightSource::IsEnabled, then use this function to determine if light source is enabled.",
+						" Target is LXRSource Component"
+					],
+					"functionTypes": [],
+					"inputs": [],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "bool",
+							"containerType": "single",
+							"object": "bool",
+							"description": "",
+							"comments": [
+								"IF owner does not implement ILightSource::IsEnabled, then use this function to determine if light source is enabled."
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"BlueprintCallable",
+						"BlueprintPure",
+						"Const"
+					]
+				},
+				{
+					"name": "GetLightState",
+					"comments": [
+						"Get Light State",
+						" Target is LXRSource Component"
+					],
+					"functionTypes": [],
+					"inputs": [],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "enum",
+							"containerType": "single",
+							"object": "ELightState",
+							"description": "",
+							"comments": [
+								"Get Light State"
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"BlueprintCallable",
+						"BlueprintPure",
+						"Const"
+					]
+				},
+				{
+					"name": "GetLightComponentState",
+					"comments": [
+						"Get Light Component State",
+						" Target is LXRSource Component"
+					],
+					"functionTypes": [],
+					"inputs": [
+						{
+							"name": "InComponent",
+							"dataType": "class",
+							"containerType": "single",
+							"object": "ULightComponent*",
+							"description": "",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "enum",
+							"containerType": "single",
+							"object": "ELightState",
+							"description": "",
+							"comments": [
+								"Get Light Component State"
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"BlueprintCallable",
+						"BlueprintPure",
+						"Const"
+					]
+				},
+				{
+					"name": "GetIsLightLodEnabled",
+					"comments": [
+						"Get is light lod system enabled.",
+						" Target is LXRSource Component"
+					],
+					"functionTypes": [],
+					"inputs": [],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "enum",
+							"containerType": "single",
+							"object": "ELightState",
+							"description": "",
+							"comments": [
+								"Get is light lod system enabled."
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Native",
+						"Event",
+						"Public",
+						"BlueprintCallable",
+						"BlueprintEvent"
+					]
+				},
+				{
+					"name": "GetIgnoreVisibilityActors",
+					"comments": [
+						"Get actors to ignore when checking visibility.",
+						" Target is LXRSource Component"
+					],
+					"functionTypes": [],
+					"inputs": [],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "class",
+							"containerType": "TArray",
+							"object": "AActor*",
+							"description": "",
+							"comments": [
+								"Get actors to ignore when checking visibility."
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Native",
+						"Event",
+						"Public",
+						"BlueprintCallable",
+						"BlueprintEvent"
+					]
+				},
+				{
+					"name": "GetCombinedColorsByComponents",
+					"comments": [
+						"Get Combined Colors by Components",
+						" Target is LXRSource Component"
+					],
+					"functionTypes": [],
+					"inputs": [
+						{
+							"name": "LightComponents",
+							"dataType": "class",
+							"containerType": "TArray",
+							"object": "ULightComponent*",
+							"description": "",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "struct",
+							"containerType": "single",
+							"object": "FLinearColor",
+							"description": "",
+							"comments": [
+								"Get Combined Colors by Components"
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"HasOutParms",
+						"HasDefaults",
+						"BlueprintCallable",
+						"BlueprintPure"
+					]
+				},
+				{
+					"name": "GetCombinedColorsByComponentIndices",
+					"comments": [
+						"Get Combined Colors by Component Indices",
+						" Target is LXRSource Component"
+					],
+					"functionTypes": [],
+					"inputs": [
+						{
+							"name": "Indices",
+							"dataType": "int",
+							"containerType": "TArray",
+							"object": "int",
+							"description": "",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "struct",
+							"containerType": "single",
+							"object": "FLinearColor",
+							"description": "",
+							"comments": [
+								"Get Combined Colors by Component Indices"
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"HasOutParms",
+						"HasDefaults",
+						"BlueprintCallable",
+						"BlueprintPure"
+					]
+				},
+				{
+					"name": "GetCombinedColors",
+					"comments": [
+						"Get Combined Colors",
+						" Target is LXRSource Component"
+					],
+					"functionTypes": [],
+					"inputs": [],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "struct",
+							"containerType": "single",
+							"object": "FLinearColor",
+							"description": "",
+							"comments": [
+								"Get Combined Colors"
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"HasDefaults",
+						"BlueprintCallable",
+						"BlueprintPure"
+					]
+				}
+			]
+		}
+	]
+},
+{
+	"className": "LXRFluxLightDetectorComponent",
+	"description": "",
+	"classPropertyCategories": [
+		{
+			"category": "LXRFlux|Capture",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "bCaptureIndirect",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_BlueprintVisible",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "bCaptureDirect",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_BlueprintVisible",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXRFlux|Analyze",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "bUseLuminanceThreshold",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "LuminanceThreshold",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXRFlux|Smoothing",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "SmoothMethod",
+					"dataType": "TEnumAsByte<ESmoothMethod>",
+					"containerType": "single",
+					"object": "TEnumAsByte<ESmoothMethod>",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "TargetValueSmoothSpeed",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "HistoryCount",
+					"dataType": "int",
+					"containerType": "single",
+					"object": "int",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "RequiredStableFrames",
+					"dataType": "int",
+					"containerType": "single",
+					"object": "int",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "DeltaThreshold",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXRFlux|SceneCapture",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "bWhitelistAllStaticMeshActors",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "WhiteListTag",
+					"dataType": "FString",
+					"containerType": "single",
+					"object": "FString",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "CaptureMeshScale",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "TopCaptureWeight",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "BotCaptureWeight",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "CaptureRate",
+					"dataType": "int",
+					"containerType": "single",
+					"object": "int",
+					"description": "How frequently to perform lighting captures (in frames). 1 = every frame, 2 = every second frame, etc.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXRFlux|Detection",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "AutoExposureBias",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "Logarithmic adjustment for the exposure.",
+					"comments": [
+						"0: no adjustment, -1:2x darker, -2:4x darker, 1:2x brighter, 2:4x brighter, ..."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXRFlux|Detection|Indirect",
 			"image": "",
 			"onlyInPropertyImage": false,
 			"categoryProperties": [
@@ -1832,7 +2164,6 @@ const Classes = [
 					],
 					"defaultValue": "",
 					"metas": [
-						"CPF_Edit",
 						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
@@ -1841,36 +2172,43 @@ const Classes = [
 					"name": "TopRT",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "UTextureRenderTarget2D*",
+					"object": "TObjectPtr<UTextureRenderTarget2D>",
 					"description": "Override default Top Render Texture",
 					"comments": [
 						"Default RTF_RGBA8 RenderTextureSize*RenderTextureSize"
 					],
 					"defaultValue": "",
 					"metas": [
-						"CPF_Edit",
 						"CPF_BlueprintVisible",
 						"CPF_BlueprintReadOnly",
-						"CPF_NativeAccessSpecifierPublic"
+						"CPF_NativeAccessSpecifierPublic",
+						"CPF_ExperimentalOverridableLogic"
 					]
 				},
 				{
 					"name": "BotRT",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "UTextureRenderTarget2D*",
+					"object": "TObjectPtr<UTextureRenderTarget2D>",
 					"description": "Override default Bot Render Texture",
 					"comments": [
 						"Default RTF_RGBA8 RenderTextureSize*RenderTextureSize"
 					],
 					"defaultValue": "",
 					"metas": [
-						"CPF_Edit",
 						"CPF_BlueprintVisible",
 						"CPF_BlueprintReadOnly",
-						"CPF_NativeAccessSpecifierPublic"
+						"CPF_NativeAccessSpecifierPublic",
+						"CPF_ExperimentalOverridableLogic"
 					]
-				},
+				}
+			]
+		},
+		{
+			"category": "LXRFlux|Final",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
 				{
 					"name": "Luminance",
 					"dataType": "float",
@@ -1886,7 +2224,35 @@ const Classes = [
 					]
 				},
 				{
-					"name": "ColorOutput",
+					"name": "TopLuminance",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_BlueprintVisible",
+						"CPF_BlueprintReadOnly",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "BotLuminance",
+					"dataType": "float",
+					"containerType": "single",
+					"object": "float",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_BlueprintVisible",
+						"CPF_BlueprintReadOnly",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "Color",
 					"dataType": "struct",
 					"containerType": "single",
 					"object": "FLinearColor",
@@ -1900,44 +2266,30 @@ const Classes = [
 					]
 				},
 				{
-					"name": "LightUpdateInterval",
-					"dataType": "float",
+					"name": "TopColor",
+					"dataType": "struct",
 					"containerType": "single",
-					"object": "float",
+					"object": "FLinearColor",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_Edit",
 						"CPF_BlueprintVisible",
+						"CPF_BlueprintReadOnly",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
 				{
-					"name": "MinimumLightValue",
-					"dataType": "float",
+					"name": "BotColor",
+					"dataType": "struct",
 					"containerType": "single",
-					"object": "float",
+					"object": "FLinearColor",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_Edit",
 						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "MaxLightHistory",
-					"dataType": "int",
-					"containerType": "single",
-					"object": "int",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
+						"CPF_BlueprintReadOnly",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				}
@@ -1964,125 +2316,77 @@ const Classes = [
 					"name": "TopSceneCaptureComponent",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "USceneCaptureComponent2D*",
+					"object": "TObjectPtr<USceneCaptureComponent2D>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_NativeAccessSpecifierPrivate",
+						"CPF_ExperimentalOverridableLogic"
 					]
 				},
 				{
 					"name": "BotSceneCaptureComponent",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "USceneCaptureComponent2D*",
+					"object": "TObjectPtr<USceneCaptureComponent2D>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_NativeAccessSpecifierPrivate",
+						"CPF_ExperimentalOverridableLogic"
 					]
 				},
 				{
 					"name": "ChildActorComponent",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "UChildActorComponent*",
+					"object": "TObjectPtr<UChildActorComponent>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_NativeAccessSpecifierPrivate",
+						"CPF_ExperimentalOverridableLogic"
 					]
 				},
 				{
 					"name": "IndirectMeshComponent",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "UStaticMeshComponent*",
+					"object": "TObjectPtr<UStaticMeshComponent>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_NativeAccessSpecifierPrivate",
+						"CPF_ExperimentalOverridableLogic"
 					]
 				},
 				{
 					"name": "SceneCaptures",
 					"dataType": "class",
 					"containerType": "TArray",
-					"object": "USceneCaptureComponent2D*",
-					"description": "FRenderTarget* TopRenderTarget;",
-					"comments": [
-						"FRenderTarget* BotRenderTarget;"
-					],
+					"object": "TObjectPtr<USceneCaptureComponent2D>",
+					"description": "",
+					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_NativeAccessSpecifierPrivate",
+						"CPF_ExperimentalOverridableLogic"
 					]
 				},
 				{
 					"name": "IndirectMatInst",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "UMaterialInstanceDynamic*",
+					"object": "TObjectPtr<UMaterialInstanceDynamic>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				},
-				{
-					"name": "DetectorTextureTop",
-					"dataType": "class",
-					"containerType": "single",
-					"object": "TObjectPtr<UTextureRenderTarget2D>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic",
-						"CPF_ExperimentalOverridableLogic"
-					]
-				},
-				{
-					"name": "DetectorTextureBottom",
-					"dataType": "class",
-					"containerType": "single",
-					"object": "TObjectPtr<UTextureRenderTarget2D>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic",
-						"CPF_ExperimentalOverridableLogic"
-					]
-				},
-				{
-					"name": "DetectorBottom",
-					"dataType": "class",
-					"containerType": "single",
-					"object": "TObjectPtr<USceneCaptureComponent2D>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic",
-						"CPF_ExperimentalOverridableLogic"
-					]
-				},
-				{
-					"name": "DetectorTop",
-					"dataType": "class",
-					"containerType": "single",
-					"object": "TObjectPtr<USceneCaptureComponent2D>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic",
+						"CPF_NativeAccessSpecifierPrivate",
 						"CPF_ExperimentalOverridableLogic"
 					]
 				}
@@ -2091,13 +2395,13 @@ const Classes = [
 	],
 	"classNodeCategories": [
 		{
-			"category": "LXR|Detection| Indirect",
+			"category": "LXRFlux| Detection| Indirect",
 			"categoryNodes": [
 				{
 					"name": "GetTopTarget",
 					"comments": [
 						"Get Top Target",
-						" Target is LXRIndirect Detector"
+						" Target is LXRFlux Light Detector Component"
 					],
 					"functionTypes": [],
 					"inputs": [],
@@ -2128,7 +2432,7 @@ const Classes = [
 					"name": "GetBotTarget",
 					"comments": [
 						"Get Bot Target",
-						" Target is LXRIndirect Detector"
+						" Target is LXRFlux Light Detector Component"
 					],
 					"functionTypes": [],
 					"inputs": [],
@@ -2154,318 +2458,10 @@ const Classes = [
 						"BlueprintPure",
 						"Const"
 					]
-				},
-				{
-					"name": "StartThreadWorker",
-					"comments": [
-						"Start Thread Worker",
-						" Target is Light Detector"
-					],
-					"functionTypes": [],
-					"inputs": [],
-					"outputs": [],
-					"flags": [
-						"Final",
-						"Native",
-						"Public",
-						"BlueprintCallable"
-					]
-				},
-				{
-					"name": "GetColor",
-					"comments": [
-						"Get Color",
-						" Target is Light Detector"
-					],
-					"functionTypes": [],
-					"inputs": [],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "struct",
-							"containerType": "single",
-							"object": "FLinearColor",
-							"description": "",
-							"comments": [
-								"Get Color"
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Final",
-						"Native",
-						"Public",
-						"HasDefaults",
-						"BlueprintCallable",
-						"BlueprintPure"
-					]
-				},
-				{
-					"name": "GetBrightness",
-					"comments": [
-						"Get Brightness",
-						" Target is Light Detector"
-					],
-					"functionTypes": [],
-					"inputs": [],
-					"outputs": [
-						{
-							"name": "ReturnValue",
-							"dataType": "float",
-							"containerType": "single",
-							"object": "float",
-							"description": "",
-							"comments": [
-								"Get Brightness"
-							],
-							"defaultValue": "",
-							"metas": []
-						}
-					],
-					"flags": [
-						"Final",
-						"Native",
-						"Public",
-						"BlueprintCallable",
-						"BlueprintPure"
-					]
 				}
 			]
 		}
 	]
-},
-{
-	"className": "LXROctreeVolume",
-	"description": "",
-	"classPropertyCategories": [
-		{
-			"category": "Brush",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "BrushType",
-					"dataType": "TEnumAsByte<EBrushType>",
-					"containerType": "single",
-					"object": "TEnumAsByte<EBrushType>",
-					"description": "Type of brush",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				}
-			]
-		},
-		{
-			"category": "None",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "BrushColor",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FColor",
-					"description": "Information.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "PolyFlags",
-					"dataType": "int",
-					"containerType": "single",
-					"object": "int",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bColored",
-					"dataType": "uint8",
-					"containerType": "single",
-					"object": "uint8",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bSolidWhenSelected",
-					"dataType": "uint8",
-					"containerType": "single",
-					"object": "uint8",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bPlaceableFromClassBrowser",
-					"dataType": "uint8",
-					"containerType": "single",
-					"object": "uint8",
-					"description": "If true, this brush class can be placed using the class browser like other simple class types",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bNotForClientOrServer",
-					"dataType": "uint8",
-					"containerType": "single",
-					"object": "uint8",
-					"description": "If true, this brush is a builder or otherwise does not need to be loaded into the game",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "Brush",
-					"dataType": "class",
-					"containerType": "single",
-					"object": "TObjectPtr<UModel>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_PersistentInstance",
-						"CPF_NativeAccessSpecifierPublic",
-						"CPF_ExperimentalOverridableLogic"
-					]
-				},
-				{
-					"name": "bInManipulation",
-					"dataType": "uint8",
-					"containerType": "single",
-					"object": "uint8",
-					"description": "Flag set when we are in a manipulation (scaling, translation, brush builder param change etc.)",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "SavedSelections",
-					"dataType": "struct",
-					"containerType": "TArray",
-					"object": "FGeomSelection",
-					"description": "Stores selection information from geometry mode.  This is the only information that we can't",
-					"comments": [
-						"regenerate by looking at the source brushes following an undo operation."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				}
-			]
-		},
-		{
-			"category": "Collision",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "BrushComponent",
-					"dataType": "class",
-					"containerType": "single",
-					"object": "TObjectPtr<UBrushComponent>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_BlueprintReadOnly",
-						"CPF_EditConst",
-						"CPF_NativeAccessSpecifierPrivate",
-						"CPF_ExperimentalOverridableLogic"
-					]
-				}
-			]
-		},
-		{
-			"category": "BrushBuilder",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "BrushBuilder",
-					"dataType": "class",
-					"containerType": "single",
-					"object": "TObjectPtr<UBrushBuilder>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_EditConst",
-						"CPF_EditorOnly",
-						"CPF_PersistentInstance",
-						"CPF_NativeAccessSpecifierPublic",
-						"CPF_ExperimentalOverridableLogic"
-					]
-				}
-			]
-		},
-		{
-			"category": "BrushSettings",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "bDisplayShadedVolume",
-					"dataType": "uint8",
-					"containerType": "single",
-					"object": "uint8",
-					"description": "If true, display the brush with a shaded volume",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_Transient",
-						"CPF_EditorOnly",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "ShadedVolumeOpacityValue",
-					"dataType": "float",
-					"containerType": "single",
-					"object": "float",
-					"description": "Value used to set the opacity for the shaded volume, between 0-1",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_Transient",
-						"CPF_EditorOnly",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				}
-			]
-		}
-	],
-	"classNodeCategories": []
 },
 {
 	"className": "LXRSubsystem",
@@ -2484,9 +2480,7 @@ const Classes = [
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
-					]
+					"metas": []
 				},
 				{
 					"name": "DetectionOwners",
@@ -2496,9 +2490,7 @@ const Classes = [
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
-					]
+					"metas": []
 				},
 				{
 					"name": "LXRActorsNotInOctreeYetBuffer",
@@ -2508,9 +2500,17 @@ const Classes = [
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
-					]
+					"metas": []
+				},
+				{
+					"name": "DetectionDebugWidget",
+					"dataType": "TWeakObjectPtr<UUserWidget>",
+					"containerType": "single",
+					"object": "TWeakObjectPtr<UUserWidget>",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": []
 				}
 			]
 		}
@@ -2570,6 +2570,141 @@ const Classes = [
 						"Final",
 						"Native",
 						"Public",
+						"BlueprintCallable"
+					]
+				}
+			]
+		}
+	]
+},
+{
+	"className": "LXRDebugSubsystem",
+	"description": "",
+	"classPropertyCategories": [
+		{
+			"category": "None",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "CanvasWidget",
+					"dataType": "class",
+					"containerType": "single",
+					"object": "TObjectPtr<UULXRDebugCanvasWidget>",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_ExperimentalOverridableLogic"
+					]
+				}
+			]
+		}
+	],
+	"classNodeCategories": [
+		{
+			"category": "LXR|Debug",
+			"categoryNodes": [
+				{
+					"name": "UpdateActorDebugFeatures",
+					"comments": [
+						"Update debug features for actor",
+						" Target is LXRDebug Subsystem"
+					],
+					"functionTypes": [],
+					"inputs": [
+						{
+							"name": "InActor",
+							"dataType": "class",
+							"containerType": "single",
+							"object": "AActor*",
+							"description": "Actor to modify debug features",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						},
+						{
+							"name": "InDebugFeatures",
+							"dataType": "struct",
+							"containerType": "single",
+							"object": "FLXRDebugFeatures",
+							"description": "new features.",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"outputs": [],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"HasOutParms",
+						"BlueprintCallable"
+					]
+				},
+				{
+					"name": "RemoveDebugActor",
+					"comments": [
+						"Remove added debug actor",
+						" Target is LXRDebug Subsystem"
+					],
+					"functionTypes": [],
+					"inputs": [
+						{
+							"name": "InActor",
+							"dataType": "class",
+							"containerType": "single",
+							"object": "AActor*",
+							"description": "Actor to remove",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"outputs": [],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"BlueprintCallable"
+					]
+				},
+				{
+					"name": "AddDebugActor",
+					"comments": [
+						"Add new Debug Actor",
+						" Target is LXRDebug Subsystem"
+					],
+					"functionTypes": [],
+					"inputs": [
+						{
+							"name": "InActor",
+							"dataType": "class",
+							"containerType": "single",
+							"object": "AActor*",
+							"description": "Actor To Add",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						},
+						{
+							"name": "InDebugFeatures",
+							"dataType": "struct",
+							"containerType": "single",
+							"object": "FLXRDebugFeatures",
+							"description": "Features to enable.",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"outputs": [],
+					"flags": [
+						"Final",
+						"Native",
+						"Public",
+						"HasOutParms",
 						"BlueprintCallable"
 					]
 				}
@@ -3414,7 +3549,7 @@ const Classes = [
 							"name": "IlluminatedTargets",
 							"dataType": "struct",
 							"containerType": "single",
-							"object": "FTargetsLXR",
+							"object": "FTargetLXRData",
 							"description": "",
 							"comments": [
 								"Query Locations LXR"
@@ -3430,6 +3565,63 @@ const Classes = [
 						"Public",
 						"HasOutParms",
 						"BlueprintCallable"
+					]
+				}
+			]
+		},
+		{
+			"category": "LXR|Socket",
+			"categoryNodes": [
+				{
+					"name": "LimbToSocketName",
+					"comments": [
+						"Limb to Socket Name",
+						" Target is LXRFunction Library"
+					],
+					"functionTypes": [],
+					"inputs": [
+						{
+							"name": "WorldContextObject",
+							"dataType": "class",
+							"containerType": "single",
+							"object": "UObject*",
+							"description": "",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						},
+						{
+							"name": "InLimb",
+							"dataType": "enum",
+							"containerType": "single",
+							"object": "EMannequinLimb",
+							"description": "",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"outputs": [
+						{
+							"name": "ReturnValue",
+							"dataType": "FName",
+							"containerType": "single",
+							"object": "FName",
+							"description": "",
+							"comments": [
+								"Limb to Socket Name"
+							],
+							"defaultValue": "",
+							"metas": []
+						}
+					],
+					"flags": [
+						"Final",
+						"Native",
+						"Static",
+						"Public",
+						"BlueprintCallable",
+						"BlueprintPure"
 					]
 				}
 			]
@@ -3495,9 +3687,9 @@ const Classes = [
 			"category": "LXR|Get LXR",
 			"categoryNodes": [
 				{
-					"name": "GetLXR",
+					"name": "GetLux",
 					"comments": [
-						"Get LXR",
+						"Get Lux",
 						" Target is LXRFunction Library"
 					],
 					"functionTypes": [],
@@ -3551,17 +3743,27 @@ const Classes = [
 							"comments": [],
 							"defaultValue": "",
 							"metas": []
+						},
+						{
+							"name": "MinLuxThreshold",
+							"dataType": "float",
+							"containerType": "single",
+							"object": "float",
+							"description": "",
+							"comments": [],
+							"defaultValue": "",
+							"metas": []
 						}
 					],
 					"outputs": [
 						{
-							"name": "TargetsLXR",
+							"name": "TargetLXRData",
 							"dataType": "struct",
 							"containerType": "single",
-							"object": "FTargetsLXR",
+							"object": "FTargetLXRData",
 							"description": "",
 							"comments": [
-								"Get LXR"
+								"Get Lux"
 							],
 							"defaultValue": "",
 							"metas": []
@@ -3573,7 +3775,7 @@ const Classes = [
 							"object": "bool",
 							"description": "",
 							"comments": [
-								"Get LXR"
+								"Get Lux"
 							],
 							"defaultValue": "",
 							"metas": []
@@ -4205,7 +4407,7 @@ const Classes = [
 							"name": "TargetsLXR",
 							"dataType": "struct",
 							"containerType": "single",
-							"object": "FTargetsLXR",
+							"object": "FTargetLXRData",
 							"description": "",
 							"comments": [],
 							"defaultValue": "",
@@ -4589,7 +4791,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4603,7 +4804,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				}
@@ -4661,7 +4861,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				}
@@ -4724,20 +4923,6 @@ const Classes = [
 			"onlyInPropertyImage": false,
 			"categoryProperties": [
 				{
-					"name": "bDrawDebug",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "Render Light Sense debug shapes.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
 					"name": "DebugOptions",
 					"dataType": "struct",
 					"containerType": "single",
@@ -4747,7 +4932,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				}
@@ -4768,7 +4952,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4782,7 +4965,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4796,7 +4978,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4810,7 +4991,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4826,8 +5006,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
-						"CPF_BlueprintReadOnly",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4841,7 +5019,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4855,7 +5032,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4882,7 +5058,6 @@ const Classes = [
 					"defaultValue": "",
 					"metas": [
 						"CPF_Edit",
-						"CPF_BlueprintVisible",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4917,8 +5092,6 @@ const Classes = [
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_BlueprintVisible",
-						"CPF_BlueprintReadOnly",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4928,11 +5101,9 @@ const Classes = [
 					"containerType": "single",
 					"object": "float",
 					"description": "",
-					"comments": [""],
+					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_BlueprintVisible",
-						"CPF_BlueprintReadOnly",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -4945,8 +5116,6 @@ const Classes = [
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_BlueprintVisible",
-						"CPF_BlueprintReadOnly",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				}
@@ -4958,27 +5127,15 @@ const Classes = [
 			"onlyInPropertyImage": false,
 			"categoryProperties": [
 				{
-					"name": "SensedLightsToRemove",
-					"dataType": "TWeakObjectPtr<AActor>",
-					"containerType": "TArray",
-					"object": "TWeakObjectPtr<AActor>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				},
-				{
 					"name": "MethodObject",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "ULXRMethodObject*",
+					"object": "TObjectPtr<ULXRMethodObject>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_ExperimentalOverridableLogic"
 					]
 				}
 			]
@@ -5093,7 +5250,6 @@ const Classes = [
 					"metas": [
 						"CPF_Edit",
 						"CPF_BlueprintVisible",
-						"CPF_BlueprintReadOnly",
 						"CPF_NativeAccessSpecifierPublic"
 					]
 				},
@@ -5216,24 +5372,24 @@ const Classes = [
 					"name": "LXRSubsystem",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "ULXRSubsystem*",
+					"object": "TObjectPtr<ULXRSubsystem>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_ExperimentalOverridableLogic"
 					]
 				},
 				{
 					"name": "MethodObject",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "ULXRMethodObject*",
+					"object": "TObjectPtr<ULXRMethodObject>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_ExperimentalOverridableLogic"
 					]
 				}
 			]
@@ -5249,378 +5405,6 @@ const Classes = [
 					"containerType": "single",
 					"object": "TEnumAsByte<ECollisionChannel>",
 					"description": "Trace channel to use for traces.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				}
-			]
-		}
-	],
-	"classNodeCategories": []
-},
-{
-	"className": "EnvQueryTest_LXR",
-	"description": "",
-	"classPropertyCategories": [
-		{
-			"category": "LXR",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "DebugOptions",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FQueryLXRDebugOptions",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				},
-				{
-					"name": "ColorToTest",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FLinearColor",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				},
-				{
-					"name": "LXRMultiplier",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FAIDataProviderFloatValue",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_AdvancedDisplay",
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				}
-			]
-		},
-		{
-			"category": "Trace",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "Context",
-					"dataType": "class",
-					"containerType": "single",
-					"object": "TSubclassOf<UEnvQueryContext>",
-					"description": "",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				}
-			]
-		},
-		{
-			"category": "None",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "TestOrder",
-					"dataType": "int",
-					"containerType": "single",
-					"object": "int",
-					"description": "Number of test as defined in data asset",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bWorkOnFloatValues",
-					"dataType": "uint8",
-					"containerType": "single",
-					"object": "uint8",
-					"description": "When set, test operates on float values (e.g. distance, with AtLeast, UpTo conditions),",
-					"comments": [
-						"otherwise it will accept bool values (e.g. visibility, with Equals condition)"
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
-					]
-				},
-				{
-					"name": "VerNum",
-					"dataType": "int",
-					"containerType": "single",
-					"object": "int",
-					"description": "Versioning for updating deprecated properties",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				}
-			]
-		},
-		{
-			"category": "Test",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "TestPurpose",
-					"dataType": "TEnumAsByte<EEnvTestPurpose",
-					"containerType": "single",
-					"object": ":Type>:TEnumAsByte<EEnvTestPurpose::Type>",
-					"description": "The purpose of this test.  Should it be used for filtering possible results, scoring them, or both?",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "TestComment",
-					"dataType": "FString",
-					"containerType": "single",
-					"object": "FString",
-					"description": "Optional comment or explanation about what this test is for.  Useful when the purpose of tests may not be clear,",
-					"comments": [
-						"especially when there are multiple tests of the same type."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				}
-			]
-		},
-		{
-			"category": "Filter",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "MultipleContextFilterOp",
-					"dataType": "TEnumAsByte<EEnvTestFilterOperator",
-					"containerType": "single",
-					"object": ":Type>:TEnumAsByte<EEnvTestFilterOperator::Type>",
-					"description": "Determines filtering operator when context returns multiple items",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_AdvancedDisplay",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "FilterType",
-					"dataType": "TEnumAsByte<EEnvTestFilterType",
-					"containerType": "single",
-					"object": ":Type>:TEnumAsByte<EEnvTestFilterType::Type>",
-					"description": "Does this test filter out results that are below a lower limit, above an upper limit, or both?  Or does it just look for a matching value?",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "BoolValue",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FAIDataProviderBoolValue",
-					"description": "Desired boolean value of the test for scoring to occur or filtering test to pass.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "FloatValueMin",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FAIDataProviderFloatValue",
-					"description": "Minimum limit (inclusive) of valid values for the raw test value. Lower values will be discarded as invalid.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "FloatValueMax",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FAIDataProviderFloatValue",
-					"description": "Maximum limit (inclusive) of valid values for the raw test value. Higher values will be discarded as invalid.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				}
-			]
-		},
-		{
-			"category": "Score",
-			"image": "",
-			"onlyInPropertyImage": false,
-			"categoryProperties": [
-				{
-					"name": "MultipleContextScoreOp",
-					"dataType": "TEnumAsByte<EEnvTestScoreOperator",
-					"containerType": "single",
-					"object": ":Type>:TEnumAsByte<EEnvTestScoreOperator::Type>",
-					"description": "Determines scoring operator when context returns multiple items",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_AdvancedDisplay",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "ScoringEquation",
-					"dataType": "TEnumAsByte<EEnvTestScoreEquation",
-					"containerType": "single",
-					"object": ":Type>:TEnumAsByte<EEnvTestScoreEquation::Type>",
-					"description": "The shape of the curve equation to apply to the normalized score before multiplying by factor.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "ClampMinType",
-					"dataType": "TEnumAsByte<EEnvQueryTestClamping",
-					"containerType": "single",
-					"object": ":Type>:TEnumAsByte<EEnvQueryTestClamping::Type>",
-					"description": "How should the lower bound for normalization of the raw test value before applying the scoring formula be determined?",
-					"comments": [
-						"          Should it use the lowest value found (tested), the lower threshold for filtering, or a separate specified normalization minimum?"
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "ClampMaxType",
-					"dataType": "TEnumAsByte<EEnvQueryTestClamping",
-					"containerType": "single",
-					"object": ":Type>:TEnumAsByte<EEnvQueryTestClamping::Type>",
-					"description": "How should the upper bound for normalization of the raw test value before applying the scoring formula be determined?",
-					"comments": [
-						"          Should it use the highest value found (tested), the upper threshold for filtering, or a separate specified normalization maximum?"
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "NormalizationType",
-					"dataType": "enum",
-					"containerType": "single",
-					"object": "EEQSNormalizationType",
-					"description": "Specifies how to determine value span used to normalize scores",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "ScoreClampMin",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FAIDataProviderFloatValue",
-					"description": "Minimum value to use to normalize the raw test value before applying scoring formula.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "ScoreClampMax",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FAIDataProviderFloatValue",
-					"description": "Maximum value to use to normalize the raw test value before applying scoring formula.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "ScoringFactor",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FAIDataProviderFloatValue",
-					"description": "The weight (factor) by which to multiply the normalized score after the scoring equation is applied.",
-					"comments": [],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "ReferenceValue",
-					"dataType": "struct",
-					"containerType": "single",
-					"object": "FAIDataProviderFloatValue",
-					"description": "When specified gets used to normalize test's results in such a way that the closer a value is to ReferenceValue",
-					"comments": [
-						"    the higher normalized result it will produce. Value farthest from ReferenceValue will be normalized",
-						"    to 0, and all the other values in between will get normalized linearly with the distance to ReferenceValue."
-					],
-					"defaultValue": "",
-					"metas": [
-						"CPF_Edit",
-						"CPF_NativeAccessSpecifierPublic"
-					]
-				},
-				{
-					"name": "bDefineReferenceValue",
-					"dataType": "bool",
-					"containerType": "single",
-					"object": "bool",
-					"description": "When set to true enables usage of ReferenceValue. It's false by default",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
@@ -5662,24 +5446,24 @@ const Classes = [
 					"name": "WorldContextObject",
 					"dataType": "class",
 					"containerType": "single",
-					"object": "UObject*",
+					"object": "TObjectPtr<UObject>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_ExperimentalOverridableLogic"
 					]
 				},
 				{
 					"name": "Lights",
 					"dataType": "class",
 					"containerType": "TArray",
-					"object": "AActor*",
+					"object": "TObjectPtr<AActor>",
 					"description": "",
 					"comments": [],
 					"defaultValue": "",
 					"metas": [
-						"CPF_NativeAccessSpecifierPrivate"
+						"CPF_ExperimentalOverridableLogic"
 					]
 				}
 			]
@@ -5754,6 +5538,357 @@ const Classes = [
 			]
 		}
 	]
+},
+{
+	"className": "EnvQueryTest_LXR",
+	"description": "",
+	"classPropertyCategories": [
+		{
+			"category": "LXR",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "DebugOptions",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FQueryLXRDebugOptions",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPrivate"
+					]
+				},
+				{
+					"name": "ColorToTest",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FLinearColor",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPrivate"
+					]
+				},
+				{
+					"name": "LXRMultiplier",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FAIDataProviderFloatValue",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_AdvancedDisplay",
+						"CPF_NativeAccessSpecifierPrivate"
+					]
+				}
+			]
+		},
+		{
+			"category": "Trace",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "Context",
+					"dataType": "class",
+					"containerType": "single",
+					"object": "TSubclassOf<UEnvQueryContext>",
+					"description": "",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPrivate"
+					]
+				}
+			]
+		},
+		{
+			"category": "None",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "TestOrder",
+					"dataType": "int",
+					"containerType": "single",
+					"object": "int",
+					"description": "Number of test as defined in data asset",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "bWorkOnFloatValues",
+					"dataType": "uint8",
+					"containerType": "single",
+					"object": "uint8",
+					"description": "When set, test operates on float values (e.g. distance, with AtLeast, UpTo conditions),",
+					"comments": [
+						"otherwise it will accept bool values (e.g. visibility, with Equals condition)"
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPrivate"
+					]
+				},
+				{
+					"name": "VerNum",
+					"dataType": "int",
+					"containerType": "single",
+					"object": "int",
+					"description": "Versioning for updating deprecated properties",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "Test",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "TestPurpose",
+					"dataType": "TEnumAsByte<EEnvTestPurpose",
+					"containerType": "single",
+					"object": ":Type>:TEnumAsByte<EEnvTestPurpose::Type>",
+					"description": "The purpose of this test.  Should it be used for filtering possible results, scoring them, or both?",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "TestComment",
+					"dataType": "FString",
+					"containerType": "single",
+					"object": "FString",
+					"description": "Optional comment or explanation about what this test is for.  Useful when the purpose of tests may not be clear,",
+					"comments": [
+						"especially when there are multiple tests of the same type."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "Filter",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "MultipleContextFilterOp",
+					"dataType": "TEnumAsByte<EEnvTestFilterOperator",
+					"containerType": "single",
+					"object": ":Type>:TEnumAsByte<EEnvTestFilterOperator::Type>",
+					"description": "Determines filtering operator when context returns multiple items",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_AdvancedDisplay",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "FilterType",
+					"dataType": "TEnumAsByte<EEnvTestFilterType",
+					"containerType": "single",
+					"object": ":Type>:TEnumAsByte<EEnvTestFilterType::Type>",
+					"description": "Does this test filter out results that are below a lower limit, above an upper limit, or both?  Or does it just look for a matching value?",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "BoolValue",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FAIDataProviderBoolValue",
+					"description": "Desired boolean value of the test for scoring to occur or filtering test to pass.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "FloatValueMin",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FAIDataProviderFloatValue",
+					"description": "Minimum limit (inclusive) of valid values for the raw test value. Lower values will be discarded as invalid.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "FloatValueMax",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FAIDataProviderFloatValue",
+					"description": "Maximum limit (inclusive) of valid values for the raw test value. Higher values will be discarded as invalid.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		},
+		{
+			"category": "Score",
+			"image": "",
+			"onlyInPropertyImage": false,
+			"categoryProperties": [
+				{
+					"name": "MultipleContextScoreOp",
+					"dataType": "TEnumAsByte<EEnvTestScoreOperator",
+					"containerType": "single",
+					"object": ":Type>:TEnumAsByte<EEnvTestScoreOperator::Type>",
+					"description": "Determines scoring operator when context returns multiple items",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_AdvancedDisplay",
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "ScoringEquation",
+					"dataType": "TEnumAsByte<EEnvTestScoreEquation",
+					"containerType": "single",
+					"object": ":Type>:TEnumAsByte<EEnvTestScoreEquation::Type>",
+					"description": "The shape of the curve equation to apply to the normalized score before multiplying by factor.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "ClampMinType",
+					"dataType": "TEnumAsByte<EEnvQueryTestClamping",
+					"containerType": "single",
+					"object": ":Type>:TEnumAsByte<EEnvQueryTestClamping::Type>",
+					"description": "How should the lower bound for normalization of the raw test value before applying the scoring formula be determined?",
+					"comments": [
+						"          Should it use the lowest value found (tested), the lower threshold for filtering, or a separate specified normalization minimum?"
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "ClampMaxType",
+					"dataType": "TEnumAsByte<EEnvQueryTestClamping",
+					"containerType": "single",
+					"object": ":Type>:TEnumAsByte<EEnvQueryTestClamping::Type>",
+					"description": "How should the upper bound for normalization of the raw test value before applying the scoring formula be determined?",
+					"comments": [
+						"          Should it use the highest value found (tested), the upper threshold for filtering, or a separate specified normalization maximum?"
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "NormalizationType",
+					"dataType": "enum",
+					"containerType": "single",
+					"object": "EEQSNormalizationType",
+					"description": "Specifies how to determine value span used to normalize scores",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "ScoreClampMin",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FAIDataProviderFloatValue",
+					"description": "Minimum value to use to normalize the raw test value before applying scoring formula.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "ScoreClampMax",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FAIDataProviderFloatValue",
+					"description": "Maximum value to use to normalize the raw test value before applying scoring formula.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "ScoringFactor",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FAIDataProviderFloatValue",
+					"description": "The weight (factor) by which to multiply the normalized score after the scoring equation is applied.",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "ReferenceValue",
+					"dataType": "struct",
+					"containerType": "single",
+					"object": "FAIDataProviderFloatValue",
+					"description": "When specified gets used to normalize test's results in such a way that the closer a value is to ReferenceValue",
+					"comments": [
+						"    the higher normalized result it will produce. Value farthest from ReferenceValue will be normalized",
+						"    to 0, and all the other values in between will get normalized linearly with the distance to ReferenceValue."
+					],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				},
+				{
+					"name": "bDefineReferenceValue",
+					"dataType": "bool",
+					"containerType": "single",
+					"object": "bool",
+					"description": "When set to true enables usage of ReferenceValue. It's false by default",
+					"comments": [],
+					"defaultValue": "",
+					"metas": [
+						"CPF_NativeAccessSpecifierPublic"
+					]
+				}
+			]
+		}
+	],
+	"classNodeCategories": []
 },
 ] 
 export default { 

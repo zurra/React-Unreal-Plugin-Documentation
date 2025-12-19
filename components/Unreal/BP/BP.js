@@ -130,10 +130,10 @@ function NodeRender({ className }) {
 
             node.comments.forEach(comment => {
                 if (comment.includes("Target is ")) {
-                    console.log(comment)
+                    // console.log(comment)
                     const parts = comment.split("Target is ");
                     const target = parts[1].trim();
-                    console.log(target);
+                    // console.log(target);
                     node.target = target;
 
                 }
@@ -149,6 +149,24 @@ function NodeRender({ className }) {
             else {
                 nodeTypeMap["nonpure"].push(node.name);
             }
+
+            node.outputs.forEach(output => {
+                // Normalize comments to an array
+                const commentsArray = Array.isArray(output.comments)
+                  ? output.comments
+                  : typeof output.comments === 'string'
+                  ? [output.comments]
+                  : [];
+              
+                // Pick the first @return (or fallback to "")
+                const returnComment = commentsArray.find(c => c.includes('@return')) || "";
+              
+                output.comments = returnComment;
+              });
+              
+              
+
+
 
             nodeMap[item.category].push(node);
 

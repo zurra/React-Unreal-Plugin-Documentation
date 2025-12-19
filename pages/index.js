@@ -66,7 +66,8 @@ const PropertiesPage = () => {
         }}>Nodes</h1>
       </div>
 
-
+      <Node className="LXRDetectionComponent" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
+{/* 
       <Node className="LXRMemoryComponent" nodes={LXR_Classes} datatypes={LXR_DataTypes} />
 
 
@@ -97,11 +98,11 @@ const PropertiesPage = () => {
         }}>Nodes</h1>
       </div>
 
-       {/* <div style={{ height: '25px',
+       <div style={{ height: '25px',
         }}>
-        </div> */}
+        </div>
       <Node className="RetroDebugSubSystem" nodes={RD_Classes} datatypes={RD_DataTypes} />
-
+ */}
 
 
     </div>

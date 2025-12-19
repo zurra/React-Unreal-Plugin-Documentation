@@ -1,5 +1,27 @@
 const Delegates = [
 {
+	"name": "OnSeenBySilhouette",
+	"description": "On Seen by Silhouette  Delegate Signature",
+	"comments": [],
+	"data": [
+		{
+			"name": "Detector",
+			"dataType": "class",
+			"containerType": "single",
+			"object": "AActor*",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": [
+		"MulticastDelegate",
+		"Public",
+		"Delegate"
+	]
+},
+{
 	"name": "OnLightStateChanged",
 	"description": "On Light State Changed  Delegate Signature",
 	"comments": [],
@@ -19,28 +41,6 @@ const Delegates = [
 			"dataType": "enum",
 			"containerType": "single",
 			"object": "ELightState",
-			"description": "",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		}
-	],
-	"flags": [
-		"MulticastDelegate",
-		"Public",
-		"Delegate"
-	]
-},
-{
-	"name": "OnSeenBySilhouette",
-	"description": "Does this work?",
-	"comments": [],
-	"data": [
-		{
-			"name": "Detector",
-			"dataType": "class",
-			"containerType": "single",
-			"object": "AActor*",
 			"description": "",
 			"comments": [],
 			"defaultValue": "",
@@ -149,14 +149,14 @@ const Delegates = [
 },
 {
 	"name": "OnQueryLXRDone",
-	"description": "On Query LXRDone  Delegate Signature",
+	"description": "DECLARE_CYCLE_STAT(TEXT(\"Indirect Capture\"), STAT_IndirectCapture, STATGROUP_LXR);",
 	"comments": [],
 	"data": [
 		{
 			"name": "TargetsLXR",
 			"dataType": "struct",
 			"containerType": "single",
-			"object": "FTargetsLXR",
+			"object": "FTargetLXRData",
 			"description": "",
 			"comments": [],
 			"defaultValue": "",
@@ -182,6 +182,125 @@ const Delegates = [
 ];
 const Structs = [
 {
+	"name": "FLXRDebugFeatures",
+	"description": "LXRDebug Features",
+	"comments": [],
+	"data": [
+		{
+			"name": "bAutoDetect",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "Auto-detect features which should be enabled.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "bEnableDirect",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "Enable Direct Debug",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "bEnableSense",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "Enable Sense Debug",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "bEnableCapture",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "Enable Capture Debug",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "bEnableSockets",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "Enable SocketDebug",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "DetectionComponentDebugOptions",
+			"dataType": "struct",
+			"containerType": "single",
+			"object": "FQueryLXRDebugOptions",
+			"description": "Not Implemented yet",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "SenseComponentDebugOptions",
+			"dataType": "struct",
+			"containerType": "single",
+			"object": "FQueryLXRDebugOptions",
+			"description": "Not Implemented yet",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "DebugActor",
+			"dataType": "class",
+			"containerType": "single",
+			"object": "TObjectPtr<AActor>",
+			"description": "",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_NativeAccessSpecifierPublic",
+				"CPF_ExperimentalOverridableLogic"
+			]
+		}
+	],
+	"flags": []
+},
+{
 	"name": "FLightSourcePassedData",
 	"description": "Data about passed light sources, light components and targets.",
 	"comments": [
@@ -191,7 +310,7 @@ const Structs = [
 	"flags": []
 },
 {
-	"name": "TargetsLXR",
+	"name": "FTargetLXRData",
 	"description": "Data about the final LXR",
 	"comments": [],
 	"data": [
@@ -238,16 +357,44 @@ const Structs = [
 	"flags": []
 },
 {
-	"name": "QueryLXRDebugOptions",
+	"name": "FQueryLXRDebugOptions",
 	"description": "Query LXRDebug Options",
 	"comments": [],
 	"data": [
+		{
+			"name": "bPrintDebug",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "Print debugs to console.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
 		{
 			"name": "bDebugRelevancy",
 			"dataType": "bool",
 			"containerType": "single",
 			"object": "bool",
-			"description": "",
+			"description": "Draw any debugs related to relevancy step",
+			"comments": [],
+			"defaultValue": "",
+			"metas": [
+				"CPF_Edit",
+				"CPF_BlueprintVisible",
+				"CPF_NativeAccessSpecifierPublic"
+			]
+		},
+		{
+			"name": "bDebugTargets",
+			"dataType": "bool",
+			"containerType": "single",
+			"object": "bool",
+			"description": "Draw any debugs related to targets",
 			"comments": [],
 			"defaultValue": "",
 			"metas": [
@@ -261,7 +408,7 @@ const Structs = [
 			"dataType": "bool",
 			"containerType": "single",
 			"object": "bool",
-			"description": "",
+			"description": "Draw any debugs related to visibility step",
 			"comments": [],
 			"defaultValue": "",
 			"metas": [
@@ -275,7 +422,7 @@ const Structs = [
 			"dataType": "bool",
 			"containerType": "single",
 			"object": "bool",
-			"description": "",
+			"description": "Draw any debugs related to the final Lux",
 			"comments": [],
 			"defaultValue": "",
 			"metas": [
@@ -289,7 +436,7 @@ const Structs = [
 			"dataType": "bool",
 			"containerType": "single",
 			"object": "bool",
-			"description": "",
+			"description": "Draw any debugs related to the final Lux, only passed targets.",
 			"comments": [],
 			"defaultValue": "",
 			"metas": [
@@ -344,7 +491,7 @@ const Structs = [
 	"flags": []
 },
 {
-	"name": "DominantColor",
+	"name": "FDominantColor",
 	"description": "Dominant Color",
 	"comments": [],
 	"data": [
@@ -380,7 +527,7 @@ const Structs = [
 	"flags": []
 },
 {
-	"name": "TraceTaskData",
+	"name": "FTraceTaskData",
 	"description": "Trace Task Data",
 	"comments": [],
 	"data": [],
@@ -388,44 +535,6 @@ const Structs = [
 },
 ];
 const Enums = [
-{
-	"name": "EMethodToUse",
-	"description": "Method to use for ignore visibility actors.",
-	"comments": [],
-	"data": [
-		{
-			"name": "Class",
-			"dataType": "EnumValue",
-			"containerType": "",
-			"object": "",
-			"description": "Class",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		},
-		{
-			"name": "Interface",
-			"dataType": "EnumValue",
-			"containerType": "",
-			"object": "",
-			"description": "Interface",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		},
-		{
-			"name": "UObject",
-			"dataType": "EnumValue",
-			"containerType": "",
-			"object": "",
-			"description": "UObject",
-			"comments": [],
-			"defaultValue": "",
-			"metas": []
-		}
-	],
-	"flags": []
-},
 {
 	"name": "ESocketPreset",
 	"description": "Use preset sockets or custom one..",
@@ -566,6 +675,56 @@ const Enums = [
 	"flags": []
 },
 {
+	"name": "ELuxReturnType",
+	"description": "Determines how Lux capture data is summarized.",
+	"comments": [
+		"Choose between averaging all sockets, only lit sockets, taking the brightest value, or using socket-specific importance weighting."
+	],
+	"data": [
+		{
+			"name": "AverageByTargets",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Returns the average of targets, not just passed.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "AverageByPassedTargets",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Returns the average of passed targets, this is usually the best option to keep.",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "MaxOfPassedTargets",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Returns the MAX value of all targets;",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "WeightedSocketImportance",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Returns the Socket weighted importance;",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": []
+},
+{
 	"name": "ETraceTarget",
 	"description": "Target type to use for detection.",
 	"comments": [],
@@ -634,6 +793,44 @@ const Enums = [
 			"containerType": "",
 			"object": "",
 			"description": "Use separate thread for relevant traces",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		}
+	],
+	"flags": []
+},
+{
+	"name": "EMethodToUse",
+	"description": "Method to use for ignore visibility actors.",
+	"comments": [],
+	"data": [
+		{
+			"name": "Class",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Class",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "Interface",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "Interface",
+			"comments": [],
+			"defaultValue": "",
+			"metas": []
+		},
+		{
+			"name": "UObject",
+			"dataType": "EnumValue",
+			"containerType": "",
+			"object": "",
+			"description": "UObject",
 			"comments": [],
 			"defaultValue": "",
 			"metas": []
