@@ -1,0 +1,29 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "ReactUnrealDocsDataGenerator",
+	"Description": "React Unreal Documentation JSON data generator",
+	"Category": "Other",
+	"CreatedBy": "Clusterfact Games",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "ReactUnrealDocsDataGenerator",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "RapidFuzz_FuzzySearch",
+			"Type": "Editor",
+			"LoadingPhase": "PreDefault"
+		}
+	]
+}
